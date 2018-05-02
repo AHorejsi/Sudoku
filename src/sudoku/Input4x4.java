@@ -1,6 +1,8 @@
 package sudoku;
 
 public class Input4x4 extends Input {
+	public Input4x4() {}
+	
 	public Input4x4(boolean editable) {
 		super(editable);
 	}
