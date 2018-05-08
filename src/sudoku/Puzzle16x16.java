@@ -6,6 +6,11 @@ public class Puzzle16x16 extends SudokuPuzzle {
 	}
 	
 	@Override
+	public Dimensions getDimensions() {
+		return Dimensions.SIXTEEN_BY_SIXTEEN;
+	}
+	
+	@Override
 	public boolean isSolved() {
 		for (int row = 0 ; row < 16 ; row++) {
 			if (!this.rowIsValid(row))

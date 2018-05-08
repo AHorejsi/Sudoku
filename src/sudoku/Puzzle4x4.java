@@ -6,6 +6,11 @@ public class Puzzle4x4 extends SudokuPuzzle {
 	}
 	
 	@Override
+	public Dimensions getDimensions() {
+		return Dimensions.FOUR_BY_FOUR;
+	}
+	
+	@Override
 	public boolean isSolved() {
 		for (int row = 0 ; row < 4 ; row++) {
 			if (!this.rowIsValid(row))

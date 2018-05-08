@@ -6,6 +6,11 @@ public class Puzzle9x9 extends SudokuPuzzle {
 	}
 	
 	@Override
+	public Dimensions getDimensions() {
+		return Dimensions.NINE_BY_NINE;
+	}
+	
+	@Override
 	public boolean isSolved() {
 		for (int row = 0 ; row < 9 ; row++) {
 			if (!this.rowIsValid(row))
