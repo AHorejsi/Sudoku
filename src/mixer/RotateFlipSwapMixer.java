@@ -2,9 +2,9 @@ package mixer;
 
 import java.util.Arrays;
 import java.util.Random;
-import generators.Checker9x9;
-import generators.Generator;
-import generators.Generator9x9;
+//import generators.Checker9x9;
+//import generators.Generator;
+//import generators.Generator9x9;
 
 public class RotateFlipSwapMixer implements Mixer {	
 //	public static void main(String[] args) {
@@ -29,28 +29,28 @@ public class RotateFlipSwapMixer implements Mixer {
 //		System.out.println("Success");
 //	}
 	
-	public static void main(String[] args) {
-		Generator gen = Generator9x9.getInstance();
-		Mixer mixer = new RotateFlipSwapMixer();
-		Random rng = new Random();
-		
-		char[][] table = gen.generate(rng);
-		
-		for (int i = 0 ; i < 9 ; i++) {
-			for (int j = 0 ; j < 9 ; j++)
-				System.out.print(table[i][j] + " ");
-			System.out.println();
-		}
-		
-		System.out.println();
-		mixer.mix(table, rng);
-		
-		for (int i = 0 ; i < 9 ; i++) {
-			for (int j = 0 ; j < 9 ; j++)
-				System.out.print(table[i][j] + " ");
-			System.out.println();
-		}
-	}
+//	public static void main(String[] args) {
+//		Generator gen = Generator9x9.getInstance();
+//		Mixer mixer = new RotateFlipSwapMixer();
+//		Random rng = new Random();
+//		
+//		char[][] table = gen.generate(rng);
+//		
+//		for (int i = 0 ; i < 9 ; i++) {
+//			for (int j = 0 ; j < 9 ; j++)
+//				System.out.print(table[i][j] + " ");
+//			System.out.println();
+//		}
+//		
+//		System.out.println();
+//		mixer.mix(table, rng);
+//		
+//		for (int i = 0 ; i < 9 ; i++) {
+//			for (int j = 0 ; j < 9 ; j++)
+//				System.out.print(table[i][j] + " ");
+//			System.out.println();
+//		}
+//	}
 	
 	@Override
 	public void mix(char[][] table, Random rng) {
