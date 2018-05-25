@@ -1,6 +1,6 @@
 package generators;
 
-public class Checker {
+public class Checker9x9 {
 	public static boolean check9x9(char[][] table) {
 		for (int row = 0 ; row < 9 ; row++) {
 			if (!validRow(row, table))
