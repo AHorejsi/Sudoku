@@ -2,6 +2,10 @@ package generators;
 
 import java.util.Random;
 
+/**
+ * Generates sixteen-by-sixteen Sudoku puzzles
+ * @author Alex Horejsi
+ */
 public class Generator16x16 implements Generator {
 	private static Generator16x16 gen = new Generator16x16();
 	private char[][] table;

@@ -2,6 +2,10 @@ package generators;
 
 import java.util.Random;
 
+/**
+ * Generates nine-by-nine Sudoku puzzles
+ * @author Alex Horejsi
+ */
 public class Generator9x9 implements Generator {
 	private static Generator9x9 gen = new Generator9x9();
 	private char[][] table;
