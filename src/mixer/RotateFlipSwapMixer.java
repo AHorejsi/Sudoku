@@ -54,9 +54,9 @@ public class RotateFlipSwapMixer implements Mixer {
 	
 	@Override
 	public void mix(char[][] table, Random rng) {
-		//this.rotate(table, rng);
+		this.rotate(table, rng);
 		this.flip(table, rng);
-		//this.swap(table, rng);
+		this.swap(table, rng);
 	}
 	
 	private void rotate(char[][] table, Random rng) {
@@ -120,14 +120,31 @@ public class RotateFlipSwapMixer implements Mixer {
 	private void flip(char[][] table, Random rng) {
 		int option = rng.nextInt(4);
 		
-//		if (option == 0)
+		if (option == 0)
 			this.hFlip(table);
-//		else if (option == 1)
-//			this.vFlip(table);
-//		else if (option == 2) {
-//			this.hFlip(table);
-//			this.vFlip(table);
-//		}
+		else if (option == 1)
+			this.vFlip(table);
+		else if (option == 2) {
+			this.hFlip(table);
+			this.vFlip(table);
+		}
+	}
+	
+	private void hFlip(char[][] table) {
+		int i = 0;
+		int j = table.length - 1;
+		char temp;
+		
+		while (i <= j) {
+			for (int row = 0 ; row < table.length ; row++) {
+				temp = table[row][i];
+				table[row][i] = table[row][j];
+				table[row][j] = temp;
+			}
+			
+			i++;
+			j--;
+		}
 	}
 	
 	private void vFlip(char[][] table) {
