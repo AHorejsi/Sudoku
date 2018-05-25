@@ -12,7 +12,7 @@ public class Generator9x9 implements Generator {
 //		Generator gen = Generator9x9.getInstance();
 //		for (int test = 0 ; test < 1000 ; test++) {
 //			char[][] table = gen.generate(new Random());
-//			if (!Checker.check9x9(table)) {
+//			if (!Checker9x9.check9x9(table)) {
 //				for (int i = 0 ; i < 9 ; i++) {
 //					for (int j = 0 ; j < 9 ; j++)
 //						System.out.print(table[i][j] + " ");
@@ -61,39 +61,39 @@ public class Generator9x9 implements Generator {
 				
 				bits |= (1 << n);
 				int digit = n + 1;
-				this.table[i][j] = (char)(digit >= 0 && digit <= 9 ? digit + '0' : n - 9 + 'A');
+				this.table[i][j] = (char)(digit + '0');
 			}
 		}
 	}
 	
 	private boolean fillRemaining(int i, int j) {
-		if (j == 9)
-			return this.fillRemaining(i + 1, 0);
+		if (j == 9) {
+			i++;
+			j = 0;
+		}
 		
 		switch (i) {
 			case 0:
 			case 1:
 			case 2:
-				if (j == 0 || j == 1 || j == 2)
+				if (j == 0)
 					j = 3;
 				break;
 			case 3:
 			case 4:
 			case 5:
-				if (j == 3 || j == 4 || j == 5)
+				if (j == 3)
 					j = 6;
 				break;
-			case 6:
-			case 7:
-			case 8:
-				if (j == 6 || j == 7 || j == 8) {
+			default:
+				if (j == 6) {
 					i++;
 					j = 0;
 				}
+				
+				if (i == 9)
+					return true;
 		}
-		
-		if (i == 9)
-			return true;
 		
 		for (char digit = '1' ; digit <= '9' ; digit++) {
 			if (this.safe(i, j, digit)) {
