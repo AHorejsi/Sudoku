@@ -1,15 +1,15 @@
 package sudoku_game;
 
-class Input9x9 extends Input {
-	Input9x9(char value) {
+class Cell9x9 extends Cell {
+	Cell9x9(char value) {
 		super(value);
 	}
 	
-	Input9x9(boolean editable) {
+	Cell9x9(boolean editable) {
 		super(editable);
 	}
 	
-	Input9x9(char value, boolean editable) {
+	Cell9x9(char value, boolean editable) {
 		super(value, editable);
 	}
 	

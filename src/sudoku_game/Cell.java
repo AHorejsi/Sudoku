@@ -1,20 +1,20 @@
 package sudoku_game;
 
-abstract class Input {
+abstract class Cell {
 	char value;
 	boolean editable;
 	
-	Input() {}
+	Cell() {}
 	
-	Input(char value) {
+	Cell(char value) {
 		this.value = value;
 	}
 	
-	Input(boolean editable) {
+	Cell(boolean editable) {
 		this.editable = editable;
 	}
 	
-	Input(char value, boolean editable) {
+	Cell(char value, boolean editable) {
 		this.value = value;
 		this.editable = editable;
 	}
@@ -33,14 +33,11 @@ abstract class Input {
 	
 	void setEmptyValue() {
 		this.value = '\u0000';
+		this.editable = true;
 	}
 	
 	boolean isEditable() {
 		return this.editable;
-	}
-	
-	void setEditable(boolean editable) {
-		this.editable = editable;
 	}
 	
 	abstract boolean isLegalValue(char value);
