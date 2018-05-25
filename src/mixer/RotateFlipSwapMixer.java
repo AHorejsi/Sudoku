@@ -6,6 +6,27 @@ import java.util.Random;
 //import generators.Generator;
 //import generators.Generator9x9;
 
+/**
+ * Mixes up Sudoku puzzles through 3 step:
+ * 
+ * <ol>
+ * <li>
+ * Rotates 90, 180, 270 degrees or
+ * not at all
+ * </li>
+ * <li>
+ * Flip horizontally, vertically,
+ * both or not at all
+ * </li>
+ * <li>
+ * Corresponds each digit with
+ * another digit and swaps each
+ * digit with its corresponding
+ * counterpart
+ * </li>
+ * </ol>
+ * @author Alex Horejsi
+ */
 public class RotateFlipSwapMixer implements Mixer {	
 //	public static void main(String[] args) {
 //		Generator gen = Generator9x9.getInstance();
