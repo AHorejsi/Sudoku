@@ -119,6 +119,14 @@ public class RotateFlipSwapMixer implements Mixer {
 //			System.out.println();
 //		}
 //	}
+
+	private static RotateFlipSwapMixer mixer = new RotateFlipSwapMixer();
+	
+	private RotateFlipSwapMixer() {}
+	
+	public static RotateFlipSwapMixer getInstance() {
+		return RotateFlipSwapMixer.mixer;
+	}
 	
 	@Override
 	public void mix(char[][] table, Random rng) {
