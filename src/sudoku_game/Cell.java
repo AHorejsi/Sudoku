@@ -1,14 +1,10 @@
 package sudoku_game;
 
-abstract class Cell {
+class Cell {
 	char value;
 	boolean editable;
 	
 	Cell() {}
-	
-	Cell(char value) {
-		this.value = value;
-	}
 	
 	Cell(boolean editable) {
 		this.editable = editable;
@@ -24,8 +20,6 @@ abstract class Cell {
 	}
 	
 	void setValue(char value) {
-		if (!this.isLegalValue(value))
-			throw new IllegalArgumentException();
 		if (!this.editable)
 			throw new IllegalStateException();
 		this.value = value;
@@ -33,12 +27,9 @@ abstract class Cell {
 	
 	void setEmptyValue() {
 		this.value = '\u0000';
-		this.editable = true;
 	}
 	
 	boolean isEditable() {
 		return this.editable;
 	}
-	
-	abstract boolean isLegalValue(char value);
 }
