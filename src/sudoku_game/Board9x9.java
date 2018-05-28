@@ -1,22 +1,13 @@
 package sudoku_game;
 
-public class Board9x9 extends Board {
-	Board9x9(char[][] table) {
-		super.table = new Cell[9][9];
-		
-		for (int row = 0 ; row < 9 ; row++) {
-			for (int col = 0 ; col < 9 ; col++) {
-				if (table[row][col] == '\u0000')
-					super.table[row][col] = new Cell(true);
-				else
-					super.table[row][col] = new Cell(table[row][col], false);
-			}
-		}
+class Board9x9 extends Board {
+	public Board9x9(char[][] table) {
+		super(9, table);
 	}
 	
 	@Override
 	public boolean isLegalValue(char value) {
-		return value >= '1' && value <= '9';
+		return (511 & (1 << (value - '0' - 1))) != 0;
 	}
 	
 	@Override
