@@ -11,9 +11,9 @@ abstract class Board {
 		for (int row = 0 ; row < dimensions ; row++) {
 			for (int col = 0 ; col < dimensions ; col++) {
 				if (table[row][col] == '\u0000')
-					this.table[row][col] = new Cell(true);
+					this.table[row][col] = new ConcreteCell(true);
 				else
-					this.table[row][col] = new Cell(table[row][col], false);
+					this.table[row][col] = new ConcreteCell(table[row][col], false);
 			}
 		}
 	}

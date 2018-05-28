@@ -36,7 +36,7 @@ class Board9x9 extends Board {
 		short bits = 0;
 		
 		for (int col = 0 ; col < 9 ; col++)
-			bits |= (1 << super.table[row][col].value - '0' - 1);
+			bits |= (1 << super.table[row][col].getValue() - '0' - 1);
 		
 		return bits == 511;
 	}
@@ -45,7 +45,7 @@ class Board9x9 extends Board {
 		short bits = 0;
 		
 		for (int row = 0 ; row < 9 ; row++)
-			bits |= (1 << super.table[row][col].value - '0' - 1);
+			bits |= (1 << super.table[row][col].getValue() - '0' - 1);
 		
 		return bits == 511;
 	}
@@ -57,7 +57,7 @@ class Board9x9 extends Board {
 		
 		for (int i = row ; i < endRow ; i++) {
 			for (int j = col ; j < endCol ; j++)
-				bits |= (1 << super.table[row][col].value - '0' - 1);
+				bits |= (1 << super.table[row][col].getValue() - '0' - 1);
 		}
 		
 		return bits == 511;
