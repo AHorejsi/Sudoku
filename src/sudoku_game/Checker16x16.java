@@ -1,7 +1,5 @@
 package sudoku_game;
 
-import adjustor.Cell;
-
 public class Checker16x16 implements Checker {
 	private static Checker16x16 val = new Checker16x16();
 	
@@ -58,7 +56,7 @@ public class Checker16x16 implements Checker {
 		
 		for (int i = row ; i < endRow ; i++) {
 			for (int j = col ; j < endCol ; j++)
-				bits |= 1 << (table[row][col].getValue() - '0' - 1);
+				bits |= 1 << (table[i][j].getValue() - '0' - 1);
 		}
 		
 		return bits == 8323583;

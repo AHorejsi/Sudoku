@@ -1,7 +1,5 @@
 package sudoku_game;
 
-import adjustor.Cell;
-
 public class Checker9x9 implements Checker {
 	private static Checker9x9 val = new Checker9x9();
 	
@@ -30,7 +28,7 @@ public class Checker9x9 implements Checker {
 			}
 		}
 		
-		return false;
+		return true;
 	}
 	
 	private boolean validRow(Cell[] row) {

@@ -1,15 +1,22 @@
 package sudoku_game;
 
-import adjustor.Cell;
+import java.util.Random;
 
 public abstract class Board {
-	protected Cell[][] table;
-	protected LegalValues legalValues;
-	protected Checker checker;
+	Cell[][] table;
+	LegalValues legalValues;
+	Checker checker;
 	
-	protected Board(LegalValues legalValues, Checker checker) {
+	protected Board(LegalValues legalValues, Checker checker, Cell[][] table) {
 		this.legalValues = legalValues;
 		this.checker = checker;
+		this.table = table;
+		RotateFlipSwapMixer.getInstance().mix(table);
+	}
+	
+	protected Board(LegalValues legalValues, Checker checker, Cell[][] table, Random rng) {
+		this(legalValues, checker, table);
+		RotateFlipSwapMixer.getInstance().mix(table, rng);
 	}
 	
 	public char getValueAt(int row, int col) throws IndexOutOfBoundsException {
