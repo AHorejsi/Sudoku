@@ -1,40 +1,50 @@
 package sudoku_game;
 
-abstract class Board {
-	Cell[][] table;
+import adjustor.Cell;
+
+public abstract class Board {
+	protected Cell[][] table;
+	protected LegalValues legalValues;
+	protected Checker checker;
 	
-	protected Board() {}
-	
-	protected Board(int dimensions, char[][] table) {
-		this.table = new Cell[dimensions][dimensions];
-		
-		for (int row = 0 ; row < dimensions ; row++) {
-			for (int col = 0 ; col < dimensions ; col++) {
-				if (table[row][col] == '\u0000')
-					this.table[row][col] = new ConcreteCell(true);
-				else
-					this.table[row][col] = new ConcreteCell(table[row][col], false);
-			}
-		}
+	protected Board(LegalValues legalValues, Checker checker) {
+		this.legalValues = legalValues;
+		this.checker = checker;
 	}
 	
 	public char getValueAt(int row, int col) throws IndexOutOfBoundsException {
-		if (row < 0 || row >= this.table.length || col < 0 || col >= this.table[0].length)
-			throw new IndexOutOfBoundsException();
+		this.outOfBounds(row, col);
 		return this.table[row][col].getValue();
 	}
 	
-	public void setValueAt(char value, int row, int col) throws IndexOutOfBoundsException {
-		if (row < 0 || row >= this.table.length || col < 0 || col >= this.table[0].length)
-			throw new IndexOutOfBoundsException();
+	public void setValueAt(char value, int row, int col) throws IndexOutOfBoundsException, IllegalArgumentException {
+		if (!this.isLegalValue(value))
+			throw new IllegalArgumentException();
+		this.outOfBounds(row, col);
 		this.table[row][col].setValue(value);
 	}
 	
-	public abstract boolean isLegalValue(char value);
+	public void deleteValueAt(int row, int col) throws IndexOutOfBoundsException, IllegalStateException {
+		if (!this.table[row][col].isEditable())
+			throw new IllegalStateException();
+		this.outOfBounds(row, col);
+		this.table[row][col].setEmptyValue();
+	}
 	
-	public int dimensions() {
+	public int getDimensions() {
 		return this.table.length;
 	}
 	
-	public abstract boolean isSolved();
+	public boolean isLegalValue(char value) {
+		return this.legalValues.isLegal(value);
+	}
+	
+	public boolean isSolved() {
+		return this.checker.isSolved(this);
+	}
+	
+	private void outOfBounds(int row, int col) {
+		if (row < 0 || row >= this.table.length || col < 0 || col >= this.table.length)
+			throw new IndexOutOfBoundsException();
+	}
 }
