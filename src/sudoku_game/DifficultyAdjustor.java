@@ -1,13 +1,12 @@
 package sudoku_game;
 
 import java.util.Random;
-import sudoku_game.Board;
-import sudoku_game.DefaultRNG;
 
 /**
  * Classes that implement this interface
  * are used to adjust generated Sudoku
- * puzzles 
+ * puzzles for a given difficulty
+ * setting
  * @author Alex Horejsi
  */
 @FunctionalInterface
@@ -21,7 +20,7 @@ public interface DifficultyAdjustor {
 	 * generator to determine the
 	 * exact adjustments
 	 */
-	public Cell[][] adjust(Board board, Random rng);
+	public void adjust(Board board, Random rng);
 	
 	/**
 	 * Adjusts the given Sudoku puzzle
@@ -29,7 +28,7 @@ public interface DifficultyAdjustor {
 	 * the default random number generator
 	 * @param table The Sudoku puzzle to be adjusted for difficulty
 	 */
-	public default Cell[][] adjust(Board board) {
-		return this.adjust(board, DefaultRNG.getDefaultGenerator());
+	public default void adjust(Board board) {
+		this.adjust(board, DefaultRNG.getDefaultGenerator());
 	}
 }

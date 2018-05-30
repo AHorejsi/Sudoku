@@ -1,5 +1,6 @@
 package sudoku_game;
 
+import java.util.Objects;
 import java.util.Random;
 
 public abstract class Board {
@@ -8,9 +9,9 @@ public abstract class Board {
 	Checker checker;
 	
 	protected Board(LegalValues legalValues, Checker checker, Cell[][] table) {
-		this.legalValues = legalValues;
-		this.checker = checker;
-		this.table = table;
+		this.legalValues = Objects.requireNonNull(legalValues);
+		this.checker = Objects.requireNonNull(checker);
+		this.table = Objects.requireNonNull(table);
 		RotateFlipSwapMixer.getInstance().mix(table);
 	}
 	
