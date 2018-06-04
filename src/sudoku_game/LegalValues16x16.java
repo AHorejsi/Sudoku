@@ -1,6 +1,6 @@
 package sudoku_game;
 
-public class LegalValues16x16 implements LegalValues {
+class LegalValues16x16 implements LegalValues {
 	private static LegalValues16x16 val = new LegalValues16x16();
 	
 	private LegalValues16x16() {}

@@ -3,13 +3,13 @@ package sudoku_game;
 import java.util.Random;
 
 public class EasyPuzzle extends Puzzle {
-	public EasyPuzzle(Board board) {
-		this(board, DefaultRNG.getDefaultGenerator());
+	public EasyPuzzle(Board board, DifficultyAdjustor adjustor) {
+		this(board, adjustor, DefaultRNG.getDefaultGenerator());
 	}
 	
-	public EasyPuzzle(Board board, Random rng) {
+	public EasyPuzzle(Board board, DifficultyAdjustor adjustor, Random rng) {
 		super(board);
-		EasyAdjustor.getInstance().adjust(board, rng);
+		adjustor.adjust(board, rng, 44, 57, 44);
 	}
 	
 	@Override

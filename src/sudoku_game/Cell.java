@@ -1,11 +1,13 @@
 package sudoku_game;
 
-public interface Cell {
-	public char getValue();
+public abstract class Cell {
+	public abstract char getValue();
 	
-	public void setValue(char value);
+	public abstract void setValue(char value);
 	
-	public void setEmptyValue();
+	public abstract void setEmptyValue();
 	
-	public boolean isEditable();
+	public abstract boolean isEditable();
+	
+	abstract void setEmptyForDifficultyAdjustment();
 }

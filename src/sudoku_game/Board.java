@@ -25,9 +25,16 @@ public abstract class Board {
 		return this.table[row][col].getValue();
 	}
 	
-	public void setValueAt(char value, int row, int col) throws IndexOutOfBoundsException, IllegalArgumentException {
+	public boolean editableCellAt(int row, int col) throws IndexOutOfBoundsException {
+		this.outOfBounds(row, col);
+		return this.table[row][col].isEditable();
+	}
+	
+	public void setValueAt(char value, int row, int col) throws IndexOutOfBoundsException, IllegalArgumentException, IllegalStateException {
 		if (!this.isLegalValue(value))
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException("Illegal value: " + value);
+		if (!this.table[row][col].isEditable())
+			throw new IllegalStateException("Non-editable cell");
 		this.outOfBounds(row, col);
 		this.table[row][col].setValue(value);
 	}

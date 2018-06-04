@@ -1,6 +1,6 @@
 package sudoku_game;
 
-class ConcreteCell implements Cell {
+class ConcreteCell extends Cell {
 	private char value;
 	private boolean editable;
 	
@@ -25,11 +25,18 @@ class ConcreteCell implements Cell {
 	
 	@Override
 	public void setEmptyValue() throws IllegalStateException {
+		if (!this.editable)
+			throw new IllegalStateException();
 		this.setValue('\u0000');
 	}
 	
 	@Override
 	public boolean isEditable() {
 		return this.editable;
+	}
+
+	@Override
+	void setEmptyForDifficultyAdjustment() {
+		this.value = '\u0000';
 	}
 }

@@ -1,6 +1,6 @@
 package sudoku_game;
 
 @FunctionalInterface
-public interface Checker {
+interface Checker {
 	public boolean isSolved(Board board);
 }

@@ -7,7 +7,7 @@ import java.util.Random;
  * should a user opt to not provide one themselves
  * @author Alex Horejsi
  */
-public class DefaultRNG {
+class DefaultRNG {
 	private static Random defaultGenerator = new Random();
 	
 	/**
