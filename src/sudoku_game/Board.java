@@ -3,7 +3,7 @@ package sudoku_game;
 import java.util.Objects;
 import java.util.Random;
 
-public abstract class Board {
+public abstract class Board implements Cloneable {
 	Cell[][] table;
 	LegalValues legalValues;
 	Checker checker;
@@ -12,12 +12,12 @@ public abstract class Board {
 		this.legalValues = Objects.requireNonNull(legalValues);
 		this.checker = Objects.requireNonNull(checker);
 		this.table = Objects.requireNonNull(table);
-		RotateFlipSwapMixer.getInstance().mix(table);
 	}
 	
 	protected Board(LegalValues legalValues, Checker checker, Cell[][] table, Random rng) {
-		this(legalValues, checker, table);
-		RotateFlipSwapMixer.getInstance().mix(table, rng);
+		this.legalValues = Objects.requireNonNull(legalValues);
+		this.checker = Objects.requireNonNull(checker);
+		this.table = Objects.requireNonNull(table);
 	}
 	
 	public char getValueAt(int row, int col) throws IndexOutOfBoundsException {
@@ -61,5 +61,29 @@ public abstract class Board {
 	private void outOfBounds(int row, int col) {
 		if (row < 0 || row >= this.table.length || col < 0 || col >= this.table.length)
 			throw new IndexOutOfBoundsException();
+	}
+	
+	void doMixing(Mixer mixer) {
+		mixer.mix(this.table);
+	}
+	
+	void doMixing(Mixer mixer, Random rng) {
+		mixer.mix(this.table, rng);
+	}
+	
+	@Override
+	protected Board clone() {
+		try {
+			Board board = (Board)super.clone();
+			board.table = new Cell[board.getDimensions()][board.getDimensions()];
+			for (int i = 0 ; i < this.table.length ; i++) {
+				for (int j = 0 ; j < this.table.length ; j++)
+					board.table[i][j] = this.table[i][j].clone();
+			}
+			
+			return board;
+		} catch (CloneNotSupportedException ex) {
+			throw new InternalError();
+		}
 	}
 }

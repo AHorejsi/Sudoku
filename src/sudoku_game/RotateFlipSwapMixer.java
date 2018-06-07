@@ -29,7 +29,7 @@ public class RotateFlipSwapMixer implements Mixer {
 	
 	private RotateFlipSwapMixer() {}
 	
-	public static RotateFlipSwapMixer getInstance() {
+	public static Mixer getInstance() {
 		return RotateFlipSwapMixer.mixer;
 	}
 	

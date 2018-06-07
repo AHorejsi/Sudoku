@@ -6,7 +6,7 @@ import java.util.Random;
  * Generates sixteen-by-sixteen Sudoku puzzles
  * @author Alex Horejsi
  */
-class Generator16x16 implements Generator {
+public class Generator16x16 implements Generator {
 	private static Generator16x16 gen = new Generator16x16();
 	private Cell[][] table;
 	
@@ -17,7 +17,7 @@ class Generator16x16 implements Generator {
 	 * {@code Generator16x16}
 	 * @return An instance of {@code Generator16x16}
 	 */
-	public static Generator16x16 getInstance() {
+	public static Generator getInstance() {
 		return Generator16x16.gen;
 	}
 	

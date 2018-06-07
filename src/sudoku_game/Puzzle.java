@@ -1,19 +1,26 @@
 package sudoku_game;
 
-import java.util.Objects;
+import java.util.Random;
 
 public abstract class Puzzle {
 	Board board;
 	
-	protected Puzzle(Board board) {
-		this.board = Objects.requireNonNull(board);
+	Puzzle(Board board, DifficultyAdjustor adjustor, int lowerRangeOnGivens, int upperRangeOnGivens, int lowerBoundOnGivensPerUnit) {
+		adjustor.adjust(board, DefaultRNG.getDefaultGenerator(), lowerRangeOnGivens, upperRangeOnGivens, lowerBoundOnGivensPerUnit);
+		this.board = board;
+	}
+	
+	Puzzle(Board board, DifficultyAdjustor adjustor, int lowerRangeOnGivens, int upperRangeOnGivens, int lowerBoundOnGivensPerUnit,
+			Random rng) {
+		adjustor.adjust(board, rng, lowerRangeOnGivens, upperRangeOnGivens, lowerBoundOnGivensPerUnit);
+		this.board = board;
 	}
 	
 	public char getValueAt(int row, int col) throws IndexOutOfBoundsException {
 		return this.board.getValueAt(row, col);
 	}
 	
-	public void setValueAt(char value, int row, int col) throws IndexOutOfBoundsException, IllegalArgumentException {
+	public void setValueAt(char value, int row, int col) throws IndexOutOfBoundsException, IllegalArgumentException, IllegalStateException {
 		this.board.setValueAt(value, row, col);
 	}
 	

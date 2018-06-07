@@ -10,7 +10,7 @@ import sudoku_game.DefaultRNG;
  * @author Alex Horejsi
  */
 @FunctionalInterface
-interface Generator {
+public interface Generator {
 	/**
 	 * Generates a completed 
 	 * Sudoku puzzle

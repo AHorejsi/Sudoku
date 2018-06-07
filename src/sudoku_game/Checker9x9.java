@@ -1,11 +1,11 @@
 package sudoku_game;
 
-class Checker9x9 implements Checker {
+public class Checker9x9 implements Checker {
 	private static Checker9x9 val = new Checker9x9();
 	
 	private Checker9x9() {}
 	
-	public static Checker9x9 getInstance() {
+	public static Checker getInstance() {
 		return Checker9x9.val;
 	}
 	

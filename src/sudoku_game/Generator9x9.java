@@ -6,7 +6,7 @@ import java.util.Random;
  * Generates nine-by-nine Sudoku puzzles
  * @author Alex Horejsi
  */
-class Generator9x9 implements Generator {
+public class Generator9x9 implements Generator {
 	private static Generator9x9 gen = new Generator9x9();
 	private Cell[][] table;
 	
@@ -18,7 +18,7 @@ class Generator9x9 implements Generator {
 	 * @return A generator for nine-by-nine
 	 * Sudoku puzzles
 	 */
-	public static Generator9x9 getInstance() {
+	public static Generator getInstance() {
 		return Generator9x9.gen;
 	}
 	
