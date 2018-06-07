@@ -110,7 +110,7 @@ public class Generator16x16 implements Generator {
 	}
 	
 	private boolean safe(int i, int j, char digit) {
-		return this.safeRow(i, digit) && this.safeCol(j, digit) && this.safeBox(i - i % 4, j - j % 4, digit);
+		return this.safeRow(i, digit) && this.safeCol(j, digit) && this.safeBox(i - i & 3, j - j & 3, digit);
 	}
 	
 	private boolean safeRow(int i, char digit) {

@@ -32,7 +32,7 @@ public class ConcreteCell extends Cell {
 	public void setEmptyValue() throws IllegalStateException {
 		if (!this.editable)
 			throw new IllegalStateException();
-		this.setValue('\u0000');
+		this.value = '\u0000';
 	}
 	
 	@Override
@@ -41,14 +41,17 @@ public class ConcreteCell extends Cell {
 	}
 
 	@Override
-	void setEmptyForDifficultyAdjustment() {
+	void setEmptyForSetUp() {
 		this.value = '\u0000';
-		this.editable = false;
 	}
 	
 	@Override
-	void setValueForDifficultyAdjustment(char value) {
+	void setValueForSetUp(char value) {
 		this.value = value;
-		this.editable = true;
+	}
+	
+	@Override
+	void setEditable(boolean editable) {
+		this.editable = editable;
 	}
 }

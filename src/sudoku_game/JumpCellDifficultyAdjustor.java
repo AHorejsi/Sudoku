@@ -5,7 +5,7 @@ public class JumpCellDifficultyAdjustor implements DifficultyAdjustor {
 	
 	private JumpCellDifficultyAdjustor() {}
 	
-	public static JumpCellDifficultyAdjustor getInstance() {
+	public static DifficultyAdjustor getInstance() {
 		return JumpCellDifficultyAdjustor.adjustor;
 	}
 }

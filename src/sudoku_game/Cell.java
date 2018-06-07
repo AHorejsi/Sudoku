@@ -1,6 +1,6 @@
 package sudoku_game;
 
-public abstract class Cell implements Cloneable {
+public abstract class Cell {
 	public abstract char getValue();
 	
 	public abstract void setValue(char value);
@@ -9,16 +9,9 @@ public abstract class Cell implements Cloneable {
 	
 	public abstract boolean isEditable();
 	
-	abstract void setEmptyForDifficultyAdjustment();
+	abstract void setEmptyForSetUp();
 	
-	abstract void setValueForDifficultyAdjustment(char value);
+	abstract void setValueForSetUp(char value);
 	
-	@Override
-	protected Cell clone() {
-		try {
-			return (Cell)super.clone();
-		} catch (CloneNotSupportedException ex) {
-			throw new InternalError();
-		}
-	}
+	abstract void setEditable(boolean editable);
 }

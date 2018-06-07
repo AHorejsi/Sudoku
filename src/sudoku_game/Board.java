@@ -3,7 +3,7 @@ package sudoku_game;
 import java.util.Objects;
 import java.util.Random;
 
-public abstract class Board implements Cloneable {
+public abstract class Board {
 	Cell[][] table;
 	LegalValues legalValues;
 	Checker checker;
@@ -63,27 +63,19 @@ public abstract class Board implements Cloneable {
 			throw new IndexOutOfBoundsException();
 	}
 	
-	void doMixing(Mixer mixer) {
-		mixer.mix(this.table);
-	}
-	
-	void doMixing(Mixer mixer, Random rng) {
-		mixer.mix(this.table, rng);
-	}
-	
 	@Override
-	protected Board clone() {
-		try {
-			Board board = (Board)super.clone();
-			board.table = new Cell[board.getDimensions()][board.getDimensions()];
-			for (int i = 0 ; i < this.table.length ; i++) {
-				for (int j = 0 ; j < this.table.length ; j++)
-					board.table[i][j] = this.table[i][j].clone();
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		
+		for (int i = 0 ; i < table.length ; i++) {
+			for (int j = 0 ; j < table.length ; j++) {
+				sb.append(table[i][j].getValue());
+				sb.append(' ');
 			}
 			
-			return board;
-		} catch (CloneNotSupportedException ex) {
-			throw new InternalError();
+			sb.append('\n');
 		}
+		
+		return sb.toString();
 	}
 }

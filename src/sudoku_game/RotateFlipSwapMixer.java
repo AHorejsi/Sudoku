@@ -34,10 +34,10 @@ public class RotateFlipSwapMixer implements Mixer {
 	}
 	
 	@Override
-	public void mix(Cell[][] table, Random rng) {
-		this.rotate(table, rng);
-		this.flip(table, rng);
-		this.swap(table, rng);
+	public void mix(Board board, Random rng) {
+		this.rotate(board.table, rng);
+		this.flip(board.table, rng);
+		this.swap(board.table, rng, board.legalValues.getLegalValues());
 	}
 	
 	private void rotate(Cell[][] table, Random rng) {
@@ -52,7 +52,7 @@ public class RotateFlipSwapMixer implements Mixer {
 	}
 	
 	private void rotate90(Cell[][] table) {
-		int end = table.length / 2;
+		int end = table.length >>> 1;
 		Cell temp;
 		int x;
 		int y;
@@ -78,7 +78,7 @@ public class RotateFlipSwapMixer implements Mixer {
 	}
 	
 	private void rotate270(Cell[][] table) {
-		int end = table.length / 2;
+		int end = table.length >>> 1;
 		Cell temp;
 		int x;
 		int y;
@@ -142,20 +142,35 @@ public class RotateFlipSwapMixer implements Mixer {
 		}
 	}
 	
-	private void swap(Cell[][] table, Random rng) {
-		Cell[] firstRow = Arrays.copyOf(table[0], table[0].length);
-		Cell current;
+	private void swap(Cell[][] table, Random rng, char[] legalValues) {
+		char[] values = this.shuffle(legalValues, rng);
+		char current;
 		int index;
 		
 		for (int row = 0 ; row < table.length ; row++) {
 			for (int col = 0 ; col < table[row].length ; col++) {
-				current = table[row][col];
-				if (Character.isDigit(current.getValue()))
-					index = current.getValue() - '0' - 1;
-				else
-					index = current.getValue() - 'A' + 9;
-				table[row][col] = firstRow[index];
+				current = table[row][col].getValue();
+				if (current != '\u0000') {
+					if (Character.isDigit(current))
+						index = current - '0' - 1;
+					else
+						index = current - 'A' + 9;
+					table[row][col].setValueForSetUp(values[index]);
+				}
 			}
 		}
+	}
+	
+	private char[] shuffle(char[] legalValues, Random rng) {
+		char[] values = Arrays.copyOf(legalValues, legalValues.length);
+		
+		for (int i = 0 ; i < values.length ; i++) {
+			int pos = rng.nextInt(values.length);
+			char temp = values[pos];
+			values[pos] = values[i];
+			values[i] = temp;
+		}
+		
+		return values;
 	}
 }
