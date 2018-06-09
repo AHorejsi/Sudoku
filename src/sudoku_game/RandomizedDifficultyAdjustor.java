@@ -3,7 +3,7 @@ package sudoku_game;
 import java.util.Random;
 
 public class RandomizedDifficultyAdjustor implements DifficultyAdjustor {
-	private static RandomizedDifficultyAdjustor adjustor = new RandomizedDifficultyAdjustor();
+	private static DifficultyAdjustor adjustor = new RandomizedDifficultyAdjustor();
 	
 	private RandomizedDifficultyAdjustor() {}
 	
@@ -30,7 +30,8 @@ public class RandomizedDifficultyAdjustor implements DifficultyAdjustor {
 	
 	private void performAdjustment(Board board, Random rng, int amount, int lowerBound) {
 		Cell[][] table = board.table;
-		int current = table.length * table.length;
+		int length = table.length;
+		int current = length * length;
 		Solver solver = SimpleSolver.getInstance();
 		
 		while (current > amount) {
@@ -38,8 +39,8 @@ public class RandomizedDifficultyAdjustor implements DifficultyAdjustor {
 			int col;
 			
 			do {
-				row = rng.nextInt(table.length);
-				col = rng.nextInt(table.length);
+				row = rng.nextInt(length);
+				col = rng.nextInt(length);
 			} while (table[row][col].getValue() == '\u0000');
 			
 			if (this.canBeDug(table, row, col, lowerBound)) {

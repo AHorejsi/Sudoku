@@ -1,7 +1,7 @@
 package sudoku_game;
 
 public class LegalValues9x9 implements LegalValues {
-	private static LegalValues9x9 val = new LegalValues9x9();
+	private static LegalValues val = new LegalValues9x9();
 	private char[] values = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
 	
 	private LegalValues9x9() {}

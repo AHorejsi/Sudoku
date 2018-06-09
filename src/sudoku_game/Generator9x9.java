@@ -7,7 +7,7 @@ import java.util.Random;
  * @author Alex Horejsi
  */
 public class Generator9x9 implements Generator {
-	private static Generator9x9 gen = new Generator9x9();
+	private static Generator gen = new Generator9x9();
 	private Cell[][] table;
 	
 	private Generator9x9() {}

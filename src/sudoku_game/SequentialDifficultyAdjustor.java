@@ -3,7 +3,7 @@ package sudoku_game;
 import java.util.Random;
 
 public class SequentialDifficultyAdjustor implements DifficultyAdjustor {
-	private static SequentialDifficultyAdjustor adjustor = new SequentialDifficultyAdjustor();
+	private static DifficultyAdjustor adjustor = new SequentialDifficultyAdjustor();
 	
 	private SequentialDifficultyAdjustor() {}
 	
@@ -16,7 +16,7 @@ public class SequentialDifficultyAdjustor implements DifficultyAdjustor {
 		int amount = this.determineAmountOfGivens(rng, lowerRangeOnGivens, upperRangeOnGivens, 
 				board.getDimensions() * board.getDimensions());
 		int lowerBound = this.determineLowerBound(lowerBoundOnGivensPerUnit, board.getDimensions());
-		this.performAdjustment(board, rng, amount, lowerBound);
+		this.performAdjustment(board, amount, lowerBound);
 	}
 	
 	private int determineAmountOfGivens(Random rng, int lower, int upper, int total) {
@@ -28,28 +28,26 @@ public class SequentialDifficultyAdjustor implements DifficultyAdjustor {
 		return (int)Math.round(dimensions * (lowerBoundOnGivensPerUnit / 100.0));
 	}
 	
-	private void performAdjustment(Board board, Random rng, int amount, int lowerBound) {
+	private void performAdjustment(Board board, int amount, int lowerBound) {
 		Cell[][] table = board.table;
 		int current = table.length * table.length;
 		Solver solver = SimpleSolver.getInstance();
 		
-		while (current > amount) {
-			for (int i = 0 ; i < table.length ; i++) {
-				for (int j = 0 ; j < table.length ; j++) {
-					if (this.canBeDug(table, i, j, lowerBound)) {
-						char value = table[i][j].getValue();
-						table[i][j].setEmptyForSetUp();
-						current--;
-						
-						if (!solver.hasUniqueSolution(board)) {
-							table[i][j].setValueForSetUp(value);
-							current++;
-						}
-					}
+		for (int i = 0 ; i < table.length ; i++) {
+			for (int j = 0 ; j < table.length ; j++) {
+				if (this.canBeDug(table, i, j, lowerBound)) {
+					char value = table[i][j].getValue();
+					table[i][j].setEmptyForSetUp();
+					current--;
 					
-					if (current == amount)
-						return;
+					if (!solver.hasUniqueSolution(board)) {
+						table[i][j].setValueForSetUp(value);
+						current++;
+					}
 				}
+				
+				if (current == amount)
+					return;
 			}
 		}
 	}

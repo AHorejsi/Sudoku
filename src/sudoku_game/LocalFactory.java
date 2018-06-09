@@ -1,9 +1,10 @@
 package sudoku_game;
 
+import java.util.Collection;
 import java.util.Random;
 
 public class LocalFactory implements PuzzleFactory {
-	private static LocalFactory factory = new LocalFactory();
+	private static PuzzleFactory factory = new LocalFactory();
 	
 	private LocalFactory() {}
 	
@@ -12,7 +13,7 @@ public class LocalFactory implements PuzzleFactory {
 	}
 	
 	@Override
-	public Puzzle createPuzzle(String info, Random rng) {
+	public Puzzle createPuzzle(String info, Random rng, Collection<Mixer> mixers) {
 		Puzzle puzzle = null;
 		Board board = null;
 		
@@ -32,7 +33,10 @@ public class LocalFactory implements PuzzleFactory {
 		else if (info.contains("insane"))
 			puzzle = new InsanePuzzle(board, rng);
 		
-		RotateFlipSwapMixer.getInstance().mix(board, rng);
+		if (mixers != null) {
+			for (Mixer mixer : mixers)
+				mixer.mix(board, rng);
+		}
 		
 		return puzzle;
 	}

@@ -3,7 +3,7 @@ package sudoku_game;
 import java.util.Random;
 
 public class S_PathDifficultyAdjustor implements DifficultyAdjustor {
-	private static S_PathDifficultyAdjustor adjustor = new S_PathDifficultyAdjustor();
+	private static DifficultyAdjustor adjustor = new S_PathDifficultyAdjustor();
 	
 	private S_PathDifficultyAdjustor() {}
 	
@@ -16,7 +16,7 @@ public class S_PathDifficultyAdjustor implements DifficultyAdjustor {
 		int amount = this.determineAmountOfGivens(rng, lowerRangeOnGivens, upperRangeOnGivens, 
 				board.getDimensions() * board.getDimensions());
 		int lowerBound = this.determineLowerBound(lowerBoundOnGivensPerUnit, board.getDimensions());
-		this.performAdjustment(board, rng, amount, lowerBound);
+		this.performAdjustment(board, amount, lowerBound);
 	}
 	
 	private int determineAmountOfGivens(Random rng, int lower, int upper, int total) {
@@ -28,19 +28,13 @@ public class S_PathDifficultyAdjustor implements DifficultyAdjustor {
 		return (int)Math.round(dimensions * (lowerBoundOnGivensPerUnit / 100.0));
 	}
 	
-	private void performAdjustment(Board board, Random rng, int amount, int lowerBound) {
+	private void performAdjustment(Board board, int amount, int lowerBound) {
 		Cell[][] table = board.table;
 		int current = table.length * table.length;
 		Solver solver = SimpleSolver.getInstance();
 		int end = (table.length & 1) == 0 ? table.length >>> 1 : (table.length >>> 1) + 1;
 		
-		while (current > amount) {
-			for (int i = 0 ; i < table.length ; i++) {
-				for (int j = 0 ; j < table.length ; j++) {
-					
-				}
-			}
-		}
+		
 	}
 	
 	private boolean canBeDug(Cell[][] table, int row, int col, int lowerBound) {

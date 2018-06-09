@@ -7,7 +7,7 @@ import java.util.Random;
  * @author Alex Horejsi
  */
 public class Generator16x16 implements Generator {
-	private static Generator16x16 gen = new Generator16x16();
+	private static Generator gen = new Generator16x16();
 	private Cell[][] table;
 	
 	private Generator16x16() {}

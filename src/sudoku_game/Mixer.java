@@ -4,7 +4,6 @@ import java.util.Random;
 
 @FunctionalInterface
 public interface Mixer {
-	
 	public void mix(Board board, Random rng);
 	
 	public default void mix(Board board) {

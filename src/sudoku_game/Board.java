@@ -1,7 +1,6 @@
 package sudoku_game;
 
 import java.util.Objects;
-import java.util.Random;
 
 public abstract class Board {
 	Cell[][] table;
@@ -9,12 +8,6 @@ public abstract class Board {
 	Checker checker;
 	
 	protected Board(LegalValues legalValues, Checker checker, Cell[][] table) {
-		this.legalValues = Objects.requireNonNull(legalValues);
-		this.checker = Objects.requireNonNull(checker);
-		this.table = Objects.requireNonNull(table);
-	}
-	
-	protected Board(LegalValues legalValues, Checker checker, Cell[][] table, Random rng) {
 		this.legalValues = Objects.requireNonNull(legalValues);
 		this.checker = Objects.requireNonNull(checker);
 		this.table = Objects.requireNonNull(table);
@@ -69,7 +62,7 @@ public abstract class Board {
 		
 		for (int i = 0 ; i < table.length ; i++) {
 			for (int j = 0 ; j < table.length ; j++) {
-				sb.append(table[i][j].getValue());
+				sb.append(this.table[i][j].getValue());
 				sb.append(' ');
 			}
 			

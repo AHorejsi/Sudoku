@@ -1,7 +1,7 @@
 package sudoku_game;
 
 public class SimpleSolver implements Solver {
-	private static SimpleSolver solver = new SimpleSolver();
+	private static Solver solver = new SimpleSolver();
 	
 	private SimpleSolver() {}
 	
@@ -41,8 +41,9 @@ public class SimpleSolver implements Solver {
 	}
 	
 	private boolean safe(Cell[][] table, int i, int j, char digit) {
+		int end = (int)Math.sqrt(table.length);
 		return this.safeRow(table, i, digit, table.length) && this.safeCol(table, j, digit, table.length) && 
-				this.safeBox(table, i - i % 3, j - j % 3, digit, (int)Math.sqrt(table.length));
+				this.safeBox(table, i - i % end, j - j % end, digit, end);
 	}
 	
 	private boolean safeRow(Cell[][] table, int i, char digit, int end) {
