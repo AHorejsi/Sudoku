@@ -39,5 +39,13 @@ public abstract class Puzzle {
 		return this.board.isSolved();
 	}
 	
+	public int rowSizeInBox() {
+		return this.board.rowSizeInBox();
+	}
+	
+	public int colSizeInBox() {
+		return this.board.colSizeInBox();
+	}
+	
 	public abstract String getDifficulty();
 }

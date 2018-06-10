@@ -32,9 +32,27 @@ public class S_PathDifficultyAdjustor implements DifficultyAdjustor {
 		Cell[][] table = board.table;
 		int current = table.length * table.length;
 		Solver solver = SimpleSolver.getInstance();
-		int end = (table.length & 1) == 0 ? table.length >>> 1 : (table.length >>> 1) + 1;
 		
-		
+		for (int i = 0 ; i < table.length ; i++) {
+			for (int j = 0 ; j < table.length ; j++) {
+				if (this.canBeDug(table, i, j, lowerBound)) {
+					char value1 = table[i][j].getValue();
+					char value2 = table[table.length - i - 1][table.length - j - 1].getValue();
+					table[i][j].setEmptyForSetUp();
+					table[table.length - i - 1][table.length - j - 1].setEmptyForSetUp();
+					current -= 2;
+					
+					if (!solver.hasUniqueSolution(board)) {
+						table[i][j].setValueForSetUp(value1);
+						table[table.length - i - 1][table.length - j - 1].setValueForSetUp(value2);
+						current += 2;
+					}
+				}
+				
+				if (current == amount)
+					return;
+			}
+		}
 	}
 	
 	private boolean canBeDug(Cell[][] table, int row, int col, int lowerBound) {

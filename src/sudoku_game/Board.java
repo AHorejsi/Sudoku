@@ -6,10 +6,12 @@ public abstract class Board {
 	Cell[][] table;
 	LegalValues legalValues;
 	Checker checker;
+	BoxInfo boxInfo;
 	
-	protected Board(LegalValues legalValues, Checker checker, Cell[][] table) {
+	protected Board(LegalValues legalValues, Checker checker, BoxInfo boxInfo, Cell[][] table) {
 		this.legalValues = Objects.requireNonNull(legalValues);
 		this.checker = Objects.requireNonNull(checker);
+		this.boxInfo = boxInfo;
 		this.table = Objects.requireNonNull(table);
 	}
 	
@@ -54,6 +56,14 @@ public abstract class Board {
 	private void outOfBounds(int row, int col) {
 		if (row < 0 || row >= this.table.length || col < 0 || col >= this.table.length)
 			throw new IndexOutOfBoundsException();
+	}
+	
+	public int rowSizeInBox() {
+		return this.boxInfo.rowSize();
+	}
+	
+	public int colSizeInBox() {
+		return this.boxInfo.colSize();
 	}
 	
 	@Override
