@@ -1,6 +1,6 @@
 package sudoku_game;
 
-public class SimpleBoxGeneratorRunner implements BoxGeneratorRunner {
+class SimpleBoxGeneratorRunner implements BoxGeneratorRunner {
 	private static BoxGeneratorRunner runner = new SimpleBoxGeneratorRunner();
 	
 	private SimpleBoxGeneratorRunner() {}

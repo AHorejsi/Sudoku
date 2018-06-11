@@ -3,7 +3,7 @@ package sudoku_game;
 import java.util.Arrays;
 import java.util.Random;
 
-public class SwapMixer implements Mixer {
+class SwapMixer implements Mixer {
 	private static Mixer mixer = new SwapMixer();
 	
 	private SwapMixer() {}

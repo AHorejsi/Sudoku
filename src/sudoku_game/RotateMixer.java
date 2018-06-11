@@ -2,7 +2,7 @@ package sudoku_game;
 
 import java.util.Random;
 
-public class RotateMixer implements Mixer {
+class RotateMixer implements Mixer {
 	private static Mixer mixer = new RotateMixer();
 	
 	private RotateMixer() {}

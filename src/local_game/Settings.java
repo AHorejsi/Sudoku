@@ -2,7 +2,7 @@ package local_game;
 
 import java.util.Objects;
 
-public class Settings {
+class Settings {
 	private int dimensions;
 	private String difficulty;
 	

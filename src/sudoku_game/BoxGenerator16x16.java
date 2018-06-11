@@ -2,7 +2,7 @@ package sudoku_game;
 
 import java.util.Random;
 
-public class BoxGenerator16x16 extends BoxGenerator {
+class BoxGenerator16x16 extends BoxGenerator {
 	public BoxGenerator16x16(Cell[][] table, Random rng, int startRow, int startCol, int endRow, int endCol) {
 		super(table, rng, startRow, startCol, endRow, endCol);
 	}
