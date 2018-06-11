@@ -5,19 +5,6 @@ public class SimpleSolver implements Solver {
 	
 	private SimpleSolver() {}
 	
-//	public static void main(String[] args) {
-//		Board board = new Board9x9(new Cell[][] {{new ConcreteCell('\u0000'), new ConcreteCell('2'), new ConcreteCell('\u0000'), new ConcreteCell('\u0000'), new ConcreteCell('5'), new ConcreteCell('\u0000'), new ConcreteCell('7'), new ConcreteCell('8'), new ConcreteCell('\u0000')},
-//												 {new ConcreteCell('6'), new ConcreteCell('\u0000'), new ConcreteCell('\u0000'), new ConcreteCell('7'), new ConcreteCell('\u0000'), new ConcreteCell('\u0000'), new ConcreteCell('3'), new ConcreteCell('\u0000'), new ConcreteCell('\u0000')},
-//												 {new ConcreteCell('\u0000'), new ConcreteCell('\u0000'), new ConcreteCell('7'), new ConcreteCell('3'), new ConcreteCell('\u0000'), new ConcreteCell('2'), new ConcreteCell('\u0000'), new ConcreteCell('\u0000'), new ConcreteCell('6')},
-//												 {new ConcreteCell('\u0000'), new ConcreteCell('5'), new ConcreteCell('9'), new ConcreteCell('6'), new ConcreteCell('\u0000'), new ConcreteCell('\u0000'), new ConcreteCell('4'), new ConcreteCell('1'), new ConcreteCell('\u0000')},
-//												 {new ConcreteCell('4'), new ConcreteCell('\u0000'), new ConcreteCell('\u0000'), new ConcreteCell('\u0000'), new ConcreteCell('8'), new ConcreteCell('\u0000'), new ConcreteCell('\u0000'), new ConcreteCell('\u0000'), new ConcreteCell('7')},
-//												 {new ConcreteCell('\u0000'), new ConcreteCell('3'), new ConcreteCell('2'), new ConcreteCell('\u0000'), new ConcreteCell('\u0000'), new ConcreteCell('1'), new ConcreteCell('8'), new ConcreteCell('6'), new ConcreteCell('\u0000')},
-//												 {new ConcreteCell('5'), new ConcreteCell('\u0000'), new ConcreteCell('\u0000'), new ConcreteCell('8'), new ConcreteCell('\u0000'), new ConcreteCell('9'), new ConcreteCell('1'), new ConcreteCell('\u0000'), new ConcreteCell('\u0000')},
-//												 {new ConcreteCell('\u0000'), new ConcreteCell('\u0000'), new ConcreteCell('1'), new ConcreteCell('\u0000'), new ConcreteCell('\u0000'), new ConcreteCell('4'), new ConcreteCell('\u0000'), new ConcreteCell('\u0000'), new ConcreteCell('8')},
-//												 {new ConcreteCell('\u0000'), new ConcreteCell('9'), new ConcreteCell('8'), new ConcreteCell('\u0000'), new ConcreteCell('3'), new ConcreteCell('\u0000'), new ConcreteCell('\u0000'), new ConcreteCell('5'), new ConcreteCell('\u0000')}});
-//		System.out.println(new SimpleSolver().hasUniqueSolution(board));
-//	}
-	
 	public static Solver getInstance() {
 		return SimpleSolver.solver;
 	}

@@ -27,6 +27,10 @@ public abstract class Puzzle {
 		this.board.deleteValueAt(row, col);
 	}
 	
+	public boolean editableCellAt(int row, int col) {
+		return this.board.editableCellAt(row, col);
+	}
+	
 	public int getDimensions() {
 		return this.board.getDimensions();
 	}

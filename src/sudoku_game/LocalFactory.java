@@ -38,6 +38,17 @@ public class LocalFactory implements PuzzleFactory {
 				mixer.mix(board, rng);
 		}
 		
+		this.setEditableCells(board.table);
+		
 		return puzzle;
+	}
+	
+	private void setEditableCells(Cell[][] table) {
+		for (int i = 0 ; i < table.length ; i++) {
+			for (int j = 0 ; j < table.length ; j++) {
+				if (table[i][j].getValue() != '\u0000')
+					table[i][j].setEditable(false);
+			}
+		}
 	}
 }
