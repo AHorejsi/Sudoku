@@ -2,11 +2,24 @@ package sudoku_game;
 
 import java.util.Random;
 
+/**
+ * Moves through the Sudoku puzzle in an
+ * S-like pattern. As the Sudoku puzzle
+ * is being traversed, it is determined
+ * which values should be removed
+ * @author Alex Horejsi
+ */
 class S_PathDifficultyAdjustor implements DifficultyAdjustor {
 	private static DifficultyAdjustor adjustor = new S_PathDifficultyAdjustor();
 	
 	private S_PathDifficultyAdjustor() {}
 	
+	/**
+	 * Returns the single instance
+	 * of {@code S_PathDifficultyAdjustor}
+	 * @return The single instance
+	 * of {@code S_PathDifficultyAdjustor}
+	 */
 	public static DifficultyAdjustor getInstance() {
 		return S_PathDifficultyAdjustor.adjustor;
 	}
@@ -50,7 +63,7 @@ class S_PathDifficultyAdjustor implements DifficultyAdjustor {
 					}
 				}
 				
-				if (current == amount)
+				if (current <= amount)
 					return;
 			}
 		}

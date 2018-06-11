@@ -2,11 +2,24 @@ package sudoku_game;
 
 import java.util.Random;
 
+/**
+ * Moves through a given Sudoku puzzle
+ * row-by-row. As the Sudoku puzzle
+ * is being traversed, it is determined
+ * which values should be removed
+ * @author Alex Horejsi
+ */
 class SequentialDifficultyAdjustor implements DifficultyAdjustor {
 	private static DifficultyAdjustor adjustor = new SequentialDifficultyAdjustor();
 	
 	private SequentialDifficultyAdjustor() {}
 	
+	/**
+	 * Returns the single instance
+	 * of {@code SequentialDifficultyAdjustor}
+	 * @return The single instance
+	 * of {@code SequentialDifficultyAdjustor}
+	 */
 	public static DifficultyAdjustor getInstance() {
 		return SequentialDifficultyAdjustor.adjustor;
 	}

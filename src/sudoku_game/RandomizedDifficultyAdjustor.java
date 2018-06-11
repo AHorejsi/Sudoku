@@ -2,11 +2,21 @@ package sudoku_game;
 
 import java.util.Random;
 
+/**
+ * Selects values to remove from a Sudoku puzzle randomly
+ * @author Alex Horejsi
+ */
 class RandomizedDifficultyAdjustor implements DifficultyAdjustor {
 	private static DifficultyAdjustor adjustor = new RandomizedDifficultyAdjustor();
 	
 	private RandomizedDifficultyAdjustor() {}
 	
+	/**
+	 * Returns the single instance
+	 * of {@code RandomizedDifficultyAdjustor}
+	 * @return The single instance
+	 * of {@code RandomizedDifficultyAdjustor}
+	 */
 	public static DifficultyAdjustor getInstance() {
 		return RandomizedDifficultyAdjustor.adjustor;
 	}
