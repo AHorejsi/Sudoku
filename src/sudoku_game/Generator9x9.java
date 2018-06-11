@@ -35,21 +35,10 @@ class Generator9x9 implements Generator {
 		return table;
 	}
 	
-	private void fillMajorDiagonal(Random rng) {		
-		Thread t1 = new Thread(new BoxGenerator3x3(0, 0, rng, this.table));
-		Thread t2 = new Thread(new BoxGenerator3x3(3, 3, rng, this.table));
-		Thread t3 = new Thread(new BoxGenerator3x3(6, 6, rng, this.table));
-		t1.start();
-		t2.start();
-		t3.start();
-		
-		try {
-			t1.join();
-			t2.join();
-			t3.join();
-		} catch (InterruptedException ex) {
-			throw new InternalError();
-		}
+	private void fillMajorDiagonal(Random rng) {
+		SimpleBoxGeneratorRunner.getInstance().doRun(new BoxGenerator9x9(this.table, rng, 0, 0, 3, 3),
+													 new BoxGenerator9x9(this.table, rng, 3, 3, 6, 6),
+													 new BoxGenerator9x9(this.table, rng, 6, 6, 9, 9));
 	}
 	
 	private boolean fillRemaining(int i, int j) {
@@ -130,38 +119,5 @@ class Generator9x9 implements Generator {
 		}
 		
 		return true;
-	}
-	
-	private static class BoxGenerator3x3 implements Runnable {
-		private int row;
-		private int col;
-		private Random rng;
-		private Cell[][] table;
-		
-		public BoxGenerator3x3(int row, int col, Random rng, Cell[][] table) {
-			this.row = row;
-			this.col = col;
-			this.rng = rng;
-			this.table = table;
-		}
-		
-		@Override
-		public void run() {
-			int end = this.row + 3;
-			int bits = 0;
-			int n;
-			
-			for (int i = this.row ; i < end ; i++) {
-				for (int j = this.col ; j < end ; j++) {
-					do {
-						n = this.rng.nextInt(9);
-					} while ((bits & (1 << n)) != 0);
-					
-					bits |= (1 << n);
-					int digit = n + 1;
-					this.table[i][j] = new ConcreteCell((char)(digit + '0'));
-				}
-			}
-		}
 	}
 }
