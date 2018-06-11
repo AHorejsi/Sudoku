@@ -1,6 +1,6 @@
 package sudoku_game;
 
-public interface LegalValues {
+interface LegalValues {
 	public boolean isLegal(char value);
 	
 	public char[] getLegalValues();

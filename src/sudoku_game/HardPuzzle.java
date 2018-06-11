@@ -2,7 +2,7 @@ package sudoku_game;
 
 import java.util.Random;
 
-public class HardPuzzle extends Puzzle {
+class HardPuzzle extends Puzzle {
 	public HardPuzzle(Board board) {
 		this(board, DefaultRNG.getDefaultGenerator());
 	}

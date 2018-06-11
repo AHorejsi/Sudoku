@@ -2,7 +2,7 @@ package sudoku_game;
 
 import java.util.Objects;
 
-public abstract class Board {
+abstract class Board {
 	Cell[][] table;
 	LegalValues legalValues;
 	Checker checker;

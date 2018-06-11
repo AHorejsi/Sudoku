@@ -6,7 +6,7 @@ import java.util.Random;
  * Generates sixteen-by-sixteen Sudoku puzzles
  * @author Alex Horejsi
  */
-public class Generator16x16 implements Generator {
+class Generator16x16 implements Generator {
 	private static Generator gen = new Generator16x16();
 	private Cell[][] table;
 	
@@ -34,26 +34,23 @@ public class Generator16x16 implements Generator {
 		return table;
 	}
 	
-	private void fillMajorDiagonal(Random rng) {
-		for (int i = 0 ; i < 16 ; i += 4)
-			this.fillBox(i, i, rng);
-	}
-	
-	private void fillBox(int row, int col, Random rng) {
-		int end = row + 4;
-		int bits = 0;
-		int n;
+	private void fillMajorDiagonal(Random rng) {		
+		Thread t1 = new Thread(new BoxGenerator4x4(0, 0, rng, this.table));
+		Thread t2 = new Thread(new BoxGenerator4x4(4, 4, rng, this.table));
+		Thread t3 = new Thread(new BoxGenerator4x4(8, 8, rng, this.table));
+		Thread t4 = new Thread(new BoxGenerator4x4(12, 12, rng, this.table));
+		t1.start();
+		t2.start();
+		t3.start();
+		t4.start();
 		
-		for (int i = row ; i < end ; i++) {
-			for (int j = col ; j < end ; j++) {
-				do {
-					n = rng.nextInt(16);
-				} while ((bits & (1 << n)) != 0);
-				
-				bits |= (1 << n);
-				int digit = n + 1;
-				this.table[i][j] = new ConcreteCell((char)(digit < 10 ? digit + '0' : digit - 10 + 'A'));
-			}
+		try {
+			t1.join();
+			t2.join();
+			t3.join();
+			t4.join();
+		} catch (InterruptedException ex) {
+			throw new InternalError();
 		}
 	}
 	
@@ -146,5 +143,38 @@ public class Generator16x16 implements Generator {
 		}
 		
 		return true;
+	}
+	
+	private static class BoxGenerator4x4 implements Runnable {
+		private int row;
+		private int col;
+		private Random rng;
+		private Cell[][] table;
+		
+		public BoxGenerator4x4(int row, int col, Random rng, Cell[][] table) {
+			this.row = row;
+			this.col = col;
+			this.rng = rng;
+			this.table = table;
+		}
+		
+		@Override
+		public void run() {
+			int end = row + 4;
+			int bits = 0;
+			int n;
+			
+			for (int i = row ; i < end ; i++) {
+				for (int j = col ; j < end ; j++) {
+					do {
+						n = rng.nextInt(16);
+					} while ((bits & (1 << n)) != 0);
+					
+					bits |= (1 << n);
+					int digit = n + 1;
+					this.table[i][j] = new ConcreteCell((char)(digit < 10 ? digit + '0' : digit - 10 + 'A'));
+				}
+			}
+		}
 	}
 }

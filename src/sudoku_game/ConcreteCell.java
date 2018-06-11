@@ -1,19 +1,21 @@
 package sudoku_game;
 
-public class ConcreteCell extends Cell {
+/**
+ * Concrete implementation of the {@code Cell} class
+ * @author Alex Horejsi
+ */
+class ConcreteCell extends Cell {
 	private char value;
 	private boolean editable;
 	
-	ConcreteCell() {}
-
+	/**
+	 * Creates a new {@code ConcreteCell} and
+	 * gives it the given initial value
+	 * @param value The initial value for this
+	 * cell
+	 */
 	ConcreteCell(char value) {
 		this.value = value;
-		this.editable = true;
-	}
-	
-	ConcreteCell(Cell cell) {
-		this.value = cell.getValue();
-		this.editable = cell.isEditable();
 	}
 	
 	@Override

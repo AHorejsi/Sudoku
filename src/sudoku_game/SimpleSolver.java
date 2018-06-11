@@ -1,6 +1,6 @@
 package sudoku_game;
 
-public class SimpleSolver implements Solver {
+class SimpleSolver implements Solver {
 	private static Solver solver = new SimpleSolver();
 	
 	private SimpleSolver() {}

@@ -52,4 +52,9 @@ public abstract class Puzzle {
 	}
 	
 	public abstract String getDifficulty();
+	
+	@Override
+	public String toString() {
+		return this.board.toString();
+	}
 }

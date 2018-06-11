@@ -6,7 +6,7 @@ import java.util.Random;
  * Generates nine-by-nine Sudoku puzzles
  * @author Alex Horejsi
  */
-public class Generator9x9 implements Generator {
+class Generator9x9 implements Generator {
 	private static Generator gen = new Generator9x9();
 	private Cell[][] table;
 	
@@ -35,26 +35,20 @@ public class Generator9x9 implements Generator {
 		return table;
 	}
 	
-	private void fillMajorDiagonal(Random rng) {
-		for (int i = 0 ; i < 9 ; i += 3)
-			this.fillBox(i, i, rng);
-	}
-	
-	private void fillBox(int row, int col, Random rng) {
-		int end = row + 3;
-		int bits = 0;
-		int n;
+	private void fillMajorDiagonal(Random rng) {		
+		Thread t1 = new Thread(new BoxGenerator3x3(0, 0, rng, this.table));
+		Thread t2 = new Thread(new BoxGenerator3x3(3, 3, rng, this.table));
+		Thread t3 = new Thread(new BoxGenerator3x3(6, 6, rng, this.table));
+		t1.start();
+		t2.start();
+		t3.start();
 		
-		for (int i = row ; i < end ; i++) {
-			for (int j = col ; j < end ; j++) {
-				do {
-					n = rng.nextInt(9);
-				} while ((bits & (1 << n)) != 0);
-				
-				bits |= (1 << n);
-				int digit = n + 1;
-				this.table[i][j] = new ConcreteCell((char)(digit + '0'));
-			}
+		try {
+			t1.join();
+			t2.join();
+			t3.join();
+		} catch (InterruptedException ex) {
+			throw new InternalError();
 		}
 	}
 	
@@ -136,5 +130,38 @@ public class Generator9x9 implements Generator {
 		}
 		
 		return true;
+	}
+	
+	private static class BoxGenerator3x3 implements Runnable {
+		private int row;
+		private int col;
+		private Random rng;
+		private Cell[][] table;
+		
+		public BoxGenerator3x3(int row, int col, Random rng, Cell[][] table) {
+			this.row = row;
+			this.col = col;
+			this.rng = rng;
+			this.table = table;
+		}
+		
+		@Override
+		public void run() {
+			int end = this.row + 3;
+			int bits = 0;
+			int n;
+			
+			for (int i = this.row ; i < end ; i++) {
+				for (int j = this.col ; j < end ; j++) {
+					do {
+						n = this.rng.nextInt(9);
+					} while ((bits & (1 << n)) != 0);
+					
+					bits |= (1 << n);
+					int digit = n + 1;
+					this.table[i][j] = new ConcreteCell((char)(digit + '0'));
+				}
+			}
+		}
 	}
 }

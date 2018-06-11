@@ -2,7 +2,7 @@ package sudoku_game;
 
 import java.util.Random;
 
-public class Board9x9 extends Board {	
+class Board9x9 extends Board {	
 	public Board9x9() {
 		super(LegalValues9x9.getInstance(), Checker9x9.getInstance(), BoxInfo9x9.getInstance(), Generator9x9.getInstance().generate());
 	}
