@@ -1,6 +1,6 @@
 package sudoku_game;
 
-public class BoxInfo16x16 implements BoxInfo {
+class BoxInfo16x16 implements BoxInfo {
 	private static BoxInfo boxInfo = new BoxInfo16x16();
 	
 	private BoxInfo16x16() {}

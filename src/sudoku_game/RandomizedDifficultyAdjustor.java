@@ -33,6 +33,7 @@ class RandomizedDifficultyAdjustor implements DifficultyAdjustor {
 		int length = table.length;
 		int current = length * length;
 		Solver solver = SimpleSolver.getInstance();
+		LowerBoundCheckersRunner runner = SimpleLowerBoundCheckersRunner.getInstance();
 		
 		while (current > amount) {
 			int row;
@@ -43,7 +44,7 @@ class RandomizedDifficultyAdjustor implements DifficultyAdjustor {
 				col = rng.nextInt(length);
 			} while (table[row][col].getValue() == '\u0000');
 			
-			if (this.canBeDug(table, row, col, lowerBound)) {
+			if (runner.check(board, row, col, lowerBound)) {
 				char value = table[row][col].getValue();
 				table[row][col].setEmptyForSetUp();
 				current--;
@@ -54,48 +55,5 @@ class RandomizedDifficultyAdjustor implements DifficultyAdjustor {
 				}
 			}
 		}
-	}
-	
-	private boolean canBeDug(Cell[][] table, int row, int col, int lowerBound) {
-		int end = (int)Math.sqrt(table.length);
-		return this.checkRow(table, row, lowerBound) && this.checkCol(table, col, lowerBound) && 
-				this.checkBox(table, row - row % end, col - col % end, lowerBound, end);
-	}
-	
-	private boolean checkRow(Cell[][] table, int row, int lowerBound) {
-		int count = 0;
-		
-		for (int col = 0 ; col < table.length ; col++) {
-			if (table[row][col].getValue() != '\u0000')
-				count++;
-		}
-		
-		return count >= lowerBound;
-	}
-	
-	private boolean checkCol(Cell[][] table, int col, int lowerBound) {
-		int count = 0;
-		
-		for (int row = 0 ; row < table.length ; row++) {
-			if (table[row][col].getValue() != '\u0000')
-				count++;
-		}
-		
-		return count >= lowerBound;
-	}
-	
-	private boolean checkBox(Cell[][] table, int i, int j, int lowerBound, int end) {
-		int endRow = i + end;
-		int endCol = j + end;
-		int count = 0;
-		
-		for (int row = i ; row < endRow ; row++) {
-			for (int col = j ; col < endCol ; col++) {
-				if (table[row][col].getValue() != '\u0000')
-					count++;
-			}
-		}
-		
-		return count >= lowerBound;
 	}
 }

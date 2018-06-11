@@ -1,6 +1,6 @@
 package sudoku_game;
 
-public interface BoxInfo {
+interface BoxInfo {
 	public int rowSize();
 	
 	public int colSize();
