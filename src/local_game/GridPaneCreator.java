@@ -10,8 +10,7 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 
-
-public abstract class GridPaneCreator implements Runnable {
+abstract class GridPaneCreator implements Runnable {
 	protected GridPane gp;
 	protected TextField[][] cells;
 	protected GUIPuzzle puzzle;
