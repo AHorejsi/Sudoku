@@ -44,13 +44,14 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 	}
 	
 	public SimpleGUIPuzzle(PuzzleFactory factory, Collection<Mixer> mixers, Settings settings, Random rng) {
+		this.getStylesheets().add("local_game/Styling.css");
 		this.factory = Objects.requireNonNull(factory);
 		this.settings = Objects.requireNonNull(settings);
 		this.rng = (rng == null) ? DefaultRNG.getDefaultGenerator() : rng;
 		
 		if (mixers != null)
 			this.mixers.addAll(mixers);
-			
+		
 		this.runGridPaneCreators();
 		this.runSubGUIs();
 		System.out.println(Title.getTitle() + " " + SettingsScreen.getSettingsScreen() + " " + SuccessScreen.getSuccessScreen());
@@ -66,8 +67,7 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 		
 		for (int i = 0 ; i < dimensions ; i++) {
 			for (int j = 0 ; j < dimensions ; j++) {
-				tfs[i][j].setText(
-						String.valueOf(puzzle.getValueAt(i, j)));
+				tfs[i][j].setText(String.valueOf(puzzle.getValueAt(i, j)));
 				
 				if (puzzle.editableCellAt(i, j))
 					tfs[i][j].setBackground(SimpleGUIPuzzle.white);
@@ -132,6 +132,7 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 		if (Title.getTitle() == null || 
 				SettingsScreen.getSettingsScreen() == null || 
 				SuccessScreen.getSuccessScreen() == null) {
+			
 			Thread t1 = new Thread(new SuccessScreen());
 			Thread t2 = new Thread(new Title());
 			Thread t3 = new Thread(new SettingsScreen());
@@ -152,9 +153,12 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 	private void setUpBorderPane() {
 		BorderPane bp = new BorderPane();
 		
+		HBox mainMenu = this.setUpMainMenu();
+		BorderPane.setAlignment(mainMenu, Pos.CENTER);
+		
 		bp.setTop(Title.getTitle());
 		bp.setCenter(SimpleGUIPuzzle.view);
-		bp.setBottom(this.setUpMainMenu());
+		bp.setBottom(mainMenu);
 		
 		this.bp = bp;
 		this.getChildren().add(bp);

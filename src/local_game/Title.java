@@ -1,11 +1,7 @@
 package local_game;
 
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
 
 class Title implements Runnable {
 	private static HBox title = new HBox();
@@ -18,10 +14,9 @@ class Title implements Runnable {
 	public void run() {
 		HBox box = new HBox();
 		Label label = new Label("Sudoku");
-		label.setAlignment(Pos.CENTER);
-		label.setTextFill(Color.ROYALBLUE);
-		box.setBackground(new Background(new BackgroundFill(Color.WHITE, null, null)));
-		box.setAlignment(Pos.CENTER);
+		label.setStyle("-fx-font-family: Verdana; -fx-font-weight: bolder; -fx-font-size: 50px; "
+					   + "-fx-text-fill: #4169E1; -fx-alignment: center; -fx-background-color: white");
+		box.setStyle("-fx-background-color: white; -fx-alignment: center");
 		box.getChildren().add(label);
 		
 		Title.title = box;

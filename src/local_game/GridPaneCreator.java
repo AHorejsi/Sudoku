@@ -3,20 +3,15 @@ package local_game;
 import java.util.Objects;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.geometry.Pos;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
 
 abstract class GridPaneCreator implements Runnable {
 	protected GridPane gp;
 	protected TextField[][] cells;
 	protected GUIPuzzle puzzle;
-	private static Background back = new Background(new BackgroundFill(Color.BLACK, null, null));
 	
-	public GridPaneCreator(GUIPuzzle puzzle) {
+	public GridPaneCreator(GUIPuzzle puzzle) throws NullPointerException {
 		this.puzzle = Objects.requireNonNull(puzzle);
 	}
 	
@@ -26,21 +21,23 @@ abstract class GridPaneCreator implements Runnable {
 		return this.gp;
 	}
 	
-	public TextField[][] getCells() {
+	public TextField[][] getCells() throws IllegalStateException {
+		if (this.cells == null)
+			throw new IllegalStateException();
 		return this.cells;
 	}
 	
 	public void create(int dimensions) {
 		GridPane gp = new GridPane();
 		TextField[][] cells = new TextField[dimensions][dimensions];
-		gp.setAlignment(Pos.CENTER);
 		gp.setHgap(1);
 		gp.setVgap(1);
-		gp.setBackground(GridPaneCreator.back);
+		gp.getStyleClass().addAll("blackBack", "centered");
 		
 		for (int i = 0 ; i < dimensions ; i++) {
 			for (int j = 0 ; j < dimensions ; j++) {
 				TextField tf = this.createTextField();
+				tf.getStyleClass().add("centered");
 				cells[i][j] = tf;
 				gp.add(tf, j, i);
 			}
@@ -52,9 +49,9 @@ abstract class GridPaneCreator implements Runnable {
 	
 	private TextField createTextField() {
 		TextField tf = new TextField();
-		tf.setAlignment(Pos.CENTER);
 		tf.setMaxSize(30, 30);
 		tf.setMinSize(30, 30);
+		tf.getStyleClass().add("centered");
 		
 		tf.textProperty().addListener(new ChangeListener<String>() {
 			@Override

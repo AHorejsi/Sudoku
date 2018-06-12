@@ -18,7 +18,8 @@ public class Main extends Application {
 		Settings settings = new Settings(9, "medium");
 		Collection<Mixer> mixers = SimpleMixerFactory.getInstance().getFactory("linkedlist rotate flip flipbox swap");
 		GUIPuzzle gui = new SimpleGUIPuzzle(LocalFactory.getInstance(), mixers, settings, null);
-		primaryStage.setScene(new Scene(gui));
+		Scene sc = new Scene(gui);
+		primaryStage.setScene(sc);
 		primaryStage.show();
 	}
 }
