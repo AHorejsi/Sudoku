@@ -26,12 +26,11 @@ abstract class GridPaneCreator implements Runnable {
 	public void create(int dimensions) {
 		GridPane gp = new GridPane();
 		TextField[][] cells = new TextField[dimensions][dimensions];
-		gp.getStyleClass().addAll("blackBack", "centered", "gridPaneGaps");
+		gp.getStyleClass().addAll("blackBack", "centered", "gridPaneGaps", "bordered");
 		
 		for (int i = 0 ; i < dimensions ; i++) {
 			for (int j = 0 ; j < dimensions ; j++) {
 				TextField tf = this.createTextField();
-				tf.getStyleClass().add("centered");
 				cells[i][j] = tf;
 				gp.add(tf, j, i);
 			}

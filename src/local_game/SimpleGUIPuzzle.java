@@ -26,12 +26,16 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 	private Puzzle puzzle;
 	private Settings settings;
 	private Random rng;
+	private List<Mixer> mixers = new LinkedList<Mixer>();
 	private BorderPane bp = new BorderPane();
 	private Map<Integer, GridPane> gridpanes = new HashMap<Integer, GridPane>();
 	private Map<Integer, TextField[][]> textfields = new HashMap<Integer, TextField[][]>();
-	private List<Mixer> mixers = new LinkedList<Mixer>();
+	private Button play = new Button("Play New Puzzle");
+	private Button settingsButton = new Button("Settings");
+	private Button returnToMainMenuButton = new Button("Return to Main Menu");
+	private HBox submit = new HBox();
+	private HBox mainMenu = new HBox();
 	private static ImageView view = new ImageView(new Image("https://www.livesudoku.com/artwork/singlesudoku.png"));
-	
 	
 	public SimpleGUIPuzzle(PuzzleFactory factory, Collection<Mixer> mixers, Random rng) throws NullPointerException {
 		this.getStylesheets().add("local_game/stylesheet.css");
@@ -45,6 +49,7 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 		
 		this.runGridPaneCreators();
 		this.runSubGUIs();
+		this.createGUIToUseLater();
 		this.setUpBorderPane();
 	}
 	
@@ -127,12 +132,12 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 			threads.add(new Thread(new SuccessScreen()));
 		}
 		
-		for (int index = 0 ; index < threads.size() ; index++)
-			threads.get(index).start();
+		for (Thread th : threads)
+			th.start();
 		
 		try {
-			for (int index = 0 ; index < threads.size() ; index++)
-				threads.get(index).join();
+			for (Thread th : threads)
+				th.join();;
 		} catch (InterruptedException ex) {
 			throw new InternalError();
 		}
@@ -140,91 +145,123 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 	
 	private void setUpBorderPane() {
 		BorderPane bp = new BorderPane();
-		HBox mainMenu = this.setUpMainMenu();
 		
 		bp.setTop(Title.getTitle());
 		bp.setCenter(SimpleGUIPuzzle.view);
-		bp.setBottom(mainMenu);
+		bp.setBottom(this.mainMenu);
+		bp.getStyleClass().add("centered");
 		
 		this.bp = bp;
 		this.getChildren().add(bp);
 	}
 	
-	private HBox setUpMainMenu() {
+	private void setUpMainMenu() {
 		HBox mainMenu = new HBox();
-		Button play = this.setUpPlayButton();
-		Button settingsButton = this.setUpSettingsButton();
-		mainMenu.getChildren().addAll(play, settingsButton);
-		
-		return mainMenu;
+		mainMenu.getStyleClass().add("bordered");
+		mainMenu.getChildren().addAll(this.play, this.settingsButton);
+		this.mainMenu = mainMenu;
 	}
 	
-	private Button setUpPlayButton() {
-		Button play = new Button("Play New Puzzle");
+	private void createGUIToUseLater() {
+		Thread t1 = new Thread(new CreateSettingsButton());
+		Thread t2 = new Thread(new CreateReturnToMainMenuButton());
+		Thread t3 = new Thread(new CreateSubmitButton());
+		Thread t4 = new Thread(new CreatePlayButton());
 		
-		play.setOnMouseClicked(ev -> {
-			this.generatePuzzle();
-			this.bp.setBottom(this.setUpButtonBox());
-		});
+		t1.start();
+		t2.start();
+		t3.start();
+		t4.start();
 		
-		return play;
+		try {
+			t1.join();
+			t2.join();
+			t3.join();
+			t4.join();
+		} catch (InterruptedException ex) {
+			throw new InternalError();
+		}
+		
+		this.setUpMainMenu();
 	}
 	
-	private Button setUpSettingsButton() {
-		Button settingsButton = new Button("Settings");
-		List<Node> children = ((Pane)this.settings.getChildren().get(0)).getChildren();
-		
-		settingsButton.setOnMouseClicked(ev -> {
-			this.bp.setCenter(this.settings);
-		});
-		
-		children.get(4).setOnMouseClicked(ev -> {
-			this.bp.setCenter(this.setUpMainMenu());
-		});
-		
-		return settingsButton;
-	}
-	
-	private HBox setUpButtonBox() {
-		HBox hb = new HBox();
-		Button submit = new Button("Submit");
-		hb.getStyleClass().addAll("whiteBack", "centered");
-		hb.getChildren().add(submit);
-		
-		submit.setOnMouseClicked(ev -> {
-			int dimensions = this.settings.dimensions();
-			TextField[][] tfs = this.textfields.get(dimensions);
-			char value;
+	private class CreateSettingsButton implements Runnable {
+		@Override
+		public void run() {
+			Settings set = SimpleGUIPuzzle.this.settings;
+			BorderPane bp = SimpleGUIPuzzle.this.bp;
+			List<Node> children = ((Pane)set.getChildren().get(0)).getChildren();
 			
-			for (int i = 0 ; i < dimensions ; i++) {
-				for (int j = 0 ; j < dimensions ; j++) {
-					value = tfs[i][j].getText().charAt(0);
-					
-					if (!this.puzzle.isLegalValue(value))
-						tfs[i][j].getStyleClass().add("redBack");
-					else
-						this.puzzle.setValueAt(value, i, j);
+			SimpleGUIPuzzle.this.settingsButton.setOnMouseClicked(ev -> {
+				bp.setCenter(set);
+			});
+			
+			children.get(4).setOnMouseClicked(ev -> {
+				bp.setCenter(SimpleGUIPuzzle.this.mainMenu);
+			});
+		}
+	}
+	
+	private class CreateReturnToMainMenuButton implements Runnable {
+		@Override
+		public void run() {
+			BorderPane bp = SimpleGUIPuzzle.this.bp;
+			Button b = SimpleGUIPuzzle.this.returnToMainMenuButton;
+			b.getStyleClass().add("centered");
+			
+			b.setOnMouseClicked(ev -> {
+				bp.setCenter(SimpleGUIPuzzle.view);
+				bp.setBottom(SimpleGUIPuzzle.this.mainMenu);
+			});
+		}
+	}
+	
+	private class CreateSubmitButton implements Runnable {
+		@Override
+		public void run() {
+			Settings settings = SimpleGUIPuzzle.this.settings;
+			Puzzle puzzle = SimpleGUIPuzzle.this.puzzle;
+			BorderPane bp = SimpleGUIPuzzle.this.bp;
+			HBox hb = SimpleGUIPuzzle.this.submit;
+			Button submit = new Button("Submit");
+			submit.getStyleClass().add("centered");
+			hb.getStyleClass().addAll("whiteBack", "centered", "bordered");
+			hb.getChildren().add(submit);
+			
+			submit.setOnMouseClicked(ev -> {
+				int dimensions = settings.dimensions();
+				TextField[][] tfs = SimpleGUIPuzzle.this.textfields.get(dimensions);
+				char value;
+				
+				for (int i = 0 ; i < dimensions ; i++) {
+					for (int j = 0 ; j < dimensions ; j++) {
+						value = tfs[i][j].getText().charAt(0);
+						
+						if (!puzzle.isLegalValue(value))
+							tfs[i][j].getStyleClass().add("redBack");
+						else
+							puzzle.setValueAt(value, i, j);
+					}
 				}
-			}
-			
-			if (this.puzzle.isSolved()) {
-				this.bp.setCenter(SuccessScreen.getSuccessScreen());
-				this.bp.setBottom(this.setUpReturnToMainMenuButton());
-			}
-		});
-		
-		return hb;
+				
+				if (puzzle.isSolved()) {
+					bp.setCenter(SuccessScreen.getSuccessScreen());
+					bp.setBottom(SimpleGUIPuzzle.this.returnToMainMenuButton);
+				}
+			});
+		}
 	}
 	
-	private Button setUpReturnToMainMenuButton() {
-		Button b = new Button("Return to Main Menu");
-		b.getStyleClass().add("centered");
-		
-		b.setOnMouseClicked(ev -> {
-			this.bp.setCenter(SimpleGUIPuzzle.view);
-			this.bp.setBottom(this.setUpMainMenu());
-		});
-		
-		return b;
+	private class CreatePlayButton implements Runnable {
+		@Override
+		public void run() {
+			Button play = SimpleGUIPuzzle.this.play;
+			play.getStyleClass().add("centered");
+			
+			play.setOnMouseClicked(ev -> {
+				SimpleGUIPuzzle.this.generatePuzzle();
+				SimpleGUIPuzzle.this.bp.setBottom(SimpleGUIPuzzle.this.submit);
+			});
+		}
 	}
 }

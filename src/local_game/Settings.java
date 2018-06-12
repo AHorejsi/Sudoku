@@ -18,7 +18,7 @@ class Settings extends Pane implements Runnable {
 	}
 	
 	@Override
-	public void run() {
+	public void run() {		
 		GridPane gp = new GridPane();
 		gp.getStyleClass().addAll("grayBack", "centered", "settingsScreen");
 		

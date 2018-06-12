@@ -17,7 +17,9 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		Collection<Mixer> mixers = SimpleMixerFactory.getInstance().getFactory("linkedlist rotate flip flipbox swap");
 		GUIPuzzle gui = new SimpleGUIPuzzle(LocalFactory.getInstance(), mixers, null);
+		gui.setStyle("-fx-border-style: solid; -fx-border-width: 5px; -fx-border-color: black;");
 		Scene sc = new Scene(gui);
+		primaryStage.setTitle("Sudoku");
 		primaryStage.setScene(sc);
 		primaryStage.show();
 	}

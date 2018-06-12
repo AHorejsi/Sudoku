@@ -15,7 +15,7 @@ class Title implements Runnable {
 		HBox box = new HBox();
 		Label label = new Label("Sudoku");
 		label.getStyleClass().addAll("titleText", "centered", "whiteBack");
-		box.getStyleClass().addAll("whiteBack", "centered");
+		box.getStyleClass().addAll("whiteBack", "centered", "bordered");
 		box.getChildren().add(label);
 		
 		Title.title = box;
