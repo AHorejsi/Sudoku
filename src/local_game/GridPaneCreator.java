@@ -15,24 +15,18 @@ abstract class GridPaneCreator implements Runnable {
 		this.puzzle = Objects.requireNonNull(puzzle);
 	}
 	
-	public GridPane getGridPane() throws IllegalStateException {
-		if (this.gp == null)
-			throw new IllegalStateException();
+	public GridPane getGridPane() {
 		return this.gp;
 	}
 	
-	public TextField[][] getCells() throws IllegalStateException {
-		if (this.cells == null)
-			throw new IllegalStateException();
+	public TextField[][] getCells() {
 		return this.cells;
 	}
 	
 	public void create(int dimensions) {
 		GridPane gp = new GridPane();
 		TextField[][] cells = new TextField[dimensions][dimensions];
-		gp.setHgap(1);
-		gp.setVgap(1);
-		gp.getStyleClass().addAll("blackBack", "centered");
+		gp.getStyleClass().addAll("blackBack", "centered", "gridPaneGaps");
 		
 		for (int i = 0 ; i < dimensions ; i++) {
 			for (int j = 0 ; j < dimensions ; j++) {

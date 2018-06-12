@@ -1,0 +1,56 @@
+.centered {
+	-fx-alignment: center;
+}
+
+.blackBack {
+	-fx-background-color: black;
+}
+
+.whiteBack {
+	-fx-background-color: white;
+}
+
+.greenBack {
+	-fx-background-color: green;
+}
+
+.grayBack {
+	-fx-background-color: rgb(180, 180, 180);
+}
+
+.redBack {
+	-fx-background-color: red;
+}
+
+.yellowTextField {
+	-fx-background-color: yellow;
+}
+
+.titleText {
+	-fx-font-family: Verdana;
+	-fx-font-weight: bolder;
+	-fx-font-size: 50px;
+	-fx-text-fill: #4169E1;
+}
+
+.gridPaneGaps {
+	-fx-hgap: 1px;
+	-fx-vgap: 1px;
+}
+
+.settingsScreen {
+	-fx-hgap: 10px;
+	-fx-vgap: 20px;
+	-fx-padding: 10px;
+}
+
+.settingsLabel {
+	-fx-text-fill: yellow;
+	-fx-font-family: Verdana;
+	-fx-font-weight: bold;
+	-fx-font-size: 20px;
+}
+
+.textField {
+	-fx-pref-column-count: 1;
+}
