@@ -34,7 +34,7 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 	
 	
 	public SimpleGUIPuzzle(PuzzleFactory factory, Collection<Mixer> mixers, Random rng) throws NullPointerException {
-		this.getStylesheets().add("local_game/Styling.css");
+		this.getStylesheets().add("local_game/stylesheet.css");
 		this.getStyleClass().add("centered");
 		this.factory = Objects.requireNonNull(factory);
 		this.rng = (rng == null) ? DefaultRNG.getDefaultGenerator() : rng;

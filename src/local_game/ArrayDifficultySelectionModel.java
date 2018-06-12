@@ -1,6 +1,6 @@
 package local_game;
 
-class ArrayDifficultySelectionModel extends DifficultySelectionModel {
+public class ArrayDifficultySelectionModel extends DifficultySelectionModel {
 	private static DifficultySelectionModel model = new ArrayDifficultySelectionModel();
 	private String[] difficulties = {"BASIC", "EASY", "MEDIUM", "HARD", "INSANE"};
 	

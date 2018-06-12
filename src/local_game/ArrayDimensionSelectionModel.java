@@ -1,6 +1,6 @@
 package local_game;
 
-class ArrayDimensionSelectionModel extends DimensionSelectionModel {
+public class ArrayDimensionSelectionModel extends DimensionSelectionModel {
 	private static DimensionSelectionModel model = new ArrayDimensionSelectionModel();
 	private int[] dimensions = {9, 16};
 	
