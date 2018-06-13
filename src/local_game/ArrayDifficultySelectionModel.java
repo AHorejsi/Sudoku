@@ -4,7 +4,7 @@ public class ArrayDifficultySelectionModel extends DifficultySelectionModel {
 	private static DifficultySelectionModel model = new ArrayDifficultySelectionModel();
 	private String[] difficulties = {"BASIC", "EASY", "MEDIUM", "HARD", "INSANE"};
 	
-	private ArrayDifficultySelectionModel() {int i = 0;}
+	private ArrayDifficultySelectionModel() {}
 	
 	public static DifficultySelectionModel getInstance() {
 		return ArrayDifficultySelectionModel.model;
