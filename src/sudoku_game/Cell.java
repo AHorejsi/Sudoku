@@ -60,7 +60,8 @@ abstract class Cell {
 	 * should only be called when constructing a new
 	 * Sudoku puzzle, not when a user is editing a
 	 * puzzle
-	 * @param editable
+	 * @param editable Value indicating this cell's
+	 * editability
 	 */
 	abstract void setEditable(boolean editable);
 }
