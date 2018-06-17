@@ -2,6 +2,12 @@
 	-fx-alignment: center;
 }
 
+.invalid {
+	-fx-alignment: right;
+	-fx-text-fill: red;
+	-fx-font-weight: bold;
+}
+
 .blackBack {
 	-fx-background-color: black;
 }

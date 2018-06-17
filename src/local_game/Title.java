@@ -3,9 +3,20 @@ package local_game;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 
+/**
+ * The purpose of this class is
+ * only to set up the GUI that
+ * serves as the title of the
+ * JavaFX GUI
+ * @author Alex Horejsi
+ */
 class Title implements Runnable {
 	private static HBox title = new HBox();
 	
+	/**
+	 * Returns the {@code HBox} representing the title
+	 * @return The {@code HBox} representing the title
+	 */
 	public static HBox getTitle() {
 		return Title.title;
 	}

@@ -140,14 +140,13 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 	}
 	
 	private void setUpBorderPane() {
-		BorderPane bp = new BorderPane();
+		BorderPane bp = this.bp;
 		
 		bp.setTop(Title.getTitle());
 		bp.setCenter(SimpleGUIPuzzle.view);
 		bp.setBottom(this.mainMenu);
 		bp.getStyleClass().add("centered");
 		
-		this.bp = bp;
 		this.getChildren().add(bp);
 	}
 	
@@ -155,7 +154,6 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 		HBox mainMenu = new HBox();
 		mainMenu.getStyleClass().addAll("bordered", "centered", "whiteBack");
 		mainMenu.getChildren().addAll(this.play, this.settingsButton);
-		mainMenu.getStyleClass().add("centered");
 		this.mainMenu = mainMenu;
 	}
 	
@@ -218,11 +216,10 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 		}
 	}
 	
-	private class CreateSubmitButton implements Runnable {
+	private class CreateSubmitButton implements Runnable {		
 		@Override
 		public void run() {
 			Settings settings = SimpleGUIPuzzle.this.settings;
-			Puzzle puzzle = SimpleGUIPuzzle.this.puzzle;
 			BorderPane bp = SimpleGUIPuzzle.this.bp;
 			HBox hb = SimpleGUIPuzzle.this.options;
 			Button submit = new Button("Submit");
@@ -234,6 +231,7 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 			submit.setOnMouseClicked(ev -> {
 				int dimensions = settings.dimensions();
 				TextField[][] tfs = SimpleGUIPuzzle.this.textfields.get(dimensions);
+				Puzzle puzzle = SimpleGUIPuzzle.this.puzzle;
 				char value;
 				
 				for (int i = 0 ; i < dimensions ; i++) {
@@ -254,11 +252,18 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 					bp.setCenter(SuccessScreen.getSuccessScreen());
 					bp.setBottom(SimpleGUIPuzzle.this.returnToMainMenuButton);
 				}
+				else
+					this.addInvalidMessage();
 			});
 			
 			reset.setOnMouseClicked(ev -> {
 				SimpleGUIPuzzle.this.generatePuzzle();
 			});
+		}
+		
+		private void addInvalidMessage() {
+			BorderPane bp = SimpleGUIPuzzle.this.bp;
+			
 		}
 	}
 	

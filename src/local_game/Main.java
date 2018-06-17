@@ -18,6 +18,7 @@ public class Main extends Application {
 		GUIPuzzle gui = new SimpleGUIPuzzle(mixers, null);
 		Scene sc = new Scene(gui);
 		primaryStage.setTitle("Sudoku");
+		primaryStage.setFullScreen(true);
 		primaryStage.setScene(sc);
 		primaryStage.show();
 	}
