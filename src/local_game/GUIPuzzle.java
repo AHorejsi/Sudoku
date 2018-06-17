@@ -2,10 +2,10 @@ package local_game;
 
 import java.util.Collection;
 import java.util.Random;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import sudoku_game.Mixer;
 
-public abstract class GUIPuzzle extends Pane {	
+public abstract class GUIPuzzle extends StackPane {	
 	public abstract void generatePuzzle();
 	
 	public abstract void setRandomNumberGenerator(Random rng);
