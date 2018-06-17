@@ -5,10 +5,10 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Random;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -17,15 +17,15 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import sudoku_game.DefaultRNG;
+import sudoku_game.LocalFactory;
 import sudoku_game.Mixer;
 import sudoku_game.Puzzle;
 import sudoku_game.PuzzleFactory;
 
 public class SimpleGUIPuzzle extends GUIPuzzle {
-	private PuzzleFactory factory;
 	private Puzzle puzzle;
-	private Settings settings;
 	private Random rng;
+	private Settings settings = new Settings();
 	private List<Mixer> mixers = new LinkedList<Mixer>();
 	private BorderPane bp = new BorderPane();
 	private Map<Integer, GridPane> gridpanes = new HashMap<Integer, GridPane>();
@@ -35,14 +35,13 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 	private Button returnToMainMenuButton = new Button("Return to Main Menu");
 	private HBox options = new HBox();
 	private HBox mainMenu = new HBox();
+	private static PuzzleFactory factory = LocalFactory.getInstance();
 	private static ImageView view = new ImageView(new Image("https://www.livesudoku.com/artwork/singlesudoku.png"));
 	
-	public SimpleGUIPuzzle(PuzzleFactory factory, Collection<Mixer> mixers, Random rng) throws NullPointerException {
+	public SimpleGUIPuzzle(Collection<Mixer> mixers, Random rng) throws NullPointerException {
 		this.getStylesheets().add("local_game/stylesheet.css");
-		this.getStyleClass().add("centered");
-		this.factory = Objects.requireNonNull(factory);
+		this.getStyleClass().addAll("centered", "blackBack");
 		this.rng = (rng == null) ? DefaultRNG.getDefaultGenerator() : rng;
-		this.settings = new Settings();
 		
 		if (mixers != null)
 			this.mixers.addAll(mixers);
@@ -55,7 +54,7 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 	
 	@Override
 	public void generatePuzzle() {
-		Puzzle puzzle = this.factory.createPuzzle(this.settings.toString(), this.rng, this.mixers);
+		Puzzle puzzle = SimpleGUIPuzzle.factory.createPuzzle(this.settings.toString(), this.rng, this.mixers);
 		int dimensions = this.settings.dimensions();
 		TextField[][] tfs = this.textfields.get(dimensions);
 		GridPane gps = this.gridpanes.get(dimensions);
@@ -81,11 +80,6 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 	@Override
 	public void setRandomNumberGenerator(Random rng) {
 		this.rng = rng;
-	}
-	
-	@Override
-	public void setPuzzleFactory(PuzzleFactory factory) {
-		this.factory = factory;
 	}
 	
 	@Override
@@ -159,8 +153,9 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 	
 	private void setUpMainMenu() {
 		HBox mainMenu = new HBox();
-		mainMenu.getStyleClass().addAll("bordered", "centered");
+		mainMenu.getStyleClass().addAll("bordered", "centered", "whiteBack");
 		mainMenu.getChildren().addAll(this.play, this.settingsButton);
+		mainMenu.getStyleClass().add("centered");
 		this.mainMenu = mainMenu;
 	}
 	
@@ -188,6 +183,7 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 	}
 	
 	private class CreateSettingsButton implements Runnable {
+		@SuppressWarnings("unchecked")
 		@Override
 		public void run() {
 			Settings set = SimpleGUIPuzzle.this.settings;
@@ -199,7 +195,11 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 			});
 			
 			children.get(4).setOnMouseClicked(ev -> {
-				bp.setCenter(SimpleGUIPuzzle.this.mainMenu);
+				bp.setCenter(SimpleGUIPuzzle.view);
+				int dimensions = ((ComboBox<Integer>)children.get(1)).getSelectionModel().getSelectedItem();
+				String difficulty = ((ComboBox<String>)children.get(3)).getSelectionModel().getSelectedItem();
+				set.setDimensions(dimensions);
+				set.setDifficulty(difficulty);
 			});
 		}
 	}
@@ -239,7 +239,7 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 				for (int i = 0 ; i < dimensions ; i++) {
 					for (int j = 0 ; j < dimensions ; j++) {
 						if (tfs[i][j].getText() == null || tfs[i][j].getText().isEmpty())
-							tfs[i][j].getStyleClass().add("redBack");
+							continue;
 						
 						value = tfs[i][j].getText().charAt(0);
 						
@@ -266,8 +266,7 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 		@Override
 		public void run() {
 			Button play = SimpleGUIPuzzle.this.play;
-			SimpleGUIPuzzle.this.getStyleClass().addAll("bordered", "centered", "whiteBack");
-			play.getStyleClass().addAll("centered");
+			play.getStyleClass().add("centered");
 			
 			play.setOnMouseClicked(ev -> {
 				SimpleGUIPuzzle.this.generatePuzzle();

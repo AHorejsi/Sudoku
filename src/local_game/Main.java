@@ -4,7 +4,6 @@ import java.util.Collection;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import sudoku_game.LocalFactory;
 import sudoku_game.Mixer;
 import sudoku_game.SimpleMixerFactory;
 
@@ -16,8 +15,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		Collection<Mixer> mixers = SimpleMixerFactory.getInstance().getFactory("linkedlist rotate flip flipbox swap");
-		GUIPuzzle gui = new SimpleGUIPuzzle(LocalFactory.getInstance(), mixers, null);
-		gui.setStyle("-fx-border-style: solid; -fx-border-width: 5px; -fx-border-color: black;");
+		GUIPuzzle gui = new SimpleGUIPuzzle(mixers, null);
 		Scene sc = new Scene(gui);
 		primaryStage.setTitle("Sudoku");
 		primaryStage.setScene(sc);

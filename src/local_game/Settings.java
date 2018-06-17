@@ -1,5 +1,6 @@
 package local_game;
 
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.SelectionModel;
@@ -50,9 +51,14 @@ class Settings extends Pane implements Runnable {
 		gp.add(dimensionsDropDown, 1, 0);
 		gp.add(difficultyLabel, 0, 1);
 		gp.add(difficultyDropDown, 1, 1);
+		
+		Button exit = new Button("Exit");
+		gp.add(exit, 2, 0);
+		
 		this.addEventHandlersToComboBoxes(dimensionsDropDown, difficultyDropDown);
 		
 		this.getChildren().add(gp);
+		this.getStyleClass().add("centered");
 	}
 	
 	private void styleLabels(Label... labels) {
