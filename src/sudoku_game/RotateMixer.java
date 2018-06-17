@@ -2,11 +2,21 @@ package sudoku_game;
 
 import java.util.Random;
 
+/**
+ * Mixes up a Sudoku board by rotating
+ * it 90 degress, 180 degrees, 270 degrees
+ * or not at all
+ * @author Alex Horejsi
+ */
 class RotateMixer implements Mixer {
 	private static Mixer mixer = new RotateMixer();
 	
 	private RotateMixer() {}
 	
+	/**
+	 * Returns the single instance of {@code RotateMixer}
+	 * @return The single instance of {@code RotateMixer}
+	 */
 	public static Mixer getInstance() {
 		return RotateMixer.mixer;
 	}

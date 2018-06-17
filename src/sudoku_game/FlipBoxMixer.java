@@ -2,11 +2,20 @@ package sudoku_game;
 
 import java.util.Random;
 
+/**
+ * Swaps the rows and columns of boxes
+ * of a Sudoku puzzle
+ * @author Alex Horejsi
+ */
 class FlipBoxMixer implements Mixer {
 	private static Mixer mixer = new FlipBoxMixer();
 	
 	private FlipBoxMixer() {}
 	
+	/**
+	 * Returns the single instance of {@code FlipBoxMixer}
+	 * @return The single instance of {@code FlipBoxMixer}
+	 */
 	public static Mixer getInstance() {
 		return FlipBoxMixer.mixer;
 	}

@@ -40,7 +40,7 @@ class Checker16x16 implements Checker {
 			t2.join();
 			t3.join();
 		} catch (InterruptedException ex) {
-			throw new InternalError();
+			throw new InternalError(ex);
 		}
 		
 		return rows.isSuccessful() && cols.isSuccessful() && boxes.isSuccessful();

@@ -3,11 +3,22 @@ package sudoku_game;
 import java.util.Arrays;
 import java.util.Random;
 
+/**
+ * Mixes up a Sudoku puzzle
+ * by swapping all occurrences of
+ * each value with another legal value.
+ * This is done for all possible values
+ * @author Alex Horejsi
+ */
 class SwapMixer implements Mixer {
 	private static Mixer mixer = new SwapMixer();
 	
 	private SwapMixer() {}
 	
+	/**
+	 * Returns the single instance of {@code SwapMixer}
+	 * @return The Single instance of {@code SwapMixer}
+	 */
 	public static Mixer getInstance() {
 		return SwapMixer.mixer;
 	}

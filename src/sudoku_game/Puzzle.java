@@ -1,5 +1,6 @@
 package sudoku_game;
 
+import java.util.Objects;
 import java.util.Random;
 
 public abstract class Puzzle {
@@ -11,8 +12,8 @@ public abstract class Puzzle {
 	
 	Puzzle(Board board, DifficultyAdjustor adjustor, int lowerRangeOnGivens, int upperRangeOnGivens, int lowerBoundOnGivensPerUnit,
 			Random rng) {
+		this.board = Objects.requireNonNull(board);
 		adjustor.adjust(board, rng, lowerRangeOnGivens, upperRangeOnGivens, lowerBoundOnGivensPerUnit);
-		this.board = board;
 	}
 	
 	public char getValueAt(int row, int col) throws IndexOutOfBoundsException {

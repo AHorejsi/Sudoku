@@ -50,4 +50,19 @@ interface DifficultyAdjustor {
 	public default void adjust(Board board, int lowerRangeOnGivens, int upperRangeOnGivens, int lowerBoundOnGivensPerUnit) {
 		this.adjust(board, DefaultRNG.getDefaultGenerator(), lowerRangeOnGivens, upperRangeOnGivens, lowerBoundOnGivensPerUnit);
 	}
+	
+	/**
+	 * Sets all of empty cells to be editable and
+	 * all non-empty cells to be readonly
+	 * @param table The Sudoku board to have its
+	 * cells set as editable or readonly
+	 */
+	static void setEditableCells(Cell[][] table) {
+		for (int i = 0 ; i < table.length ; i++) {
+			for (int j = 0 ; j < table.length ; j++) {
+				if (table[i][j].getValue() == '\u0000')
+					table[i][j].setEditable(true);
+			}
+		}
+	}
 }

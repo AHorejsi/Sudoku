@@ -22,7 +22,7 @@ class SimpleBoxGeneratorRunner implements BoxGeneratorRunner {
 			for (Thread t : ts)
 				t.join();
 		} catch (InterruptedException ex) {
-			throw new InternalError();
+			throw new InternalError(ex);
 		}
 	}
 }

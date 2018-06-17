@@ -3,11 +3,20 @@ package sudoku_game;
 import java.util.Collection;
 import java.util.Random;
 
+/**
+ * Generates a new Sudoku puzzle
+ * completely from scratch
+ * @author Alex Horejsi
+ */
 public class LocalFactory implements PuzzleFactory {
 	private static PuzzleFactory factory = new LocalFactory();
 	
 	private LocalFactory() {}
 	
+	/**
+	 * Returns the single instance of {@code LocalFactory}
+	 * @return The single instance of {@code LocalFactory}
+	 */
 	public static PuzzleFactory getInstance() {
 		return LocalFactory.factory;
 	}
@@ -16,6 +25,7 @@ public class LocalFactory implements PuzzleFactory {
 	public Puzzle createPuzzle(String info, Random rng, Collection<Mixer> mixers) {
 		Puzzle puzzle = null;
 		Board board = null;
+		info = info.toLowerCase();
 		
 		if (info.contains("9x9"))
 			board = new Board9x9(rng);
@@ -38,17 +48,6 @@ public class LocalFactory implements PuzzleFactory {
 				mixer.mix(board, rng);
 		}
 		
-		this.setEditableCells(board.table);
-		
 		return puzzle;
-	}
-	
-	private void setEditableCells(Cell[][] table) {
-		for (int i = 0 ; i < table.length ; i++) {
-			for (int j = 0 ; j < table.length ; j++) {
-				if (table[i][j].getValue() != '\u0000')
-					table[i][j].setEditable(false);
-			}
-		}
 	}
 }

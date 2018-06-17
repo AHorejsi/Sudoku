@@ -30,6 +30,7 @@ class S_PathDifficultyAdjustor implements DifficultyAdjustor {
 				board.getDimensions() * board.getDimensions());
 		int lowerBound = this.determineLowerBound(lowerBoundOnGivensPerUnit, board.getDimensions());
 		this.performAdjustment(board, amount, lowerBound);
+		DifficultyAdjustor.setEditableCells(board.table);
 	}
 	
 	private int determineAmountOfGivens(Random rng, int lower, int upper, int total) {
@@ -44,7 +45,7 @@ class S_PathDifficultyAdjustor implements DifficultyAdjustor {
 	private void performAdjustment(Board board, int amount, int lowerBound) {
 		Cell[][] table = board.table;
 		int current = table.length * table.length;
-		Solver solver = SimpleSolver.getInstance();
+		Solver solver = BacktrackingSolver.getInstance();
 		LowerBoundCheckersRunner runner = SimpleLowerBoundCheckersRunner.getInstance();
 		
 		for (int i = 0 ; i < table.length ; i++) {

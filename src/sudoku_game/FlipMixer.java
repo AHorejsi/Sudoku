@@ -2,11 +2,21 @@ package sudoku_game;
 
 import java.util.Random;
 
+/**
+ * Mixes up a Sudoku board by
+ * flipping it horizontally,
+ * vertically, both or not at all.
+ * @author Alex Horejsi
+ */
 class FlipMixer implements Mixer {
 	private static Mixer mixer = new FlipMixer();
 	
 	private FlipMixer() {}
 	
+	/**
+	 * Returns the single instance of {@code FlipMixer}
+	 * @return The single instance of {@code FlipMixer}
+	 */
 	public static Mixer getInstance() {
 		return FlipMixer.mixer;
 	}
