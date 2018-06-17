@@ -1,8 +1,8 @@
 package local_game;
 
 class GridPane9x9Creator extends GridPaneCreator {
-	public GridPane9x9Creator(GUIPuzzle gui) {
-		super(gui);
+	GridPane9x9Creator() {
+		super();
 	}
 	
 	@Override

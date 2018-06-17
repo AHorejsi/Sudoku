@@ -53,11 +53,12 @@
 
 .textField {
 	-fx-pref-column-count: 1;
+	-fx-font-size: 30px;
+	-fx-font-weight: bolder;
 }
 
 .bordered {
 	-fx-border-style: solid;
 	-fx-border-width: 5px;
 	-fx-border-color: black;
-	
 }

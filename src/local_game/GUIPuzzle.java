@@ -6,7 +6,7 @@ import javafx.scene.layout.Pane;
 import sudoku_game.Mixer;
 import sudoku_game.PuzzleFactory;
 
-public abstract class GUIPuzzle extends Pane {
+public abstract class GUIPuzzle extends Pane {	
 	public abstract void generatePuzzle();
 	
 	public abstract void setRandomNumberGenerator(Random rng);

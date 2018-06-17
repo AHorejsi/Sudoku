@@ -33,7 +33,7 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 	private Button play = new Button("Play New Puzzle");
 	private Button settingsButton = new Button("Settings");
 	private Button returnToMainMenuButton = new Button("Return to Main Menu");
-	private HBox submit = new HBox();
+	private HBox options = new HBox();
 	private HBox mainMenu = new HBox();
 	private static ImageView view = new ImageView(new Image("https://www.livesudoku.com/artwork/singlesudoku.png"));
 	
@@ -59,15 +59,17 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 		int dimensions = this.settings.dimensions();
 		TextField[][] tfs = this.textfields.get(dimensions);
 		GridPane gps = this.gridpanes.get(dimensions);
+		this.puzzle = puzzle;
 		
 		for (int i = 0 ; i < dimensions ; i++) {
 			for (int j = 0 ; j < dimensions ; j++) {
 				tfs[i][j].setText(String.valueOf(puzzle.getValueAt(i, j)));
+				tfs[i][j].getStyleClass().removeAll("whiteBack", "yellowTextField");
 				
 				if (puzzle.editableCellAt(i, j))
 					tfs[i][j].getStyleClass().add("whiteBack");
 				else {
-					tfs[i][j].getStyleClass().addAll("yellowTextField", "textField");
+					tfs[i][j].getStyleClass().add("yellowTextField");
 					tfs[i][j].setEditable(false);
 				}
 			}
@@ -102,8 +104,8 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 	}
 	
 	private void runGridPaneCreators() {
-		GridPaneCreator gpc1 = new GridPane9x9Creator(this);
-		GridPaneCreator gpc2 = new GridPane16x16Creator(this);
+		GridPaneCreator gpc1 = new GridPane9x9Creator();
+		GridPaneCreator gpc2 = new GridPane16x16Creator();
 		
 		Thread t1 = new Thread(gpc1);
 		Thread t2 = new Thread(gpc2);
@@ -114,7 +116,7 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 			t1.join();
 			t2.join();
 		} catch (InterruptedException ex) {
-			throw new InternalError();
+			throw new InternalError(ex);
 		}
 		
 		this.gridpanes.put(9, gpc1.getGridPane());
@@ -139,7 +141,7 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 			for (Thread th : threads)
 				th.join();;
 		} catch (InterruptedException ex) {
-			throw new InternalError();
+			throw new InternalError(ex);
 		}
 	}
 	
@@ -157,7 +159,7 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 	
 	private void setUpMainMenu() {
 		HBox mainMenu = new HBox();
-		mainMenu.getStyleClass().add("bordered");
+		mainMenu.getStyleClass().addAll("bordered", "centered");
 		mainMenu.getChildren().addAll(this.play, this.settingsButton);
 		this.mainMenu = mainMenu;
 	}
@@ -179,7 +181,7 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 			t3.join();
 			t4.join();
 		} catch (InterruptedException ex) {
-			throw new InternalError();
+			throw new InternalError(ex);
 		}
 		
 		this.setUpMainMenu();
@@ -222,11 +224,12 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 			Settings settings = SimpleGUIPuzzle.this.settings;
 			Puzzle puzzle = SimpleGUIPuzzle.this.puzzle;
 			BorderPane bp = SimpleGUIPuzzle.this.bp;
-			HBox hb = SimpleGUIPuzzle.this.submit;
+			HBox hb = SimpleGUIPuzzle.this.options;
 			Button submit = new Button("Submit");
+			Button reset = new Button("Reset");
 			submit.getStyleClass().add("centered");
 			hb.getStyleClass().addAll("whiteBack", "centered", "bordered");
-			hb.getChildren().add(submit);
+			hb.getChildren().addAll(submit, reset);
 			
 			submit.setOnMouseClicked(ev -> {
 				int dimensions = settings.dimensions();
@@ -235,6 +238,9 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 				
 				for (int i = 0 ; i < dimensions ; i++) {
 					for (int j = 0 ; j < dimensions ; j++) {
+						if (tfs[i][j].getText() == null || tfs[i][j].getText().isEmpty())
+							tfs[i][j].getStyleClass().add("redBack");
+						
 						value = tfs[i][j].getText().charAt(0);
 						
 						if (!puzzle.isLegalValue(value))
@@ -249,6 +255,10 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 					bp.setBottom(SimpleGUIPuzzle.this.returnToMainMenuButton);
 				}
 			});
+			
+			reset.setOnMouseClicked(ev -> {
+				SimpleGUIPuzzle.this.generatePuzzle();
+			});
 		}
 	}
 	
@@ -256,11 +266,12 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 		@Override
 		public void run() {
 			Button play = SimpleGUIPuzzle.this.play;
-			play.getStyleClass().add("centered");
+			SimpleGUIPuzzle.this.getStyleClass().addAll("bordered", "centered", "whiteBack");
+			play.getStyleClass().addAll("centered");
 			
 			play.setOnMouseClicked(ev -> {
 				SimpleGUIPuzzle.this.generatePuzzle();
-				SimpleGUIPuzzle.this.bp.setBottom(SimpleGUIPuzzle.this.submit);
+				SimpleGUIPuzzle.this.bp.setBottom(SimpleGUIPuzzle.this.options);
 			});
 		}
 	}

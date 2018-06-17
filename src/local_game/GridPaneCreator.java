@@ -1,6 +1,5 @@
 package local_game;
 
-import java.util.Objects;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.TextField;
@@ -9,11 +8,8 @@ import javafx.scene.layout.GridPane;
 abstract class GridPaneCreator implements Runnable {
 	protected GridPane gp;
 	protected TextField[][] cells;
-	protected GUIPuzzle puzzle;
 	
-	public GridPaneCreator(GUIPuzzle puzzle) throws NullPointerException {
-		this.puzzle = Objects.requireNonNull(puzzle);
-	}
+	GridPaneCreator() {}
 	
 	public GridPane getGridPane() {
 		return this.gp;
@@ -42,9 +38,9 @@ abstract class GridPaneCreator implements Runnable {
 	
 	private TextField createTextField() {
 		TextField tf = new TextField();
-		tf.setMaxSize(30, 30);
-		tf.setMinSize(30, 30);
-		tf.getStyleClass().add("centered");
+		tf.setMaxSize(60, 60);
+		tf.setMinSize(60, 60);
+		tf.getStyleClass().addAll("centered", "textField");
 		
 		tf.textProperty().addListener(new ChangeListener<String>() {
 			@Override
