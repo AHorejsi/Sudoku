@@ -11,7 +11,7 @@ import javafx.scene.layout.HBox;
  * @author Alex Horejsi
  */
 class Title implements Runnable {
-	private static HBox title = new HBox();
+	private static HBox title;
 	
 	/**
 	 * Returns the {@code HBox} representing the title

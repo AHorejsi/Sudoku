@@ -7,30 +7,11 @@ import javafx.scene.control.SelectionModel;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
-class Settings extends Pane implements Runnable {
+class Settings extends Pane {
 	private int dimensions = 9;
-	private String difficulty = "Medium";
+	private String difficulty = "Basic";
 	
-	Settings() {}
-	
-	public int dimensions() {
-		return this.dimensions;
-	}
-	
-	public void setDimensions(int dimensions) {
-		this.dimensions = dimensions;
-	}
-	
-	public String difficulty() {
-		return this.difficulty;
-	}
-	
-	public void setDifficulty(String difficulty) {
-		this.difficulty = difficulty;
-	}
-	
-	@Override
-	public void run() {		
+	Settings() {
 		GridPane gp = new GridPane();
 		gp.getStyleClass().addAll("grayBack", "centered", "settingsScreen");
 		
@@ -41,7 +22,7 @@ class Settings extends Pane implements Runnable {
 		ComboBox<Integer> dimensionsDropDown = new ComboBox<Integer>();
 		ComboBox<String> difficultyDropDown = new ComboBox<String>();
 		
-		dimensionsDropDown.getItems().addAll(9, 16);
+		dimensionsDropDown.getItems().addAll(9/*, 16*/);
 		difficultyDropDown.getItems().addAll("Basic", "Easy", "Medium", "Hard", "Insane");
 		
 		dimensionsDropDown.setSelectionModel(ArrayDimensionSelectionModel.getInstance());
@@ -59,6 +40,22 @@ class Settings extends Pane implements Runnable {
 		
 		this.getChildren().add(gp);
 		this.getStyleClass().add("centered");
+	}
+	
+	public int dimensions() {
+		return this.dimensions;
+	}
+	
+	public void setDimensions(int dimensions) {
+		this.dimensions = dimensions;
+	}
+	
+	public String difficulty() {
+		return this.difficulty;
+	}
+	
+	public void setDifficulty(String difficulty) {
+		this.difficulty = difficulty;
 	}
 	
 	private void styleLabels(Label... labels) {

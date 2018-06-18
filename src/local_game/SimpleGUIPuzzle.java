@@ -22,6 +22,11 @@ import sudoku_game.Mixer;
 import sudoku_game.Puzzle;
 import sudoku_game.PuzzleFactory;
 
+/**
+ * Basic implementation of
+ * {@code GUIPuzzle}
+ * @author Alex Horejsi
+ */
 public class SimpleGUIPuzzle extends GUIPuzzle {
 	private Puzzle puzzle;
 	private Random rng;
@@ -63,10 +68,12 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 		for (int i = 0 ; i < dimensions ; i++) {
 			for (int j = 0 ; j < dimensions ; j++) {
 				tfs[i][j].setText(String.valueOf(puzzle.getValueAt(i, j)));
-				tfs[i][j].getStyleClass().removeAll("whiteBack", "yellowTextField");
+				tfs[i][j].getStyleClass().retainAll("centered", "textField");
 				
-				if (puzzle.editableCellAt(i, j))
+				if (puzzle.editableCellAt(i, j)) {
 					tfs[i][j].getStyleClass().add("whiteBack");
+					tfs[i][j].setEditable(true);
+				}
 				else {
 					tfs[i][j].getStyleClass().add("yellowTextField");
 					tfs[i][j].setEditable(false);
@@ -99,43 +106,41 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 	
 	private void runGridPaneCreators() {
 		GridPaneCreator gpc1 = new GridPane9x9Creator();
-		GridPaneCreator gpc2 = new GridPane16x16Creator();
+		//GridPaneCreator gpc2 = new GridPane16x16Creator();
 		
 		Thread t1 = new Thread(gpc1);
-		Thread t2 = new Thread(gpc2);
+		//Thread t2 = new Thread(gpc2);
 		t1.start();
-		t2.start();
+		//t2.start();
 		
 		try {
 			t1.join();
-			t2.join();
+			//t2.join();
 		} catch (InterruptedException ex) {
 			throw new InternalError(ex);
 		}
 		
 		this.gridpanes.put(9, gpc1.getGridPane());
-		this.gridpanes.put(16, gpc2.getGridPane());
+		//this.gridpanes.put(16, gpc2.getGridPane());
 		this.textfields.put(9, gpc1.getCells());
-		this.textfields.put(16, gpc2.getCells());
+		//this.textfields.put(16, gpc2.getCells());
 	}
 	
 	private void runSubGUIs() {
-		List<Thread> threads = new LinkedList<Thread>();
-		threads.add(new Thread(this.settings));
-		
 		if (Title.getTitle() == null || SuccessScreen.getSuccessScreen() == null) {
+			List<Thread> threads = new LinkedList<Thread>();
 			threads.add(new Thread(new Title()));
 			threads.add(new Thread(new SuccessScreen()));
-		}
-		
-		for (Thread th : threads)
-			th.start();
-		
-		try {
+			
 			for (Thread th : threads)
-				th.join();;
-		} catch (InterruptedException ex) {
-			throw new InternalError(ex);
+				th.start();
+			
+			try {
+				for (Thread th : threads)
+					th.join();;
+			} catch (InterruptedException ex) {
+				throw new InternalError(ex);
+			}
 		}
 	}
 	
@@ -236,15 +241,20 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 				
 				for (int i = 0 ; i < dimensions ; i++) {
 					for (int j = 0 ; j < dimensions ; j++) {
-						if (tfs[i][j].getText() == null || tfs[i][j].getText().isEmpty())
-							continue;
-						
-						value = tfs[i][j].getText().charAt(0);
-						
-						if (!puzzle.isLegalValue(value))
-							tfs[i][j].getStyleClass().add("redBack");
-						else
-							puzzle.setValueAt(value, i, j);
+						if (puzzle.editableCellAt(i, j)) {
+							if (tfs[i][j].getText() == null || tfs[i][j].getText().isEmpty())
+								puzzle.deleteValueAt(i, j);
+							else {
+								value = tfs[i][j].getText().charAt(0);
+								
+								if (!puzzle.isLegalValue(value))
+									tfs[i][j].getStyleClass().add("redBack");
+								else {
+									puzzle.setValueAt(value, i, j);
+									tfs[i][j].getStyleClass().add("whiteBack");
+								}
+							}
+						}
 					}
 				}
 				
