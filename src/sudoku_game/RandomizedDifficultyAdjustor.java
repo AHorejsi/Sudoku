@@ -22,7 +22,7 @@ class RandomizedDifficultyAdjustor implements DifficultyAdjustor {
 	}
 
 	@Override
-	public void adjust(Board board, Random rng, int lowerRangeOnGivens, int upperRangeOnGivens,int lowerBoundOnGivensPerUnit) {
+	public void adjust(Board board, Random rng, int lowerRangeOnGivens, int upperRangeOnGivens, int lowerBoundOnGivensPerUnit) {
 		int amount = this.determineAmountOfGivens(rng, lowerRangeOnGivens, upperRangeOnGivens, 
 				board.getDimensions() * board.getDimensions());
 		int lowerBound = this.determineLowerBound(lowerBoundOnGivensPerUnit, board.getDimensions());

@@ -29,7 +29,7 @@ abstract class Board {
 		if (!this.isLegalValue(value))
 			throw new IllegalArgumentException("Illegal value: " + value);
 		if (!this.table[row][col].isEditable())
-			throw new IllegalStateException("Non-editable cell");
+			throw new IllegalStateException("Non-editable cell: row = " + row + ", column = " + col);
 		this.outOfBounds(row, col);
 		this.table[row][col].setValue(value);
 	}
