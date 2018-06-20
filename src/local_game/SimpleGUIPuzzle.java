@@ -18,6 +18,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import sudoku_game.DefaultRNG;
 import sudoku_game.LocalFactory;
 import sudoku_game.Mixer;
@@ -43,7 +44,8 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 	private HBox options = new HBox();
 	private HBox mainMenu = new HBox();
 	private static PuzzleFactory factory = LocalFactory.getInstance();
-	private static ImageView view = Img.getImageView();;
+	private static StackPane mainImage = Img.getMainImage();
+	
 	
 	
 	/**
@@ -80,7 +82,7 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 	 * {@code SimpleGUIPuzzle}
 	 */
 	public SimpleGUIPuzzle(Collection<Mixer> mixers, Random rng) {
-		System.out.println(SimpleGUIPuzzle.view);
+		System.out.println(SimpleGUIPuzzle.mainImage);
 		this.getStylesheets().add("local_game/stylesheet.css");
 		this.getStyleClass().addAll("centered", "blackBack");
 		this.rng = (rng == null) ? DefaultRNG.getDefaultGenerator() : rng;
@@ -92,7 +94,7 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 		this.runSubGUIs();
 		this.createGUIToUseLater();
 		this.setUpBorderPane();
-		System.out.println(SimpleGUIPuzzle.view);
+		System.out.println(SimpleGUIPuzzle.mainImage);
 	}
 	
 	@Override
@@ -185,8 +187,10 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 		BorderPane bp = this.bp;
 		
 		bp.setTop(Title.getTitle());
-		bp.setCenter(SimpleGUIPuzzle.view);
+		bp.setCenter(SimpleGUIPuzzle.mainImage);
 		bp.setBottom(this.mainMenu);
+		bp.setLeft(SideBar.getLeftBar());
+		bp.setRight(SideBar.getRightBar());
 		bp.getStyleClass().add("centered");
 		
 		this.getChildren().add(bp);
@@ -235,7 +239,7 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 			});
 			
 			children.get(4).setOnMouseClicked(ev -> {
-				bp.setCenter(SimpleGUIPuzzle.view);
+				bp.setCenter(SimpleGUIPuzzle.mainImage);
 				int dimensions = ((ComboBox<Integer>)children.get(1)).getSelectionModel().getSelectedItem();
 				String difficulty = ((ComboBox<String>)children.get(3)).getSelectionModel().getSelectedItem();
 				set.setDimensions(dimensions);
@@ -252,7 +256,7 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 			b.getStyleClass().add("centered");
 			
 			b.setOnMouseClicked(ev -> {
-				bp.setCenter(SimpleGUIPuzzle.view);
+				bp.setCenter(SimpleGUIPuzzle.mainImage);
 				bp.setBottom(SimpleGUIPuzzle.this.mainMenu);
 			});
 		}
@@ -398,19 +402,54 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 	}
 	
 	private static class Img {
-		private static ImageView view = null;
+		private static StackPane stackPane;
 		
 		private Img() {}
 		
-		public static ImageView getImageView() {
-			if (Img.view == null) {
+		public static StackPane getMainImage() {
+			if (Img.stackPane == null) {
 				ImageView view = new ImageView(new Image("https://www.livesudoku.com/artwork/singlesudoku.png"));
-				view.getStyleClass().add("whiteBack");
+				StackPane stackPane = new StackPane();
+				stackPane.getStyleClass().add("whiteBack");
+				stackPane.getChildren().add(view);
 				
-				Img.view = view;
+				Img.stackPane = stackPane;
 			}
 			
-			return Img.view;
+			return Img.stackPane;
+		}
+	}
+	
+	private static class SideBar {
+		private static StackPane left;
+		private static StackPane right;
+		
+		private SideBar() {}
+		
+		public static StackPane getLeftBar() {
+			if (SideBar.left == null) {
+				StackPane left = new StackPane();
+				left.setMaxSize(60, 60);
+				left.setMinSize(60, 60);
+				left.getStyleClass().add("blackBack");
+				
+				SideBar.left = left;
+			}
+			
+			return SideBar.left;
+		}
+		
+		public static StackPane getRightBar() {
+			if (SideBar.right == null) {
+				StackPane right = new StackPane();
+				right.setMaxSize(60, 60);
+				right.setMinSize(60, 60);
+				right.getStyleClass().add("blackBack");
+				
+				SideBar.right = right;
+			}
+			
+			return SideBar.right;
 		}
 	}
 }
