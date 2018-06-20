@@ -19,13 +19,13 @@ abstract class GridPaneCreator implements Runnable {
 		return this.cells;
 	}
 	
-	public void create(int dimensions, int sizeOfTextField) {
+	public void create(Integer dimensions, Integer sizeOfTextField) {
 		GridPane gp = new GridPane();
 		TextField[][] cells = new TextField[dimensions][dimensions];
 		gp.getStyleClass().addAll("blackBack", "centered", "gridPaneGaps", "bordered");
 		
-		for (int i = 0 ; i < dimensions ; i++) {
-			for (int j = 0 ; j < dimensions ; j++) {
+		for (Integer i = 0 ; i < dimensions ; i++) {
+			for (Integer j = 0 ; j < dimensions ; j++) {
 				TextField tf = this.createTextField(sizeOfTextField);
 				cells[i][j] = tf;
 				gp.add(tf, j, i);
@@ -36,7 +36,7 @@ abstract class GridPaneCreator implements Runnable {
 		this.cells = cells;
 	}
 	
-	private TextField createTextField(int sizeOfTextField) {
+	private TextField createTextField(Integer sizeOfTextField) {
 		TextField tf = new TextField();
 		tf.setMaxSize(sizeOfTextField, sizeOfTextField);
 		tf.setMinSize(sizeOfTextField, sizeOfTextField);

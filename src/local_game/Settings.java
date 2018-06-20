@@ -6,11 +6,11 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.SelectionModel;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 
-class Settings extends Pane {
+class Settings extends StackPane {
 	private int dimensions = 9;
-	private String difficulty = "Basic";
+	private String difficulty = "Medium";
 	
 	Settings() {
 		GridPane gp = new GridPane();

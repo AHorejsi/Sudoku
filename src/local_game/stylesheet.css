@@ -65,6 +65,6 @@
 
 .bordered {
 	-fx-border-style: solid;
-	-fx-border-width: 5px;
+	-fx-border-width: 8px;
 	-fx-border-color: black;
 }

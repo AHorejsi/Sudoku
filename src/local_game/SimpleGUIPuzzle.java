@@ -42,10 +42,9 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 	private Button returnToMainMenuButton = new Button("Return to Main Menu");
 	private HBox options = new HBox();
 	private HBox mainMenu = new HBox();
+	private HBox title = new HBox();
 	private static PuzzleFactory factory = LocalFactory.getInstance();
 	private static StackPane mainImage = Img.getMainImage();
-	
-	
 	
 	/**
 	 * Creates a {@code SimpleGUIPuzzle}
@@ -164,15 +163,12 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 	}
 	
 	private void runSubGUIs() {
-		if (Title.getTitle() == null || SuccessScreen.getSuccessScreen() == null) {
-			Thread t1 = new Thread(new Title());
+		if (SuccessScreen.getSuccessScreen() == null) {
 			Thread t2 = new Thread(new SuccessScreen());
 			
-			t1.start();
 			t2.start();
 			
 			try {
-				t1.join();
 				t2.join();
 			} catch (InterruptedException ex) {
 				throw new InternalError(ex);
@@ -183,7 +179,7 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 	private void setUpBorderPane() {
 		BorderPane bp = this.bp;
 		
-		bp.setTop(Title.getTitle());
+		bp.setTop(this.title);
 		bp.setCenter(SimpleGUIPuzzle.mainImage);
 		bp.setBottom(this.mainMenu);
 		bp.setLeft(SideBar.getLeftBar());
@@ -205,17 +201,20 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 		Thread t2 = new Thread(new CreateReturnToMainMenuButton());
 		Thread t3 = new Thread(new CreateSubmitButton());
 		Thread t4 = new Thread(new CreatePlayButton());
+		Thread t5 = new Thread(new CreateTitle());
 		
 		t1.start();
 		t2.start();
 		t3.start();
 		t4.start();
+		t5.start();
 		
 		try {
 			t1.join();
 			t2.join();
 			t3.join();
 			t4.join();
+			t5.join();
 		} catch (InterruptedException ex) {
 			throw new InternalError(ex);
 		}
@@ -311,7 +310,7 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 		
 		private void addInvalidMessage() {
 			BorderPane bp = SimpleGUIPuzzle.this.bp;
-			
+			HBox title = SimpleGUIPuzzle.this.title;
 		}
 	}
 	
@@ -380,33 +379,14 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 		}
 	}
 	
-	/**
-	 * The purpose of this class is
-	 * only to set up the GUI that
-	 * serves as the title of the
-	 * JavaFX GUI
-	 * @author Alex Horejsi
-	 */
-	private static class Title implements Runnable {
-		private static HBox title;
-		
-		/**
-		 * Returns the {@code HBox} representing the title
-		 * @return The {@code HBox} representing the title
-		 */
-		public static HBox getTitle() {
-			return Title.title;
-		}
-		
+	private class CreateTitle implements Runnable {
 		@Override
 		public void run() {
-			HBox box = new HBox();
+			HBox title = SimpleGUIPuzzle.this.title;
 			Label label = new Label("Sudoku");
 			label.getStyleClass().addAll("titleText", "centered", "whiteBack");
-			box.getStyleClass().addAll("whiteBack", "centered", "bordered");
-			box.getChildren().add(label);
-			
-			Title.title = box;
+			title.getStyleClass().addAll("whiteBack", "centered", "bordered");
+			title.getChildren().add(label);
 		}
 	}
 }

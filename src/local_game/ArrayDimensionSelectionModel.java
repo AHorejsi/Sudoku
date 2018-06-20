@@ -2,7 +2,7 @@ package local_game;
 
 public class ArrayDimensionSelectionModel extends DimensionSelectionModel {
 	private static DimensionSelectionModel model = new ArrayDimensionSelectionModel();
-	private int[] dimensions = {9, 16};
+	private Integer[] dimensions = {9, 16};
 	
 	private ArrayDimensionSelectionModel() {}
 	
