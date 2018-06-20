@@ -6,7 +6,7 @@ class SimpleColumnLowerBoundChecker implements LowerBoundChecker {
 	private int lowerBound;
 	private boolean success;
 	
-	public SimpleColumnLowerBoundChecker(Board board, int column, int lowerBound) {
+	SimpleColumnLowerBoundChecker(Board board, int column, int lowerBound) {
 		this.board = board;
 		this.column = column;
 		this.lowerBound = lowerBound;

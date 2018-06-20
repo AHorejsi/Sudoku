@@ -9,7 +9,7 @@ class SimpleBoxLowerBoundChecker implements LowerBoundChecker {
 	private int lowerBound;
 	private boolean success;
 	
-	public SimpleBoxLowerBoundChecker(Board board, int row, int column, int endRow, int endCol, int lowerBound) {
+	SimpleBoxLowerBoundChecker(Board board, int row, int column, int endRow, int endCol, int lowerBound) {
 		this.board = board;
 		this.row = row;
 		this.column = column;

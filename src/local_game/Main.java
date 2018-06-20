@@ -7,6 +7,11 @@ import javafx.stage.Stage;
 import sudoku_game.Mixer;
 import sudoku_game.SimpleMixerFactory;
 
+/**
+ * Starting point of 
+ * local Sudoku game
+ * @author Alex Horejsi
+ */
 public class Main extends Application {
 	public static void main(String[] args) {
 		Application.launch(args);
@@ -15,7 +20,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		Collection<Mixer> mixers = SimpleMixerFactory.getInstance().getFactory("linkedlist rotate flip flipbox swap");
-		GUIPuzzle gui = new SimpleGUIPuzzle(mixers, null);
+		GUIPuzzle gui = new SimpleGUIPuzzle(mixers);
 		Scene sc = new Scene(gui);
 		primaryStage.setTitle("Sudoku");
 		primaryStage.setFullScreen(true);

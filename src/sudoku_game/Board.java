@@ -11,7 +11,7 @@ abstract class Board {
 	protected Board(LegalValues legalValues, Checker checker, BoxInfo boxInfo, Cell[][] table) {
 		this.legalValues = Objects.requireNonNull(legalValues);
 		this.checker = Objects.requireNonNull(checker);
-		this.boxInfo = boxInfo;
+		this.boxInfo = Objects.requireNonNull(boxInfo);
 		this.table = Objects.requireNonNull(table);
 	}
 	

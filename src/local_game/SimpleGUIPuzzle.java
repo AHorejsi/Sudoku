@@ -9,6 +9,8 @@ import java.util.Random;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.SelectionModel;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -23,7 +25,7 @@ import sudoku_game.Puzzle;
 import sudoku_game.PuzzleFactory;
 
 /**
- * Basic implementation of
+ * Simple implementation of
  * {@code GUIPuzzle}
  * @author Alex Horejsi
  */
@@ -43,7 +45,40 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 	private static PuzzleFactory factory = LocalFactory.getInstance();
 	private static ImageView view = new ImageView(new Image("https://www.livesudoku.com/artwork/singlesudoku.png"));
 	
-	public SimpleGUIPuzzle(Collection<Mixer> mixers, Random rng) throws NullPointerException {
+	/**
+	 * Creates a {@code SimpleGUIPuzzle}
+	 * that initially uses a default
+	 * random number generator and no
+	 * mixers
+	 */
+	public SimpleGUIPuzzle() {
+		this(null, null);
+	}
+	
+	/**
+	 * Creates a {@code SimpleGUIPuzzle}
+	 * that initially uses the given
+	 * mixers and a default random
+	 * number generator
+	 * @param mixers The mixers to be used
+	 * by this {@code SimpleGUIPuzzle}
+	 */
+	public SimpleGUIPuzzle(Collection<Mixer> mixers) {
+		this(mixers, null);
+	}
+	
+	/**
+	 * Creates a {@code SimpleGUIPuzzle}
+	 * that initially uses the given mixers
+	 * and the given random number
+	 * generator
+	 * @param mixers The mixers to be
+	 * used by this {@code SimpleGUIPuzzle}
+	 * @param rng The random number
+	 * generator to be used by this
+	 * {@code SimpleGUIPuzzle}
+	 */
+	public SimpleGUIPuzzle(Collection<Mixer> mixers, Random rng) {
 		this.getStylesheets().add("local_game/stylesheet.css");
 		this.getStyleClass().addAll("centered", "blackBack");
 		this.rng = (rng == null) ? DefaultRNG.getDefaultGenerator() : rng;
@@ -128,16 +163,15 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 	
 	private void runSubGUIs() {
 		if (Title.getTitle() == null || SuccessScreen.getSuccessScreen() == null) {
-			List<Thread> threads = new LinkedList<Thread>();
-			threads.add(new Thread(new Title()));
-			threads.add(new Thread(new SuccessScreen()));
+			Thread t1 = new Thread(new Title());
+			Thread t2 = new Thread(new SuccessScreen());
 			
-			for (Thread th : threads)
-				th.start();
+			t1.start();
+			t2.start();
 			
 			try {
-				for (Thread th : threads)
-					th.join();;
+				t1.join();
+				t2.join();
 			} catch (InterruptedException ex) {
 				throw new InternalError(ex);
 			}
@@ -287,6 +321,76 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 				SimpleGUIPuzzle.this.generatePuzzle();
 				SimpleGUIPuzzle.this.bp.setBottom(SimpleGUIPuzzle.this.options);
 			});
+		}
+	}
+	
+	private class Settings extends Pane {
+		private int dimensions = 9;
+		private String difficulty = "Basic";
+		
+		Settings() {
+			GridPane gp = new GridPane();
+			gp.getStyleClass().addAll("grayBack", "centered", "settingsScreen");
+			
+			Label dimensionsLabel = new Label("Dimensions: ");
+			Label difficultyLabel = new Label("Difficulty: ");
+			this.styleLabels(dimensionsLabel, difficultyLabel);
+			
+			ComboBox<Integer> dimensionsDropDown = new ComboBox<Integer>();
+			ComboBox<String> difficultyDropDown = new ComboBox<String>();
+			
+			dimensionsDropDown.getItems().addAll(9/*, 16*/);
+			difficultyDropDown.getItems().addAll("Basic", "Easy", "Medium", "Hard", "Insane");
+			
+			dimensionsDropDown.setSelectionModel(ArrayDimensionSelectionModel.getInstance());
+			difficultyDropDown.setSelectionModel(ArrayDifficultySelectionModel.getInstance());
+			
+			gp.add(dimensionsLabel, 0, 0);
+			gp.add(dimensionsDropDown, 1, 0);
+			gp.add(difficultyLabel, 0, 1);
+			gp.add(difficultyDropDown, 1, 1);
+			
+			Button exit = new Button("Exit");
+			gp.add(exit, 2, 0);
+			
+			this.addEventHandlersToComboBoxes(dimensionsDropDown, difficultyDropDown);
+			this.getChildren().add(gp);
+			this.getStyleClass().add("centered");
+		}
+		
+		public int dimensions() {
+			return this.dimensions;
+		}
+		
+		public void setDimensions(int dimensions) {
+			this.dimensions = dimensions;
+		}
+		
+		public void setDifficulty(String difficulty) {
+			this.difficulty = difficulty;
+		}
+		
+		private void styleLabels(Label... labels) {
+			for (Label label : labels)
+				label.getStyleClass().addAll("centered", "settingsLabel");
+		}
+		
+		private void addEventHandlersToComboBoxes(ComboBox<?>... comboBoxes) {
+			for (ComboBox<?> comboBox : comboBoxes) {
+				comboBox.setOnAction(ev -> {
+					SelectionModel<?> model = comboBox.getSelectionModel();
+					
+					if (model instanceof DimensionSelectionModel)
+						this.dimensions = (int)model.getSelectedItem();
+					else
+						this.difficulty = (String)model.getSelectedItem();
+				});
+			}
+		}
+		
+		@Override
+		public String toString() {
+			return this.dimensions + "x" + this.dimensions + " " + this.difficulty;
 		}
 	}
 }
