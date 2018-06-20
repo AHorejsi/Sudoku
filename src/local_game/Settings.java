@@ -1,5 +1,6 @@
 package local_game;
 
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -34,10 +35,12 @@ class Settings extends Pane {
 		gp.add(difficultyDropDown, 1, 1);
 		
 		Button exit = new Button("Exit");
-		gp.add(exit, 2, 0);
+		gp.add(exit, 0, 2);
+		
+		for (Node node : gp.getChildren())
+			node.getStyleClass().add("centered");
 		
 		this.addEventHandlersToComboBoxes(dimensionsDropDown, difficultyDropDown);
-		
 		this.getChildren().add(gp);
 		this.getStyleClass().add("centered");
 	}
@@ -48,10 +51,6 @@ class Settings extends Pane {
 	
 	public void setDimensions(int dimensions) {
 		this.dimensions = dimensions;
-	}
-	
-	public String difficulty() {
-		return this.difficulty;
 	}
 	
 	public void setDifficulty(String difficulty) {

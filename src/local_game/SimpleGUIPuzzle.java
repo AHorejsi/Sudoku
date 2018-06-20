@@ -10,7 +10,6 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.SelectionModel;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -82,7 +81,6 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 	 * {@code SimpleGUIPuzzle}
 	 */
 	public SimpleGUIPuzzle(Collection<Mixer> mixers, Random rng) {
-		System.out.println(SimpleGUIPuzzle.mainImage);
 		this.getStylesheets().add("local_game/stylesheet.css");
 		this.getStyleClass().addAll("centered", "blackBack");
 		this.rng = (rng == null) ? DefaultRNG.getDefaultGenerator() : rng;
@@ -94,7 +92,6 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 		this.runSubGUIs();
 		this.createGUIToUseLater();
 		this.setUpBorderPane();
-		System.out.println(SimpleGUIPuzzle.mainImage);
 	}
 	
 	@Override
@@ -331,76 +328,6 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 		}
 	}
 	
-	private static class Settings extends Pane {
-		private int dimensions = 9;
-		private String difficulty = "Basic";
-		
-		Settings() {
-			GridPane gp = new GridPane();
-			gp.getStyleClass().addAll("grayBack", "centered", "settingsScreen");
-			
-			Label dimensionsLabel = new Label("Dimensions: ");
-			Label difficultyLabel = new Label("Difficulty: ");
-			this.styleLabels(dimensionsLabel, difficultyLabel);
-			
-			ComboBox<Integer> dimensionsDropDown = new ComboBox<Integer>();
-			ComboBox<String> difficultyDropDown = new ComboBox<String>();
-			
-			dimensionsDropDown.getItems().addAll(9/*, 16*/);
-			difficultyDropDown.getItems().addAll("Basic", "Easy", "Medium", "Hard", "Insane");
-			
-			dimensionsDropDown.setSelectionModel(ArrayDimensionSelectionModel.getInstance());
-			difficultyDropDown.setSelectionModel(ArrayDifficultySelectionModel.getInstance());
-			
-			gp.add(dimensionsLabel, 0, 0);
-			gp.add(dimensionsDropDown, 1, 0);
-			gp.add(difficultyLabel, 0, 1);
-			gp.add(difficultyDropDown, 1, 1);
-			
-			Button exit = new Button("Exit");
-			gp.add(exit, 2, 0);
-			
-			this.addEventHandlersToComboBoxes(dimensionsDropDown, difficultyDropDown);
-			this.getChildren().add(gp);
-			this.getStyleClass().add("centered");
-		}
-		
-		public int dimensions() {
-			return this.dimensions;
-		}
-		
-		public void setDimensions(int dimensions) {
-			this.dimensions = dimensions;
-		}
-		
-		public void setDifficulty(String difficulty) {
-			this.difficulty = difficulty;
-		}
-		
-		private void styleLabels(Label... labels) {
-			for (Label label : labels)
-				label.getStyleClass().addAll("centered", "settingsLabel");
-		}
-		
-		private void addEventHandlersToComboBoxes(ComboBox<?>... comboBoxes) {
-			for (ComboBox<?> comboBox : comboBoxes) {
-				comboBox.setOnAction(ev -> {
-					SelectionModel<?> model = comboBox.getSelectionModel();
-					
-					if (model instanceof DimensionSelectionModel)
-						this.dimensions = (int)model.getSelectedItem();
-					else
-						this.difficulty = (String)model.getSelectedItem();
-				});
-			}
-		}
-		
-		@Override
-		public String toString() {
-			return this.dimensions + "x" + this.dimensions + " " + this.difficulty;
-		}
-	}
-	
 	private static class Img {
 		private static StackPane stackPane;
 		
@@ -450,6 +377,36 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 			}
 			
 			return SideBar.right;
+		}
+	}
+	
+	/**
+	 * The purpose of this class is
+	 * only to set up the GUI that
+	 * serves as the title of the
+	 * JavaFX GUI
+	 * @author Alex Horejsi
+	 */
+	private static class Title implements Runnable {
+		private static HBox title;
+		
+		/**
+		 * Returns the {@code HBox} representing the title
+		 * @return The {@code HBox} representing the title
+		 */
+		public static HBox getTitle() {
+			return Title.title;
+		}
+		
+		@Override
+		public void run() {
+			HBox box = new HBox();
+			Label label = new Label("Sudoku");
+			label.getStyleClass().addAll("titleText", "centered", "whiteBack");
+			box.getStyleClass().addAll("whiteBack", "centered", "bordered");
+			box.getChildren().add(label);
+			
+			Title.title = box;
 		}
 	}
 }
