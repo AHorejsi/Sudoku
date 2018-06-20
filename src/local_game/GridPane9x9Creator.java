@@ -7,6 +7,6 @@ class GridPane9x9Creator extends GridPaneCreator {
 	
 	@Override
 	public void run() {
-		super.create(9);
+		super.create(9, 60);
 	}
 }

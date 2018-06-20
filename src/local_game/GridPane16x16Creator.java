@@ -7,6 +7,6 @@ class GridPane16x16Creator extends GridPaneCreator {
 	
 	@Override
 	public void run() {
-		super.create(16);
+		super.create(16, 30);
 	}
 }

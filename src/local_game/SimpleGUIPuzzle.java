@@ -43,7 +43,8 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 	private HBox options = new HBox();
 	private HBox mainMenu = new HBox();
 	private static PuzzleFactory factory = LocalFactory.getInstance();
-	private static ImageView view = new ImageView(new Image("https://www.livesudoku.com/artwork/singlesudoku.png"));
+	private static ImageView view = Img.getImageView();;
+	
 	
 	/**
 	 * Creates a {@code SimpleGUIPuzzle}
@@ -79,6 +80,7 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 	 * {@code SimpleGUIPuzzle}
 	 */
 	public SimpleGUIPuzzle(Collection<Mixer> mixers, Random rng) {
+		System.out.println(SimpleGUIPuzzle.view);
 		this.getStylesheets().add("local_game/stylesheet.css");
 		this.getStyleClass().addAll("centered", "blackBack");
 		this.rng = (rng == null) ? DefaultRNG.getDefaultGenerator() : rng;
@@ -90,6 +92,7 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 		this.runSubGUIs();
 		this.createGUIToUseLater();
 		this.setUpBorderPane();
+		System.out.println(SimpleGUIPuzzle.view);
 	}
 	
 	@Override
@@ -324,7 +327,7 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 		}
 	}
 	
-	private class Settings extends Pane {
+	private static class Settings extends Pane {
 		private int dimensions = 9;
 		private String difficulty = "Basic";
 		
@@ -391,6 +394,23 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 		@Override
 		public String toString() {
 			return this.dimensions + "x" + this.dimensions + " " + this.difficulty;
+		}
+	}
+	
+	private static class Img {
+		private static ImageView view = null;
+		
+		private Img() {}
+		
+		public static ImageView getImageView() {
+			if (Img.view == null) {
+				ImageView view = new ImageView(new Image("https://www.livesudoku.com/artwork/singlesudoku.png"));
+				view.getStyleClass().add("whiteBack");
+				
+				Img.view = view;
+			}
+			
+			return Img.view;
 		}
 	}
 }
