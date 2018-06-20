@@ -1,5 +1,7 @@
 package sudoku_game;
 
+import java.util.Arrays;
+
 /**
  * This class defines the legal <tt>char</tt>
  * values for nine-by-nine Sudoku puzzles.
@@ -25,7 +27,7 @@ class LegalValues9x9 implements LegalValues {
 	
 	@Override
 	public boolean isLegal(char value) {
-		return (511 & (1 << (value - '0' - 1))) != 0;
+		return Arrays.binarySearch(this.values, value) >= 0;
 	}
 	
 	@Override
