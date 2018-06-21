@@ -40,11 +40,16 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 	private Button play = new Button("Play New Puzzle");
 	private Button settingsButton = new Button("Settings");
 	private Button returnToMainMenuButton = new Button("Return to Main Menu");
+	private Button exit = new Button("Exit");
 	private HBox options = new HBox();
 	private HBox mainMenu = new HBox();
 	private HBox title = new HBox();
+	private StackPane leftSide = new StackPane();
+	private StackPane rightSide = new StackPane();
+	private StackPane mainImage = new StackPane();
+	private StackPane successScreen = new StackPane();
 	private static PuzzleFactory factory = LocalFactory.getInstance();
-	private static StackPane mainImage = Img.getMainImage();
+	
 	
 	/**
 	 * Creates a {@code SimpleGUIPuzzle}
@@ -88,7 +93,6 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 			this.mixers.addAll(mixers);
 		
 		this.runGridPaneCreators();
-		this.runSubGUIs();
 		this.createGUIToUseLater();
 		this.setUpBorderPane();
 	}
@@ -126,16 +130,6 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 	}
 	
 	@Override
-	public void addMixer(Mixer mixer) {
-		this.mixers.add(mixer);
-	}
-	
-	@Override
-	public void removeMixer(Mixer mixer) {
-		this.mixers.remove(mixer);
-	}
-	
-	@Override
 	public Collection<Mixer> getMixers() {
 		return this.mixers;
 	}
@@ -162,28 +156,14 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 		//this.textfields.put(16, gpc2.getCells());
 	}
 	
-	private void runSubGUIs() {
-		if (SuccessScreen.getSuccessScreen() == null) {
-			Thread t2 = new Thread(new SuccessScreen());
-			
-			t2.start();
-			
-			try {
-				t2.join();
-			} catch (InterruptedException ex) {
-				throw new InternalError(ex);
-			}
-		}
-	}
-	
 	private void setUpBorderPane() {
 		BorderPane bp = this.bp;
 		
 		bp.setTop(this.title);
-		bp.setCenter(SimpleGUIPuzzle.mainImage);
+		bp.setCenter(this.mainImage);
 		bp.setBottom(this.mainMenu);
-		bp.setLeft(SideBar.getLeftBar());
-		bp.setRight(SideBar.getRightBar());
+		bp.setLeft(this.leftSide);
+		bp.setRight(this.rightSide);
 		bp.getStyleClass().add("centered");
 		
 		this.getChildren().add(bp);
@@ -192,7 +172,7 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 	private void setUpMainMenu() {
 		HBox mainMenu = new HBox();
 		mainMenu.getStyleClass().addAll("bordered", "centered", "whiteBack");
-		mainMenu.getChildren().addAll(this.play, this.settingsButton);
+		mainMenu.getChildren().addAll(this.play, this.settingsButton, this.exit);
 		this.mainMenu = mainMenu;
 	}
 	
@@ -202,12 +182,20 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 		Thread t3 = new Thread(new CreateSubmitButton());
 		Thread t4 = new Thread(new CreatePlayButton());
 		Thread t5 = new Thread(new CreateTitle());
+		Thread t6 = new Thread(new CreateExitButton());
+		Thread t7 = new Thread(new CreateSideBar());
+		Thread t8 = new Thread(new CreateImage());
+		Thread t9 = new Thread(new CreateSuccessScreen());
 		
 		t1.start();
 		t2.start();
 		t3.start();
 		t4.start();
 		t5.start();
+		t6.start();
+		t7.start();
+		t8.start();
+		t9.start();
 		
 		try {
 			t1.join();
@@ -215,6 +203,10 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 			t3.join();
 			t4.join();
 			t5.join();
+			t6.join();
+			t7.join();
+			t8.join();
+			t9.join();
 		} catch (InterruptedException ex) {
 			throw new InternalError(ex);
 		}
@@ -235,7 +227,7 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 			});
 			
 			children.get(4).setOnMouseClicked(ev -> {
-				bp.setCenter(SimpleGUIPuzzle.mainImage);
+				bp.setCenter(SimpleGUIPuzzle.this.mainImage);
 				int dimensions = ((ComboBox<Integer>)children.get(1)).getSelectionModel().getSelectedItem();
 				String difficulty = ((ComboBox<String>)children.get(3)).getSelectionModel().getSelectedItem();
 				set.setDimensions(dimensions);
@@ -252,7 +244,7 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 			b.getStyleClass().add("centered");
 			
 			b.setOnMouseClicked(ev -> {
-				bp.setCenter(SimpleGUIPuzzle.mainImage);
+				bp.setCenter(SimpleGUIPuzzle.this.mainImage);
 				bp.setBottom(SimpleGUIPuzzle.this.mainMenu);
 			});
 		}
@@ -266,9 +258,10 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 			HBox hb = SimpleGUIPuzzle.this.options;
 			Button submit = new Button("Submit");
 			Button reset = new Button("Reset");
+			Button exit = new Button("Exit");
 			submit.getStyleClass().add("centered");
 			hb.getStyleClass().addAll("whiteBack", "centered", "bordered");
-			hb.getChildren().addAll(submit, reset);
+			hb.getChildren().addAll(submit, reset, exit);
 			
 			submit.setOnMouseClicked(ev -> {
 				int dimensions = settings.dimensions();
@@ -296,7 +289,7 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 				}
 				
 				if (puzzle.isSolved()) {
-					bp.setCenter(SuccessScreen.getSuccessScreen());
+					bp.setCenter(SimpleGUIPuzzle.this.successScreen);
 					bp.setBottom(SimpleGUIPuzzle.this.returnToMainMenuButton);
 				}
 				else
@@ -306,9 +299,13 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 			reset.setOnMouseClicked(ev -> {
 				SimpleGUIPuzzle.this.generatePuzzle();
 			});
+			
+			exit.setOnMouseClicked(ev -> {
+				System.exit(0);
+			});
 		}
 		
-		private void addInvalidMessage() {
+		private void addInvalidMessage() {//TODO
 			BorderPane bp = SimpleGUIPuzzle.this.bp;
 			HBox title = SimpleGUIPuzzle.this.title;
 		}
@@ -327,55 +324,27 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 		}
 	}
 	
-	private static class Img {
-		private static StackPane stackPane;
-		
-		private Img() {}
-		
-		public static StackPane getMainImage() {
-			if (Img.stackPane == null) {
-				ImageView view = new ImageView(new Image("https://www.livesudoku.com/artwork/singlesudoku.png"));
-				StackPane stackPane = new StackPane();
-				stackPane.getStyleClass().add("whiteBack");
-				stackPane.getChildren().add(view);
-				
-				Img.stackPane = stackPane;
-			}
-			
-			return Img.stackPane;
+	private class CreateImage implements Runnable {		
+		@Override
+		public void run() {
+			StackPane mainImage = SimpleGUIPuzzle.this.mainImage;
+			ImageView view = new ImageView(new Image("https://www.livesudoku.com/artwork/singlesudoku.png"));
+			mainImage.getStyleClass().add("whiteBack");
+			mainImage.getChildren().add(view);
 		}
 	}
 	
-	private static class SideBar {
-		private static StackPane left;
-		private static StackPane right;
-		
-		private SideBar() {}
-		
-		public static StackPane getLeftBar() {
-			if (SideBar.left == null) {
-				StackPane left = new StackPane();
-				left.setMaxSize(60, 60);
-				left.setMinSize(60, 60);
-				left.getStyleClass().add("blackBack");
-				
-				SideBar.left = left;
-			}
-			
-			return SideBar.left;
-		}
-		
-		public static StackPane getRightBar() {
-			if (SideBar.right == null) {
-				StackPane right = new StackPane();
-				right.setMaxSize(60, 60);
-				right.setMinSize(60, 60);
-				right.getStyleClass().add("blackBack");
-				
-				SideBar.right = right;
-			}
-			
-			return SideBar.right;
+	private class CreateSideBar implements Runnable {		
+		@Override
+		public void run() {
+			StackPane left = SimpleGUIPuzzle.this.leftSide;
+			StackPane right = SimpleGUIPuzzle.this.rightSide;
+			left.setMaxSize(60, 60);
+			left.setMinSize(60, 60);
+			left.getStyleClass().add("blackBack");
+			right.setMaxSize(60, 60);
+			right.setMinSize(60, 60);
+			right.getStyleClass().add("blackBack");
 		}
 	}
 	
@@ -387,6 +356,28 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 			label.getStyleClass().addAll("titleText", "centered", "whiteBack");
 			title.getStyleClass().addAll("whiteBack", "centered", "bordered");
 			title.getChildren().add(label);
+		}
+	}
+	
+	private class CreateExitButton implements Runnable {
+		@Override
+		public void run() {
+			Button exit = SimpleGUIPuzzle.this.exit;
+			exit.getStyleClass().add("centered");
+			
+			exit.setOnMouseClicked(ev -> {
+				System.exit(0);
+			});
+		}
+	}
+	
+	private class CreateSuccessScreen implements Runnable {
+		@Override
+		public void run() {
+			StackPane screen = SimpleGUIPuzzle.this.successScreen;
+			screen.getStyleClass().addAll("greenBack", "centered");
+			Label label = new Label("Success!");
+			screen.getChildren().add(label);
 		}
 	}
 }

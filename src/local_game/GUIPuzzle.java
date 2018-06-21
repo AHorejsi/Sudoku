@@ -30,23 +30,6 @@ public abstract class GUIPuzzle extends StackPane {
 	public abstract void setRandomNumberGenerator(Random rng);
 	
 	/**
-	 * Adds a mixer to
-	 * this {@code GUIPuzzle}'s
-	 * collection of mixers
-	 * @param mixer The mixer
-	 * to be added
-	 */
-	public abstract void addMixer(Mixer mixer);
-	
-	/**
-	 * Removes a mixer from
-	 * this {@code GUIPuzzle}'s
-	 * collection of mixers
-	 * @param mixer The mixer to be removed
-	 */
-	public abstract void removeMixer(Mixer mixer);
-	
-	/**
 	 * Returns this {@code GUIPuzzle}'s
 	 * collection of mixers
 	 * @return The collection of mixers
