@@ -47,8 +47,8 @@ class SwapMixer implements Mixer {
 	private char[] shuffle(char[] legalValues, Random rng) {
 		char[] values = Arrays.copyOf(legalValues, legalValues.length);
 		
-		for (int i = 0 ; i < values.length ; i++) {
-			int pos = rng.nextInt(values.length);
+		for (int i = values.length - 1 ; i > 0 ; i--) {
+			int pos = rng.nextInt(i);
 			char temp = values[pos];
 			values[pos] = values[i];
 			values[i] = temp;
