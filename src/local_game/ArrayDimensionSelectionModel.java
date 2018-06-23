@@ -1,11 +1,20 @@
 package local_game;
 
+/**
+ * Array-based implementation
+ * of {@code DimensionSelectionModel}
+ * @author Alex Horejsi
+ */
 public class ArrayDimensionSelectionModel extends DimensionSelectionModel {
 	private static DimensionSelectionModel model = new ArrayDimensionSelectionModel();
 	private Integer[] dimensions = {9, 16};
 	
 	private ArrayDimensionSelectionModel() {}
 	
+	/**
+	 * Returns the single instance of {@code ArrayDimensionSelectionModel}
+	 * @return The single instance of {@code ArrayDimensionSelectionModel}
+	 */
 	public static DimensionSelectionModel getInstance() {
 		return ArrayDimensionSelectionModel.model;
 	}

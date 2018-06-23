@@ -1,11 +1,20 @@
 package local_game;
 
+/**
+ * Array-based implementation
+ * of {@code DifficultySelectionModel}
+ * @author Alex Horejsi
+ */
 public class ArrayDifficultySelectionModel extends DifficultySelectionModel {
 	private static DifficultySelectionModel model = new ArrayDifficultySelectionModel();
 	private String[] difficulties = {"BASIC", "EASY", "MEDIUM", "HARD", "INSANE"};
 	
 	private ArrayDifficultySelectionModel() {}
 	
+	/**
+	 * Returns the single instance of {@code ArrayDifficultySelectionModel}
+	 * @return The single instance of {@code ArrayDifficultySelectionModel}
+	 */
 	public static DifficultySelectionModel getInstance() {
 		return ArrayDifficultySelectionModel.model;
 	}
