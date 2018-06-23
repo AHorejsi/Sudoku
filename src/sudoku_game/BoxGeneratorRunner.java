@@ -1,6 +1,6 @@
 package sudoku_game;
 
 @FunctionalInterface
-public interface BoxGeneratorRunner {
+interface BoxGeneratorRunner {
 	public void doRun(BoxGenerator... boxGenerators);
 }
