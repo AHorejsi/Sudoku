@@ -5,13 +5,13 @@ package sudoku_game;
  * cell within a Sudoku puzzle
  * @author Alex Horejsi
  */
-abstract class Cell {
+interface Cell {
 	/**
 	 * Obtains the value in this cell
 	 * @return The value in this cell or
 	 * '\u0000' if there is no value
 	 */
-	public abstract char getValue();
+	public char getValue();
 	
 	/**
 	 * Changes the value in this cell
@@ -19,7 +19,7 @@ abstract class Cell {
 	 * @throws IllegalStateException Thrown if this
 	 * cell is not allowed to be edited
 	 */
-	public abstract void setValue(char value) throws IllegalStateException;
+	public void setValue(char value) throws IllegalStateException;
 	
 	/**
 	 * Empties this cell so that it contains
@@ -27,14 +27,14 @@ abstract class Cell {
 	 * @throws IllegalStateException Thrown if
 	 * this cell is not allowed to be edited
 	 */
-	public abstract void setEmptyValue() throws IllegalStateException;
+	public void setEmptyValue() throws IllegalStateException;
 	
 	/**
 	 * Checks if this cell is editable
 	 * @return <tt>true</tt> if this cell
 	 * is editable, <tt>false</tt> if not
 	 */
-	public abstract boolean isEditable();
+	public boolean isEditable();
 	
 	/**
 	 * Empties this cell so that is contains
@@ -43,7 +43,7 @@ abstract class Cell {
 	 * puzzle, not when a user is editing a
 	 * puzzle
 	 */
-	abstract void setEmptyForSetUp();
+	public void setEmptyForSetUp();
 	
 	/**
 	 * Changes the value in this cell. This method
@@ -52,7 +52,7 @@ abstract class Cell {
 	 * a puzzle
 	 * @param value The new value for this cell
 	 */
-	abstract void setValueForSetUp(char value);
+	public void setValueForSetUp(char value);
 	
 	/**
 	 * Sets whether or not this cell will be editable
@@ -63,5 +63,5 @@ abstract class Cell {
 	 * @param editable Value indicating this cell's
 	 * editability
 	 */
-	abstract void setEditable(boolean editable);
+	public void setEditable(boolean editable);
 }

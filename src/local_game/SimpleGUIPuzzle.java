@@ -6,10 +6,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.SelectionModel;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -58,7 +60,7 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 	 * mixers
 	 */
 	public SimpleGUIPuzzle() {
-		this(null, null);
+		this(null);
 	}
 	
 	/**
@@ -92,9 +94,56 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 		if (mixers != null)
 			this.mixers.addAll(mixers);
 		
-		this.runGridPaneCreators();
 		this.createGUIToUseLater();
 		this.setUpBorderPane();
+	}
+	
+	private void createGUIToUseLater() {
+		GridPaneCreator gpc1 = new GridPane9x9Creator();
+		
+		Thread t1 = new Thread(new CreateSettingsButton());
+		Thread t2 = new Thread(new CreateReturnToMainMenuButton());
+		Thread t3 = new Thread(new CreateSubmitButton());
+		Thread t4 = new Thread(new CreatePlayButton());
+		Thread t5 = new Thread(new CreateTitle());
+		Thread t6 = new Thread(new CreateExitButton());
+		Thread t7 = new Thread(new CreateSideBar());
+		Thread t8 = new Thread(new CreateImage());
+		Thread t9 = new Thread(new CreateSuccessScreen());
+		Thread t10 = new Thread(new CreateInvalidMessage());
+		Thread t11 = new Thread(gpc1);
+		
+		t1.start();
+		t2.start();
+		t3.start();
+		t4.start();
+		t5.start();
+		t6.start();
+		t7.start();
+		t8.start();
+		t9.start();
+		t10.start();
+		t11.start();
+		
+		try {
+			t1.join();
+			t2.join();
+			t3.join();
+			t4.join();
+			t5.join();
+			t6.join();
+			t7.join();
+			t8.join();
+			t9.join();
+			t10.join();
+			t11.join();
+		} catch (InterruptedException ex) {
+			throw new InternalError(ex);
+		}
+		
+		this.gridpanes.put(9, gpc1.getGridPane());
+		this.textfields.put(9, gpc1.getCells());
+		this.setUpMainMenu();
 	}
 	
 	@Override
@@ -134,28 +183,6 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 		return this.mixers;
 	}
 	
-	private void runGridPaneCreators() {
-		GridPaneCreator gpc1 = new GridPane9x9Creator();
-		//GridPaneCreator gpc2 = new GridPane16x16Creator();
-		
-		Thread t1 = new Thread(gpc1);
-		//Thread t2 = new Thread(gpc2);
-		t1.start();
-		//t2.start();
-		
-		try {
-			t1.join();
-			//t2.join();
-		} catch (InterruptedException ex) {
-			throw new InternalError(ex);
-		}
-		
-		this.gridpanes.put(9, gpc1.getGridPane());
-		//this.gridpanes.put(16, gpc2.getGridPane());
-		this.textfields.put(9, gpc1.getCells());
-		//this.textfields.put(16, gpc2.getCells());
-	}
-	
 	private void setUpBorderPane() {
 		BorderPane bp = this.bp;
 		
@@ -176,44 +203,6 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 		this.mainMenu = mainMenu;
 	}
 	
-	private void createGUIToUseLater() {
-		Thread t1 = new Thread(new CreateSettingsButton());
-		Thread t2 = new Thread(new CreateReturnToMainMenuButton());
-		Thread t3 = new Thread(new CreateSubmitButton());
-		Thread t4 = new Thread(new CreatePlayButton());
-		Thread t5 = new Thread(new CreateTitle());
-		Thread t6 = new Thread(new CreateExitButton());
-		Thread t7 = new Thread(new CreateSideBar());
-		Thread t8 = new Thread(new CreateImage());
-		Thread t9 = new Thread(new CreateSuccessScreen());
-		
-		t1.start();
-		t2.start();
-		t3.start();
-		t4.start();
-		t5.start();
-		t6.start();
-		t7.start();
-		t8.start();
-		t9.start();
-		
-		try {
-			t1.join();
-			t2.join();
-			t3.join();
-			t4.join();
-			t5.join();
-			t6.join();
-			t7.join();
-			t8.join();
-			t9.join();
-		} catch (InterruptedException ex) {
-			throw new InternalError(ex);
-		}
-		
-		this.setUpMainMenu();
-	}
-	
 	private class CreateSettingsButton implements Runnable {
 		@SuppressWarnings("unchecked")
 		@Override
@@ -228,10 +217,18 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 			
 			children.get(4).setOnMouseClicked(ev -> {
 				bp.setCenter(SimpleGUIPuzzle.this.mainImage);
-				int dimensions = ((ComboBox<Integer>)children.get(1)).getSelectionModel().getSelectedItem();
-				String difficulty = ((ComboBox<String>)children.get(3)).getSelectionModel().getSelectedItem();
-				set.setDimensions(dimensions);
-				set.setDifficulty(difficulty);
+				SelectionModel<Integer> model1 = ((ComboBox<Integer>)children.get(1)).getSelectionModel();
+				SelectionModel<String> model2 = ((ComboBox<String>)children.get(3)).getSelectionModel();
+				
+				if (model1 != null) {
+					int dimensions = model1.getSelectedItem();
+					set.setDimensions(dimensions);
+				}
+				
+				if (model2 != null) {
+					String difficulty = model2.getSelectedItem();
+					set.setDifficulty(difficulty);
+				}
 			});
 		}
 	}
@@ -253,8 +250,8 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 	private class CreateSubmitButton implements Runnable {		
 		@Override
 		public void run() {
-			Settings settings = SimpleGUIPuzzle.this.settings;
 			BorderPane bp = SimpleGUIPuzzle.this.bp;
+			Settings settings = SimpleGUIPuzzle.this.settings;
 			HBox hb = SimpleGUIPuzzle.this.options;
 			Button submit = new Button("Submit");
 			Button reset = new Button("Reset");
@@ -263,7 +260,7 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 			hb.getStyleClass().addAll("whiteBack", "centered", "bordered");
 			hb.getChildren().addAll(submit, reset, exit);
 			
-			submit.setOnMouseClicked(ev -> {
+			submit.setOnAction(ev -> {
 				int dimensions = settings.dimensions();
 				TextField[][] tfs = SimpleGUIPuzzle.this.textfields.get(dimensions);
 				Puzzle puzzle = SimpleGUIPuzzle.this.puzzle;
@@ -288,26 +285,18 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 					}
 				}
 				
-				if (puzzle.isSolved()) {
-					bp.setCenter(SimpleGUIPuzzle.this.successScreen);
-					bp.setBottom(SimpleGUIPuzzle.this.returnToMainMenuButton);
-				}
-				else
-					this.addInvalidMessage();
+				bp.fireEvent(new ActionEvent());
 			});
 			
 			reset.setOnMouseClicked(ev -> {
 				SimpleGUIPuzzle.this.generatePuzzle();
+				SimpleGUIPuzzle.this.leftSide.getChildren().clear();
+				SimpleGUIPuzzle.this.rightSide.getChildren().clear();
 			});
 			
 			exit.setOnMouseClicked(ev -> {
 				System.exit(0);
 			});
-		}
-		
-		private void addInvalidMessage() {//TODO
-			BorderPane bp = SimpleGUIPuzzle.this.bp;
-			HBox title = SimpleGUIPuzzle.this.title;
 		}
 	}
 	
@@ -339,12 +328,12 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 		public void run() {
 			StackPane left = SimpleGUIPuzzle.this.leftSide;
 			StackPane right = SimpleGUIPuzzle.this.rightSide;
-			left.setMaxSize(60, 60);
-			left.setMinSize(60, 60);
-			left.getStyleClass().add("blackBack");
-			right.setMaxSize(60, 60);
-			right.setMinSize(60, 60);
-			right.getStyleClass().add("blackBack");
+			left.setMaxSize(100, 100);
+			left.setMinSize(100, 100);
+			left.getStyleClass().addAll("blackBack", "centered");
+			right.setMaxSize(100, 100);
+			right.setMinSize(100, 100);
+			right.getStyleClass().addAll("blackBack", "centered");
 		}
 	}
 	
@@ -377,7 +366,34 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 			StackPane screen = SimpleGUIPuzzle.this.successScreen;
 			screen.getStyleClass().addAll("greenBack", "centered");
 			Label label = new Label("Success!");
+			label.getStyleClass().add("successLabel");
 			screen.getChildren().add(label);
+		}
+	}
+	
+	private class CreateInvalidMessage implements Runnable {
+		@Override
+		public void run() {
+			BorderPane bp = SimpleGUIPuzzle.this.bp;
+			StackPane left = SimpleGUIPuzzle.this.leftSide;
+			StackPane right = SimpleGUIPuzzle.this.rightSide;
+			Label invalid1 = new Label("Invalid!");
+			Label invalid2 = new Label("Invalid!");
+			invalid1.getStyleClass().add("invalid");
+			invalid2.getStyleClass().add("invalid");			
+			
+			bp.addEventHandler(ActionEvent.ACTION, ev -> {
+				if (SimpleGUIPuzzle.this.puzzle != null) {
+					if (SimpleGUIPuzzle.this.puzzle.isSolved())
+						bp.setCenter(SimpleGUIPuzzle.this.successScreen);
+					else {
+						if (left.getChildren().isEmpty()) {
+							left.getChildren().add(invalid1);
+							right.getChildren().add(invalid2);
+						}
+					}
+				}
+			});
 		}
 	}
 }

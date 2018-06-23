@@ -75,7 +75,7 @@ class Generator9x9 implements Generator {
 				this.table[i][j] = new ConcreteCell(digit);
 				if (this.fillRemaining(i, j + 1))
 					return true;
-				this.table[i][j].setEmptyForSetUp();;
+				this.table[i][j].setEmptyForSetUp();
 			}
 		}
 		

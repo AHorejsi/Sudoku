@@ -4,7 +4,7 @@ package sudoku_game;
  * Concrete implementation of the {@code Cell} class
  * @author Alex Horejsi
  */
-class ConcreteCell extends Cell {
+class ConcreteCell implements Cell {
 	private char value;
 	private boolean editable;
 	
@@ -43,17 +43,17 @@ class ConcreteCell extends Cell {
 	}
 
 	@Override
-	void setEmptyForSetUp() {
+	public void setEmptyForSetUp() {
 		this.value = '\u0000';
 	}
 	
 	@Override
-	void setValueForSetUp(char value) {
+	public void setValueForSetUp(char value) {
 		this.value = value;
 	}
 	
 	@Override
-	void setEditable(boolean editable) {
+	public void setEditable(boolean editable) {
 		this.editable = editable;
 	}
 }

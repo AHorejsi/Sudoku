@@ -1,7 +1,7 @@
 package sudoku_game;
 
 import java.util.Random;
-
+//TODO This needs work
 /**
  * Moves through the Sudoku puzzle in an
  * S-like pattern. As the Sudoku puzzle
@@ -29,7 +29,7 @@ class S_PathDifficultyAdjustor implements DifficultyAdjustor {
 		int amount = this.determineAmountOfGivens(rng, lowerRangeOnGivens, upperRangeOnGivens, 
 				board.getDimensions() * board.getDimensions());
 		int lowerBound = this.determineLowerBound(lowerBoundOnGivensPerUnit, board.getDimensions());
-		this.performAdjustment(board, amount, lowerBound);
+		this.performAdjustment(board, amount, lowerBound, rng);
 		DifficultyAdjustor.setEditableCells(board.table);
 	}
 	
@@ -42,24 +42,25 @@ class S_PathDifficultyAdjustor implements DifficultyAdjustor {
 		return (int)Math.round(dimensions * (lowerBoundOnGivensPerUnit / 100.0));
 	}
 	
-	private void performAdjustment(Board board, int amount, int lowerBound) {
+	private void performAdjustment(Board board, int amount, int lowerBound, Random rng) {
 		Cell[][] table = board.table;
-		int current = table.length * table.length;
+		int length = table.length;
+		int current = length * length;
 		Solver solver = BacktrackingSolver.getInstance();
 		LowerBoundCheckersRunner runner = SimpleLowerBoundCheckersRunner.getInstance();
 		
-		for (int i = 0 ; i < table.length ; i++) {
-			for (int j = 0 ; j < table.length ; j++) {
+		for (int i = 0 ; i < length ; i++) {
+			for (int j = 0 ; j < length ; j++) {
 				if (runner.check(board, i, j, lowerBound)) {
 					char value1 = table[i][j].getValue();
-					char value2 = table[table.length - i - 1][table.length - j - 1].getValue();
+					char value2 = table[length - i - 1][length - j - 1].getValue();
 					table[i][j].setEmptyForSetUp();
-					table[table.length - i - 1][table.length - j - 1].setEmptyForSetUp();
+					table[length - i - 1][length - j - 1].setEmptyForSetUp();
 					current -= 2;
 					
 					if (!solver.hasUniqueSolution(board)) {
 						table[i][j].setValueForSetUp(value1);
-						table[table.length - i - 1][table.length - j - 1].setValueForSetUp(value2);
+						table[length - i - 1][length - j - 1].setValueForSetUp(value2);
 						current += 2;
 					}
 				}

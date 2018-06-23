@@ -38,10 +38,9 @@ class BacktrackingSolver implements Solver {
 		}
 		else {
 			for (int i = 0 ; i < length ; i++) {
+				if (count > 1)
+					return count;
 				if (this.safe(table, row, col, legalValues[i])) {
-					if (count > 1)
-						break;
-					
 					table[row][col].setValueForSetUp(legalValues[i]);
 					
 					if (col == length - 1)
