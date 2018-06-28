@@ -99,7 +99,7 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 	}
 	
 	private void createGUIToUseLater() {
-		GridPaneCreator gpc1 = new GridPane9x9Creator();
+		GridPaneCreator gpc9x9 = new GridPane9x9Creator();
 		
 		Thread t1 = new Thread(new CreateSettingsButton());
 		Thread t2 = new Thread(new CreateReturnToMainMenuButton());
@@ -111,7 +111,7 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 		Thread t8 = new Thread(new CreateImage());
 		Thread t9 = new Thread(new CreateSuccessScreen());
 		Thread t10 = new Thread(new CreateInvalidMessage());
-		Thread t11 = new Thread(gpc1);
+		Thread t11 = new Thread(gpc9x9);
 		
 		t1.start();
 		t2.start();
@@ -141,8 +141,8 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 			throw new InternalError(ex);
 		}
 		
-		this.gridpanes.put(9, gpc1.getGridPane());
-		this.textfields.put(9, gpc1.getCells());
+		this.gridpanes.put(9, gpc9x9.getGridPane());
+		this.textfields.put(9, gpc9x9.getCells());
 		this.setUpMainMenu();
 	}
 	

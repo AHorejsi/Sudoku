@@ -8,7 +8,7 @@ import javafx.scene.control.SingleSelectionModel;
  * menu with a {@code ComboBox}
  * @author Alex Horejsi
  */
-public abstract class DifficultySelectionModel extends SingleSelectionModel<String> {
+abstract class DifficultySelectionModel extends SingleSelectionModel<String> {
 	/**
 	 * Default empty constructor
 	 * for subclasses

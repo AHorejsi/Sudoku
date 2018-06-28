@@ -5,7 +5,7 @@ package local_game;
  * of {@code DimensionSelectionModel}
  * @author Alex Horejsi
  */
-public class ArrayDimensionSelectionModel extends DimensionSelectionModel {
+class ArrayDimensionSelectionModel extends DimensionSelectionModel {
 	private static DimensionSelectionModel model = new ArrayDimensionSelectionModel();
 	private Integer[] dimensions = {9, 16};
 	

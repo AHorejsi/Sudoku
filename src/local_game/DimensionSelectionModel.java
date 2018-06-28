@@ -8,7 +8,7 @@ import javafx.scene.control.SingleSelectionModel;
  * menu with a {@code ComboBox}
  * @author Alex Horejsi
  */
-public abstract class DimensionSelectionModel extends SingleSelectionModel<Integer> {
+abstract class DimensionSelectionModel extends SingleSelectionModel<Integer> {
 	/**
 	 * Default empty constructor
 	 * for subclasses

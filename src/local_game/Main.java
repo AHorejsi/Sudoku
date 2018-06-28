@@ -13,6 +13,12 @@ import sudoku_game.SimpleMixerFactory;
  * @author Alex Horejsi
  */
 public class Main extends Application {
+	/**
+	 * Main method call
+	 * to initiate
+	 * program
+	 * @param args Unused
+	 */
 	public static void main(String[] args) {
 		Application.launch(args);
 	}

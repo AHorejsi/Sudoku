@@ -1,7 +1,6 @@
 package sudoku_game;
 
 import java.util.Random;
-import sudoku_game.DefaultRNG;
 
 /**
  * Classes that implement this interface
