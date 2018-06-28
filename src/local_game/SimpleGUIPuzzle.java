@@ -239,10 +239,13 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 			BorderPane bp = SimpleGUIPuzzle.this.bp;
 			Button b = SimpleGUIPuzzle.this.returnToMainMenuButton;
 			b.getStyleClass().add("centered");
+			SimpleGUIPuzzle.this.options.getChildren().add(b);
 			
 			b.setOnMouseClicked(ev -> {
 				bp.setCenter(SimpleGUIPuzzle.this.mainImage);
 				bp.setBottom(SimpleGUIPuzzle.this.mainMenu);
+				SimpleGUIPuzzle.this.leftSide.getChildren().clear();
+				SimpleGUIPuzzle.this.rightSide.getChildren().clear();
 			});
 		}
 	}
@@ -309,6 +312,8 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 			play.setOnMouseClicked(ev -> {
 				SimpleGUIPuzzle.this.generatePuzzle();
 				SimpleGUIPuzzle.this.bp.setBottom(SimpleGUIPuzzle.this.options);
+				SimpleGUIPuzzle.this.leftSide.getChildren().clear();
+				SimpleGUIPuzzle.this.rightSide.getChildren().clear();
 			});
 		}
 	}
