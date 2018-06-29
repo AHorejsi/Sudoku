@@ -34,7 +34,7 @@ class Settings extends StackPane {
 		gp.add(difficultyLabel, 0, 1);
 		gp.add(difficultyDropDown, 1, 1);
 		
-		Button exit = new Button("Exit");
+		Button exit = new Button("Apply and Exit");
 		gp.add(exit, 0, 2);
 		
 		for (Node node : gp.getChildren())

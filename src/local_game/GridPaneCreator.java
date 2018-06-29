@@ -8,25 +8,35 @@ import javafx.scene.layout.GridPane;
 abstract class GridPaneCreator implements Runnable {
 	protected GridPane gp;
 	protected TextField[][] cells;
+	protected int dimensions;
+	protected int sizeOfTextField;
 	
-	GridPaneCreator() {}
+	GridPaneCreator(int dimensions, int sizeOfTextField) {
+		this.dimensions = dimensions;
+		this.sizeOfTextField = sizeOfTextField;
+	}
 	
 	public GridPane getGridPane() {
 		return this.gp;
 	}
 	
-	public TextField[][] getCells() {
+	public TextField[][] getTextFields() {
 		return this.cells;
 	}
 	
-	public void create(int dimensions, int sizeOfTextField) {
+	public int getDimensions() {
+		return this.dimensions;
+	}
+	
+	@Override
+	public void run() {
 		GridPane gp = new GridPane();
 		TextField[][] cells = new TextField[dimensions][dimensions];
 		gp.getStyleClass().addAll("blackBack", "centered", "gridPaneGaps", "bordered");
 		
-		for (int i = 0 ; i < dimensions ; i++) {
-			for (int j = 0 ; j < dimensions ; j++) {
-				TextField tf = this.createTextField(sizeOfTextField);
+		for (int i = 0 ; i < this.dimensions ; i++) {
+			for (int j = 0 ; j < this.dimensions ; j++) {
+				TextField tf = this.createTextField();
 				cells[i][j] = tf;
 				gp.add(tf, j, i);
 			}
@@ -36,10 +46,10 @@ abstract class GridPaneCreator implements Runnable {
 		this.cells = cells;
 	}
 	
-	private TextField createTextField(int sizeOfTextField) {
+	private TextField createTextField() {
 		TextField tf = new TextField();
-		tf.setMaxSize(sizeOfTextField, sizeOfTextField);
-		tf.setMinSize(sizeOfTextField, sizeOfTextField);
+		tf.setMaxSize(this.sizeOfTextField, this.sizeOfTextField);
+		tf.setMinSize(this.sizeOfTextField, this.sizeOfTextField);
 		tf.getStyleClass().addAll("centered", "textField");
 		
 		tf.textProperty().addListener(new ChangeListener<String>() {

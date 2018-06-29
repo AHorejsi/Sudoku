@@ -99,7 +99,9 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 	}
 	
 	private void createGUIToUseLater() {
+		GridPaneCreator gpc4x4 = new GridPane4x4Creator();
 		GridPaneCreator gpc9x9 = new GridPane9x9Creator();
+		GridPaneCreator gpc16x16 = new GridPane16x16Creator();
 		
 		Thread t1 = new Thread(new CreateSettingsButton());
 		Thread t2 = new Thread(new CreateReturnToMainMenuButton());
@@ -111,7 +113,9 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 		Thread t8 = new Thread(new CreateImage());
 		Thread t9 = new Thread(new CreateSuccessScreen());
 		Thread t10 = new Thread(new CreateInvalidMessage());
-		Thread t11 = new Thread(gpc9x9);
+		Thread t11 = new Thread(gpc4x4);
+		Thread t12 = new Thread(gpc9x9);
+		Thread t13 = new Thread(gpc16x16);
 		
 		t1.start();
 		t2.start();
@@ -124,6 +128,8 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 		t9.start();
 		t10.start();
 		t11.start();
+		t12.start();
+		t13.start();
 		
 		try {
 			t1.join();
@@ -137,13 +143,22 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 			t9.join();
 			t10.join();
 			t11.join();
+			t12.join();
+			t13.join();
 		} catch (InterruptedException ex) {
 			throw new InternalError(ex);
 		}
 		
-		this.gridpanes.put(9, gpc9x9.getGridPane());
-		this.textfields.put(9, gpc9x9.getCells());
+		this.insertIntoMaps(gpc4x4, gpc9x9, gpc16x16);
 		this.setUpMainMenu();
+	}
+	
+	private void insertIntoMaps(GridPaneCreator... gpcs) {
+		for (GridPaneCreator gpc : gpcs) {
+			int dimensions = gpc.getDimensions();
+			this.gridpanes.put(dimensions, gpc.getGridPane());
+			this.textfields.put(dimensions, gpc.getTextFields());
+		}
 	}
 	
 	@Override
@@ -220,15 +235,13 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 				SelectionModel<Integer> model1 = ((ComboBox<Integer>)children.get(1)).getSelectionModel();
 				SelectionModel<String> model2 = ((ComboBox<String>)children.get(3)).getSelectionModel();
 				
-				if (model1 != null) {
-					int dimensions = model1.getSelectedItem();
+				Integer dimensions = model1.getSelectedItem();
+				if (dimensions != null)
 					set.setDimensions(dimensions);
-				}
 				
-				if (model2 != null) {
-					String difficulty = model2.getSelectedItem();
+				String difficulty = model2.getSelectedItem();
+				if (difficulty != null)
 					set.setDifficulty(difficulty);
-				}
 			});
 		}
 	}
