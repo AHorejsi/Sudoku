@@ -8,11 +8,14 @@ import javafx.scene.control.SelectionModel;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 
-class Settings extends StackPane {
+class Settings extends StackPane implements Runnable {
 	private int dimensions = 9;
 	private String difficulty = "Medium";
 	
-	Settings() {
+	Settings() {}
+	
+	@Override
+	public void run() {
 		GridPane gp = new GridPane();
 		gp.getStyleClass().addAll("grayBack", "centered", "settingsScreen");
 		

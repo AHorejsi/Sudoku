@@ -30,6 +30,16 @@ public abstract class GUIPuzzle extends StackPane {
 	public abstract void setRandomNumberGenerator(Random rng);
 	
 	/**
+	 * Returns the random
+	 * number generator used
+	 * by this {@code GUIPuzzle}
+	 * @return The random number
+	 * generator used by this
+	 * {@code GUIPuzzle}
+	 */
+	public abstract Random getRandomNumberGenerator();
+	
+	/**
 	 * Returns this {@code GUIPuzzle}'s
 	 * collection of mixers
 	 * @return The collection of mixers
