@@ -70,10 +70,6 @@ import java.util.concurrent.CopyOnWriteArraySet;
  * 	</thead>
  * 	<tbody>
  * 		<tr>
- * 			<td>{@code RotateMixer}</td>
- * 			<td>"rotate"</td>
- * 		</tr>
- * 		<tr>
  * 			<td>{@code FlipMixer}</td>
  * 			<td>"flip"</td>
  * 		</tr>
@@ -111,9 +107,7 @@ public class SimpleMixerFactory implements MixerFactory {
 		Collection<Mixer> mixers = this.determineDataStructure(data[0]);
 		
 		for (String str : data) {
-			if (str.equalsIgnoreCase("rotate"))
-				mixers.add(RotateMixer.getInstance());
-			else if (str.equalsIgnoreCase("flip"))
+			if (str.equalsIgnoreCase("flip"))
 				mixers.add(FlipMixer.getInstance());
 			else if (str.equalsIgnoreCase("flipbox"))
 				mixers.add(FlipBoxMixer.getInstance());

@@ -14,7 +14,7 @@ class Board9x9 extends Board {
 	 * generator
 	 */
 	public Board9x9() {
-		super(LegalValues9x9.getInstance(), Checker9x9.getInstance(), BoxInfo9x9.getInstance(), Generator9x9.getInstance().generate());
+		super(LegalValues9x9.getInstance(), BitwiseChecker.getInstance(), BoxInfo9x9.getInstance(), Generator9x9.getInstance().generate());
 	}
 	
 	/**
@@ -26,7 +26,7 @@ class Board9x9 extends Board {
 	 * the Sudoku board
 	 */
 	public Board9x9(Random rng) {
-		super(LegalValues9x9.getInstance(), Checker9x9.getInstance(), BoxInfo9x9.getInstance(), Generator9x9.getInstance().generate(rng));
+		super(LegalValues9x9.getInstance(), BitwiseChecker.getInstance(), BoxInfo9x9.getInstance(), Generator9x9.getInstance().generate(rng));
 	}
 	
 	/**
@@ -38,6 +38,6 @@ class Board9x9 extends Board {
 	 * cells
 	 */
 	public Board9x9(Cell[][] table) {
-		super(LegalValues9x9.getInstance(), Checker9x9.getInstance(), BoxInfo9x9.getInstance(), table);
+		super(LegalValues9x9.getInstance(), BitwiseChecker.getInstance(), BoxInfo9x9.getInstance(), table);
 	}
 }

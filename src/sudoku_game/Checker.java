@@ -16,5 +16,5 @@ interface Checker {
 	 * Sudoku board is solved, <tt>false</tt>
 	 * otherwise
 	 */
-	public boolean isSolved(Board board);
+	boolean isSolved(Board board);
 }
