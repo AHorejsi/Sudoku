@@ -47,11 +47,11 @@ class S_PathDifficultyAdjustor implements DifficultyAdjustor {
 		int length = table.length;
 		int current = length * length;
 		Solver solver = BacktrackingSolver.getInstance();
-		LowerBoundCheckersRunner runner = SimpleLowerBoundCheckersRunner.getInstance();
+		LowerBoundChecker checker = SimpleLowerBoundChecker.getInstance();
 		
 		for (int i = 0 ; i < length ; i++) {
 			for (int j = 0 ; j < length ; j++) {
-				if (runner.check(board, i, j, lowerBound)) {
+				if (checker.check(board, i, j, lowerBound)) {
 					char value1 = table[i][j].getValue();
 					char value2 = table[length - i - 1][length - j - 1].getValue();
 					table[i][j].setEmptyForSetUp();

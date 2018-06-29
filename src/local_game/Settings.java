@@ -8,14 +8,11 @@ import javafx.scene.control.SelectionModel;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 
-class Settings extends StackPane implements Runnable {
+class Settings extends StackPane {
 	private int dimensions = 9;
 	private String difficulty = "Medium";
 	
-	Settings() {}
-	
-	@Override
-	public void run() {
+	Settings() {
 		GridPane gp = new GridPane();
 		gp.getStyleClass().addAll("grayBack", "centered", "settingsScreen");
 		
@@ -26,7 +23,7 @@ class Settings extends StackPane implements Runnable {
 		ComboBox<Integer> dimensionsDropDown = new ComboBox<Integer>();
 		ComboBox<String> difficultyDropDown = new ComboBox<String>();
 		
-		dimensionsDropDown.getItems().addAll(9/*, 16*/);
+		dimensionsDropDown.getItems().addAll(4, 6, 9, 12, 16);
 		difficultyDropDown.getItems().addAll("Basic", "Easy", "Medium", "Hard", "Insane");
 		
 		dimensionsDropDown.setSelectionModel(ArrayDimensionSelectionModel.getInstance());

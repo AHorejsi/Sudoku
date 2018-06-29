@@ -44,7 +44,7 @@ class RandomizedDifficultyAdjustor implements DifficultyAdjustor {
 		int length = table.length;
 		int current = length * length;
 		Solver solver = BacktrackingSolver.getInstance();
-		LowerBoundCheckersRunner runner = SimpleLowerBoundCheckersRunner.getInstance();
+		LowerBoundChecker checker = SimpleLowerBoundChecker.getInstance();
 		
 		while (current > amount) {
 			int row;
@@ -55,7 +55,7 @@ class RandomizedDifficultyAdjustor implements DifficultyAdjustor {
 				col = rng.nextInt(length);
 			} while (table[row][col].getValue() == '\u0000');
 			
-			if (runner.check(board, row, col, lowerBound)) {
+			if (checker.check(board, row, col, lowerBound)) {
 				char value = table[row][col].getValue();
 				table[row][col].setEmptyForSetUp();
 				current--;

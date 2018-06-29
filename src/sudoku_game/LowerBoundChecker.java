@@ -1,5 +1,6 @@
 package sudoku_game;
 
-interface LowerBoundChecker extends Runnable {
-	public boolean isSuccessful();
+@FunctionalInterface
+interface LowerBoundChecker {
+	public boolean check(Board board, int row, int col, int lowerBound);
 }

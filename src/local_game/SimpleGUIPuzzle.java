@@ -120,7 +120,6 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 		Thread t13 = new Thread(gpc9x9);
 		Thread t14 = new Thread(gpc12x12);
 		Thread t15 = new Thread(gpc16x16);
-		Thread t16 = new Thread(this.settings);
 		
 		t1.start();
 		t2.start();
@@ -137,7 +136,6 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 		t13.start();
 		t14.start();
 		t15.start();
-		t16.start();
 		
 		try {
 			t1.join();
@@ -155,14 +153,11 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 			t13.join();
 			t14.join();
 			t15.join();
-			t16.join();
 		} catch (InterruptedException ex) {
 			throw new InternalError(ex);
 		}
 		
-		System.out.println(this.settings.getChildren().size());
-		
-		this.insertIntoMaps(gpc4x4, gpc9x9, gpc16x16);
+		this.insertIntoMaps(gpc4x4, gpc6x6, gpc9x9, gpc12x12, gpc16x16);
 		this.setUpMainMenu();
 	}
 	

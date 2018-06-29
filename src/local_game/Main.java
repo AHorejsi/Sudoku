@@ -1,6 +1,7 @@
 package local_game;
 
 import java.util.Collection;
+
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;

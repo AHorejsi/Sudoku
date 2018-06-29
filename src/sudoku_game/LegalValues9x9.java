@@ -4,8 +4,7 @@ import java.util.Arrays;
 
 /**
  * This class defines the legal <tt>char</tt>
- * values for nine-by-nine Sudoku puzzles.
- * <br>
+ * values for nine-by-nine Sudoku puzzles.<br>
  * Legal values: 1, 2, 3, 4, 5, 6, 7, 8, 9
  * @author Alex Horejsi
  */

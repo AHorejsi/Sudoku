@@ -36,9 +36,28 @@ class Generator9x9 implements Generator {
 	}
 	
 	private void fillMajorDiagonal(Random rng) {
-		SimpleBoxGeneratorRunner.getInstance().doRun(new BoxGenerator9x9(this.table, rng, 0, 0, 3, 3),
-													 new BoxGenerator9x9(this.table, rng, 3, 3, 6, 6),
-													 new BoxGenerator9x9(this.table, rng, 6, 6, 9, 9));
+		for (int i = 0 ; i < 9 ; i += 3)
+			this.fillBox(i, i, rng);
+	}
+	
+	private void fillBox(int i, int j, Random rng) {
+		int range = this.table.length;
+		int endRow = i + 3;
+		int endCol = i + 3;
+		int bits = 0;
+		int n;
+		
+		for (int row = i ; row < endRow ; row++) {
+			for (int col = j ; col < endCol ; col++) {
+				do {
+					n = rng.nextInt(range);
+				} while ((bits & (1 << n)) != 0);
+				
+				bits |= (1 << n);
+				int digit = n + 1;
+				this.table[row][col] = new ConcreteCell((char)(digit + '0'));
+			}
+		}
 	}
 	
 	private boolean fillRemaining(int i, int j) {

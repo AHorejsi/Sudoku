@@ -46,11 +46,11 @@ class SequentialDifficultyAdjustor implements DifficultyAdjustor {
 		Cell[][] table = board.table;
 		int current = table.length * table.length;
 		Solver solver = BacktrackingSolver.getInstance();
-		LowerBoundCheckersRunner runner = SimpleLowerBoundCheckersRunner.getInstance();
+		LowerBoundChecker checker = SimpleLowerBoundChecker.getInstance();
 		
 		for (int i = 0 ; i < table.length ; i++) {
 			for (int j = 0 ; j < table.length ; j++) {
-				if (runner.check(board, i, j, lowerBound)) {
+				if (checker.check(board, i, j, lowerBound)) {
 					char value = table[i][j].getValue();
 					table[i][j].setEmptyForSetUp();
 					current--;
