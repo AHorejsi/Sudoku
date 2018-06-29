@@ -100,7 +100,9 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 	
 	private void createGUIToUseLater() {
 		GridPaneCreator gpc4x4 = new GridPane4x4Creator();
+		GridPaneCreator gpc6x6 = new GridPane6x6Creator();
 		GridPaneCreator gpc9x9 = new GridPane9x9Creator();
+		GridPaneCreator gpc12x12 = new GridPane12x12Creator();
 		GridPaneCreator gpc16x16 = new GridPane16x16Creator();
 		
 		Thread t1 = new Thread(new CreateSettingsButton());
@@ -114,8 +116,10 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 		Thread t9 = new Thread(new CreateSuccessScreen());
 		Thread t10 = new Thread(new CreateInvalidMessage());
 		Thread t11 = new Thread(gpc4x4);
-		Thread t12 = new Thread(gpc9x9);
-		Thread t13 = new Thread(gpc16x16);
+		Thread t12 = new Thread(gpc6x6);
+		Thread t13 = new Thread(gpc9x9);
+		Thread t14 = new Thread(gpc12x12);
+		Thread t15 = new Thread(gpc16x16);
 		
 		t1.start();
 		t2.start();
@@ -130,6 +134,8 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 		t11.start();
 		t12.start();
 		t13.start();
+		t14.start();
+		t15.start();
 		
 		try {
 			t1.join();
@@ -145,6 +151,8 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 			t11.join();
 			t12.join();
 			t13.join();
+			t14.join();
+			t15.join();
 		} catch (InterruptedException ex) {
 			throw new InternalError(ex);
 		}
