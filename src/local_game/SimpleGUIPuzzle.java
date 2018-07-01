@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -33,7 +32,6 @@ import sudoku_game.PuzzleFactory;
  */
 public class SimpleGUIPuzzle extends GUIPuzzle {
 	private Puzzle puzzle;
-	private Random rng;
 	private Settings settings = new Settings();
 	private List<Mixer> mixers = new LinkedList<Mixer>();
 	private BorderPane bp = new BorderPane();
@@ -65,18 +63,6 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 	
 	/**
 	 * Creates a {@code SimpleGUIPuzzle}
-	 * that initially uses the given
-	 * mixers and a default random
-	 * number generator
-	 * @param mixers The mixers to be used
-	 * by this {@code SimpleGUIPuzzle}
-	 */
-	public SimpleGUIPuzzle(Collection<Mixer> mixers) {
-		this(mixers, null);
-	}
-	
-	/**
-	 * Creates a {@code SimpleGUIPuzzle}
 	 * that initially uses the given mixers
 	 * and the given random number
 	 * generator
@@ -86,10 +72,9 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 	 * generator to be used by this
 	 * {@code SimpleGUIPuzzle}
 	 */
-	public SimpleGUIPuzzle(Collection<Mixer> mixers, Random rng) {
+	public SimpleGUIPuzzle(Collection<Mixer> mixers) {
 		this.getStylesheets().add("local_game/stylesheet.css");
 		this.getStyleClass().addAll("centered", "blackBack");
-		this.rng = (rng == null) ? DefaultRNG.getDefaultGenerator() : rng;
 		
 		if (mixers != null)
 			this.mixers.addAll(mixers);
@@ -171,7 +156,7 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 	
 	@Override
 	public void generatePuzzle() {
-		Puzzle puzzle = SimpleGUIPuzzle.factory.createPuzzle(this.settings.toString(), this.rng, this.mixers);
+		Puzzle puzzle = SimpleGUIPuzzle.factory.createPuzzle(this.settings.toString(), DefaultRNG.getDefaultGenerator(), this.mixers);
 		int dimensions = this.settings.dimensions();
 		TextField[][] tfs = this.textfields.get(dimensions);
 		GridPane gps = this.gridpanes.get(dimensions);
@@ -194,16 +179,6 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 		}
 		
 		this.bp.setCenter(gps);
-	}
-	
-	@Override
-	public Random getRandomNumberGenerator() {
-		return this.rng;
-	}
-	
-	@Override
-	public void setRandomNumberGenerator(Random rng) {
-		this.rng = rng;
 	}
 	
 	@Override

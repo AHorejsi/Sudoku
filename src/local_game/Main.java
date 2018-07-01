@@ -1,7 +1,6 @@
 package local_game;
 
 import java.util.Collection;
-
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -26,7 +25,7 @@ public class Main extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) {
-		Collection<Mixer> mixers = SimpleMixerFactory.getInstance().getFactory("linkedlist rotate flip flipbox swap");
+		Collection<Mixer> mixers = SimpleMixerFactory.getInstance().getFactory("linkedlist flip flipbox swap");
 		GUIPuzzle gui = new SimpleGUIPuzzle(mixers);
 		Scene sc = new Scene(gui);
 		primaryStage.setTitle("Sudoku");

@@ -1,7 +1,6 @@
 package local_game;
 
 import java.util.Collection;
-import java.util.Random;
 import javafx.scene.layout.StackPane;
 import sudoku_game.Mixer;
 
@@ -17,27 +16,6 @@ public abstract class GUIPuzzle extends StackPane {
 	 * the GUI elements used to represent it
 	 */
 	public abstract void generatePuzzle();
-	
-	/**
-	 * Swaps out the random 
-	 * number generator that
-	 * this {@code GUIPuzzle}
-	 * will use
-	 * @param rng The new 
-	 * random number generator
-	 * for this {@code GUIPuzzle}
-	 */
-	public abstract void setRandomNumberGenerator(Random rng);
-	
-	/**
-	 * Returns the random
-	 * number generator used
-	 * by this {@code GUIPuzzle}
-	 * @return The random number
-	 * generator used by this
-	 * {@code GUIPuzzle}
-	 */
-	public abstract Random getRandomNumberGenerator();
 	
 	/**
 	 * Returns this {@code GUIPuzzle}'s
