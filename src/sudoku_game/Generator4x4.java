@@ -2,12 +2,22 @@ package sudoku_game;
 
 import java.util.Random;
 
+/**
+ * Generates four-by-four Sudoku puzzles
+ * @author Alex Horejsi
+ */
 class Generator4x4 implements Generator {
 	private static Generator gen = new Generator4x4();
 	private Cell[][] table;
 	
 	private Generator4x4() {}
 	
+	/**
+	 * Returns the single instance
+	 * of {@code Generator4x4}
+	 * @return The single instance
+	 * of {@code Generator4x4}
+	 */
 	public static Generator getInstance() {
 		return Generator4x4.gen;
 	}
