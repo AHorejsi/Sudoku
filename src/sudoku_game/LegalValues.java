@@ -40,7 +40,7 @@ abstract class LegalValues {
 	 * all of the legal <tt>char</tt> values for
 	 * a Sudoku puzzle
 	 */
-	public char[] getLegalValues() {
+	public char[] getValues() {
 		return Arrays.copyOf(this.values, this.values.length);
 	}
 }

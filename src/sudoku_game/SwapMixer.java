@@ -25,7 +25,7 @@ class SwapMixer implements Mixer {
 	@Override
 	public void mix(Board board, Random rng) {
 		Cell[][] table = board.table;
-		char[] values = this.shuffle(board.legalValues.getLegalValues(), rng);
+		char[] values = this.shuffle(board.legalValues.getValues(), rng);
 		char current;
 		int index;
 		

@@ -19,7 +19,7 @@ interface Generator {
 	 * @return A completed Sudoku 
 	 * puzzle
 	 */
-	public Cell[][] generate(Random rng);
+	Cell[][] generate(Random rng);
 	
 	/**
 	 * Generates a completed
@@ -29,7 +29,7 @@ interface Generator {
 	 * @return A completed Sudoku 
 	 * puzzle
 	 */
-	public default Cell[][] generate() {
+	default Cell[][] generate() {
 		return this.generate(DefaultRNG.getDefaultGenerator());
 	}
 }

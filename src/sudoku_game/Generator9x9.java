@@ -36,19 +36,19 @@ class Generator9x9 implements Generator {
 	}
 	
 	private void fillMajorDiagonal(Random rng) {
-		for (int i = 0 ; i < 9 ; i += 3)
-			this.fillBox(i, i, rng);
+		this.fillBox(0, 0, rng);
+		this.fillBox(3, 3, rng);
+		this.fillBox(6, 6, rng);
 	}
 	
 	private void fillBox(int i, int j, Random rng) {
 		int range = this.table.length;
-		int endRow = i + 3;
-		int endCol = i + 3;
+		int end = i + 3;
 		int bits = 0;
 		int n;
 		
-		for (int row = i ; row < endRow ; row++) {
-			for (int col = j ; col < endCol ; col++) {
+		for (int row = i ; row < end ; row++) {
+			for (int col = j ; col < end ; col++) {
 				do {
 					n = rng.nextInt(range);
 				} while ((bits & (1 << n)) != 0);
@@ -86,12 +86,16 @@ class Generator9x9 implements Generator {
 				}
 				
 				if (i == 9)
-					return true;
+					return false;
 		}
 		
 		for (char digit = '1' ; digit <= '9' ; digit++) {
 			if (this.safe(i, j, digit)) {
-				this.table[i][j] = new ConcreteCell(digit);
+				if (this.table[i][j] == null)
+					this.table[i][j] = new ConcreteCell(digit);
+				else
+					this.table[i][j].setValueForSetUp(digit);
+					
 				if (this.fillRemaining(i, j + 1))
 					return true;
 				this.table[i][j].setEmptyForSetUp();

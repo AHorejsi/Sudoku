@@ -21,7 +21,7 @@ class BacktrackingSolver implements Solver {
 	
 	@Override
 	public boolean hasUniqueSolution(Board board) {
-		return this.solve(board.table, board.legalValues.getLegalValues(), 0, 0, 0, board.getDimensions()) == 1;
+		return this.solve(board.table, board.legalValues.getValues(), 0, 0, 0, board.getDimensions()) == 1;
 	}
 	
 	private int solve(Cell[][] table, char[] legalValues, int count, int row, int col, int length) {

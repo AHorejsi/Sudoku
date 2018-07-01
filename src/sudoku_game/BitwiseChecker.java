@@ -1,10 +1,23 @@
 package sudoku_game;
 
+/**
+ * This class checks if a
+ * Sudoku puzzle is complete
+ * and valid using bitwise
+ * operations
+ * @author Alex Horejsi
+ */
 class BitwiseChecker implements Checker {
 	private static Checker checker = new BitwiseChecker();
 	
 	private BitwiseChecker() {}
 	
+	/**
+	 * Returns the single instance
+	 * of {@code BitwiseChecker}
+	 * @return The single instance
+	 * of {@code BitwiseChecker}
+	 */
 	public static Checker getInstance() {
 		return BitwiseChecker.checker;
 	}

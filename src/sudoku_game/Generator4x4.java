@@ -78,7 +78,7 @@ class Generator4x4 implements Generator {
 				}
 				
 				if (i == 4)
-					return true;
+					return false;
 		}
 		
 		for (char digit = '1' ; digit <= '4' ; digit++) {

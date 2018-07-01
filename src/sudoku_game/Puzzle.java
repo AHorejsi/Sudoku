@@ -10,7 +10,7 @@ import java.util.Random;
  * @author Alex Horejsi
  */
 public abstract class Puzzle {
-	Board board;
+	private Board board;
 	
 	/**
 	 * Constructs a Sudoku puzzle using
@@ -44,7 +44,8 @@ public abstract class Puzzle {
 	 * the Sudoku board or the difficulty adjustor is
 	 * <tt>null</tt>
 	 */
-	Puzzle(Board board, DifficultyAdjustor adjustor, int lowerRangeOnGivens, int upperRangeOnGivens, int lowerBoundOnGivensPerUnit) throws NullPointerException {
+	Puzzle(Board board, DifficultyAdjustor adjustor, int lowerRangeOnGivens, int upperRangeOnGivens, int lowerBoundOnGivensPerUnit) 
+			throws NullPointerException {
 		this(board, adjustor, lowerRangeOnGivens, upperRangeOnGivens, lowerBoundOnGivensPerUnit, DefaultRNG.getDefaultGenerator());
 	}
 	
@@ -129,7 +130,8 @@ public abstract class Puzzle {
 	 * @throws NoneditableCellException Thrown if
 	 * to be edited has been set as non-editable
 	 */
-	public void setValueAt(char value, int row, int col) throws IndexOutOfBoundsException, IllegalArgumentException, NoneditableCellException {
+	public void setValueAt(char value, int row, int col) throws IndexOutOfBoundsException, IllegalArgumentException, 
+			NoneditableCellException {
 		this.board.setValueAt(value, row, col);
 	}
 	
