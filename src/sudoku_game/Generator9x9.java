@@ -86,7 +86,7 @@ class Generator9x9 implements Generator {
 				}
 				
 				if (i == 9)
-					return false;
+					return true;
 		}
 		
 		for (char digit = '1' ; digit <= '9' ; digit++) {
