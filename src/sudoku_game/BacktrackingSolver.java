@@ -21,34 +21,34 @@ class BacktrackingSolver implements Solver {
 	
 	@Override
 	public boolean hasUniqueSolution(Board board) {
-		return this.solve(board.table, board.legalValues.getValues(), 0, 0, 0, board.getDimensions()) == 1;
+		return this.solve(board, board.legalValues.getValues(), 0, 0, 0, board.getDimensions()) == 1;
 	}
 	
-	private int solve(Cell[][] table, char[] legalValues, int count, int row, int col, int length) {
+	private int solve(Board board, char[] legalValues, int count, int row, int col, int length) {
 		if (count > 1)
 			return count;
 		
 		if (row == length)
 			count++;
-		else if (table[row][col].getValue() != '\u0000') {
+		else if (board.getValueAt(row, col) != '\u0000') {
 			if (col == length - 1)
-				count = this.solve(table, legalValues, count, row + 1, 0, length);
+				count = this.solve(board, legalValues, count, row + 1, 0, length);
 			else
-				count = this.solve(table, legalValues, count, row, col + 1, length);
+				count = this.solve(board, legalValues, count, row, col + 1, length);
 		}
 		else {
 			for (int i = 0 ; i < length ; i++) {
 				if (count > 1)
 					return count;
-				if (this.safe(table, row, col, legalValues[i])) {
-					table[row][col].setValueForSetUp(legalValues[i]);
+				if (this.safe(board, row, col, legalValues[i])) {
+					board.table[row][col].setValueForSetUp(legalValues[i]);
 					
 					if (col == length - 1)
-						count = this.solve(table, legalValues, count, row + 1, 0, length);
+						count = this.solve(board, legalValues, count, row + 1, 0, length);
 					else
-						count = this.solve(table, legalValues, count, row, col + 1, length);
+						count = this.solve(board, legalValues, count, row, col + 1, length);
 					
-					table[row][col].setEmptyForSetUp();
+					board.table[row][col].setEmptyForSetUp();
 				}
 			}
 		}
@@ -56,10 +56,13 @@ class BacktrackingSolver implements Solver {
 		return count;
 	}
 	
-	private boolean safe(Cell[][] table, int i, int j, char digit) {
-		int end = (int)Math.sqrt(table.length);
+	private boolean safe(Board board, int i, int j, char digit) {
+		int endRow = board.rowSizeInBox();
+		int endCol = board.colSizeInBox();
+		Cell[][] table = board.table;
+		
 		return this.safeRow(table, i, digit, table.length) && this.safeCol(table, j, digit, table.length) && 
-				this.safeBox(table, i - i % end, j - j % end, digit, end);
+				this.safeBox(table, i - i % endRow, j - j % endCol, digit, endRow, endCol);
 	}
 	
 	private boolean safeRow(Cell[][] table, int i, char digit, int end) {
@@ -84,9 +87,9 @@ class BacktrackingSolver implements Solver {
 		return true;
 	}
 	
-	private boolean safeBox(Cell[][] table, int i, int j, char digit, int end) {
-		for (int row = 0 ; row < end ; row++) {
-			for (int col = 0 ; col < end ; col++) {
+	private boolean safeBox(Cell[][] table, int i, int j, char digit, int endRow, int endCol) {
+		for (int row = 0 ; row < endRow ; row++) {
+			for (int col = 0 ; col < endCol ; col++) {
 				if (table[row + i][col + j] != null) {
 					if (table[row + i][col + j].getValue() == digit)
 						return false;
