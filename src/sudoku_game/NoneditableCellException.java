@@ -8,7 +8,7 @@ package sudoku_game;
  * non-editable
  * @author Alex Horejsi
  */
-class NoneditableCellException extends RuntimeException {
+public class NoneditableCellException extends RuntimeException {
 	private static final long serialVersionUID = 3750707403323100909L;
 	
 	/**
@@ -16,7 +16,7 @@ class NoneditableCellException extends RuntimeException {
 	 * with no detail message and no identified
 	 * cause
 	 */
-	NoneditableCellException() {
+	public NoneditableCellException() {
 		super();
 	}
 	
@@ -27,7 +27,7 @@ class NoneditableCellException extends RuntimeException {
 	 * @param message The detail message for this
 	 * exception
 	 */
-	NoneditableCellException(String message) {
+	public NoneditableCellException(String message) {
 		super(message);
 	}
 	
@@ -38,7 +38,7 @@ class NoneditableCellException extends RuntimeException {
 	 * @param cause The identified cause of this
 	 * exception
 	 */
-	NoneditableCellException(Throwable cause) {
+	public NoneditableCellException(Throwable cause) {
 		super(cause);
 	}
 	
@@ -51,7 +51,7 @@ class NoneditableCellException extends RuntimeException {
 	 * @param cause The identified cause of this
 	 * exception
 	 */
-	NoneditableCellException(String message, Throwable cause) {
+	public NoneditableCellException(String message, Throwable cause) {
 		super(message, cause);
 	}
 }
