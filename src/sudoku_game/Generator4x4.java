@@ -7,20 +7,6 @@ import java.util.Random;
  * @author Alex Horejsi
  */
 class Generator4x4 implements Generator {
-	public static void main(String[] args) {
-		Cell[][] table = gen.generate();
-		for (int i = 0 ; i < 4 ; i++) {
-			for (int j = 0 ; j < 4 ; j++) {
-				try {
-					System.out.print(table[i][j].getValue() + " ");
-				} catch (NullPointerException ex) {
-					System.out.print("? ");
-				}
-			}
-			System.out.println();
-		}
-	}
-	
 	private static Generator gen = new Generator4x4();
 	private Cell[][] table;
 	
