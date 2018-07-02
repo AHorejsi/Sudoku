@@ -32,11 +32,11 @@ class RandomizedDifficultyAdjustor implements DifficultyAdjustor {
 	
 	private int determineAmountOfGivens(Random rng, int lower, int upper, int total) {
 		int percent = rng.nextInt((upper - lower) + 1) + lower;
-		return (int)Math.round(total * (percent / 100.0));
+		return Math.round(total * (percent / 100.0f));
 	}
 	
 	private int determineLowerBound(int lowerBoundOnGivensPerUnit, int dimensions) {
-		return (int)Math.round(dimensions * (lowerBoundOnGivensPerUnit / 100.0));
+		return Math.round(dimensions * (lowerBoundOnGivensPerUnit / 100.0f));
 	}
 	
 	private void performAdjustment(Board board, Random rng, int amount, int lowerBound) {
