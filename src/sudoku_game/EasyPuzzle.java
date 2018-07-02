@@ -19,7 +19,7 @@ class EasyPuzzle extends Puzzle {
 	 * @param board A completed
 	 * Sudoku puzzle
 	 */
-	public EasyPuzzle(Board board) {
+	EasyPuzzle(Board board) {
 		this(board, DefaultRNG.getDefaultGenerator());
 	}
 	
@@ -37,7 +37,7 @@ class EasyPuzzle extends Puzzle {
 	 * from the given completed
 	 * Sudoku puzzle
 	 */
-	public EasyPuzzle(Board board, Random rng) {
+	EasyPuzzle(Board board, Random rng) {
 		super(board, RandomizedDifficultyAdjustor.getInstance(), 44, 57, 44, rng);
 	}
 	

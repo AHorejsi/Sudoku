@@ -3,25 +3,26 @@ package sudoku_game;
 import java.util.Random;
 
 /**
- * Instances of this class represent
- * nine-by-nine Sudoku boards
+ * Instances of this class
+ * represent six-by-six
+ * Sudoku puzzles
  * @author Alex Horejsi
  */
-class Board9x9 extends Board {
+class Board6x6 extends Board {
 	/**
-	 * Constructs a nine-by-nine Sudoku
+	 * Constructs a six-by-six Sudoku
 	 * board using the default random number
 	 * generator
 	 */
-	Board9x9() {
-		super(LegalValues9x9.getInstance(), 
+	Board6x6() {
+		super(LegalValues6x6.getInstance(), 
 			  BitwiseChecker.getInstance(), 
-			  BoxInfo9x9.getInstance(), 
-			  Generator9x9.getInstance().generate());
+			  BoxInfo6x6.getInstance(), 
+			  Generator6x6.getInstance().generate());
 	}
 	
 	/**
-	 * Constructs a nine-by-nine Sudoku
+	 * Constructs a six-by-six Sudoku
 	 * board using the given random
 	 * number generator
 	 * @param rng The random number
@@ -31,15 +32,15 @@ class Board9x9 extends Board {
 	 * if the given random number
 	 * generator is <tt>null</tt>
 	 */
-	Board9x9(Random rng) throws NullPointerException {
-		super(LegalValues9x9.getInstance(), 
+	Board6x6(Random rng) {
+		super(LegalValues6x6.getInstance(), 
 			  BitwiseChecker.getInstance(), 
-			  BoxInfo9x9.getInstance(), 
-			  Generator9x9.getInstance().generate(rng));
+			  BoxInfo6x6.getInstance(), 
+			  Generator6x6.getInstance().generate());
 	}
 	
 	/**
-	 * Constructs a nine-by-nine Sudoku
+	 * Constructs a six-by-six Sudoku
 	 * board using the given 2D array
 	 * of cells
 	 * @param table A 2D array of cells
@@ -49,10 +50,10 @@ class Board9x9 extends Board {
 	 * if the given 2D array of cells is
 	 * <tt>null<tt>
 	 */
-	Board9x9(Cell[][] table) throws NullPointerException {
-		super(LegalValues9x9.getInstance(), 
+	Board6x6(Cell[][] table) {
+		super(LegalValues6x6.getInstance(), 
 			  BitwiseChecker.getInstance(), 
-			  BoxInfo9x9.getInstance(), 
+			  BoxInfo6x6.getInstance(), 
 			  table);
 	}
 }

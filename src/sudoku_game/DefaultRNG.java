@@ -3,7 +3,7 @@ package sudoku_game;
 import java.util.Random;
 
 /**
- * Default random number generator to be used
+ * Default random number generator holder to be used
  * should a user opt to not provide one themselves
  * @author Alex Horejsi
  */

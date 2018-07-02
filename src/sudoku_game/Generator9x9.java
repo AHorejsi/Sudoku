@@ -29,10 +29,7 @@ class Generator9x9 implements Generator {
 		this.fillMajorDiagonal(rng);
 		this.fillRemaining(0, 3);
 		
-		Cell[][] table = this.table;
-		this.table = null;
-		
-		return table;
+		return this.table;
 	}
 	
 	private void fillMajorDiagonal(Random rng) {
@@ -106,7 +103,9 @@ class Generator9x9 implements Generator {
 	}
 	
 	private boolean safe(int i, int j, char digit) {
-		return this.safeRow(i, digit) && this.safeCol(j, digit) && this.safeBox(i - i % 3, j - j % 3, digit);
+		return this.safeRow(i, digit) && 
+			   this.safeCol(j, digit) && 
+			   this.safeBox(i - i % 3, j - j % 3, digit);
 	}
 	
 	private boolean safeRow(int i, char digit) {

@@ -19,7 +19,7 @@ class MediumPuzzle extends Puzzle {
 	 * @param board A completed
 	 * Sudoku puzzle
 	 */
-	public MediumPuzzle(Board board) {
+	MediumPuzzle(Board board) {
 		this(board, DefaultRNG.getDefaultGenerator());
 	}
 	
@@ -37,7 +37,7 @@ class MediumPuzzle extends Puzzle {
 	 * from the given completed
 	 * Sudoku puzzle
 	 */
-	public MediumPuzzle(Board board, Random rng) {
+	MediumPuzzle(Board board, Random rng) {
 		super(board, S_PathDifficultyAdjustor.getInstance(), 40, 43, 33, rng);
 	}
 	

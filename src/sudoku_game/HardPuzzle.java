@@ -19,7 +19,7 @@ class HardPuzzle extends Puzzle {
 	 * @param board A completed
 	 * Sudoku puzzle
 	 */
-	public HardPuzzle(Board board) {
+	HardPuzzle(Board board) {
 		this(board, DefaultRNG.getDefaultGenerator());
 	}
 	
@@ -37,7 +37,7 @@ class HardPuzzle extends Puzzle {
 	 * from the given completed
 	 * Sudoku puzzle
 	 */
-	public HardPuzzle(Board board, Random rng) {
+	HardPuzzle(Board board, Random rng) {
 		super(board, S_PathDifficultyAdjustor.getInstance(), 35, 38, 22);
 	}
 	

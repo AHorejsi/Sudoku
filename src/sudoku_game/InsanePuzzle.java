@@ -19,7 +19,7 @@ class InsanePuzzle extends Puzzle {
 	 * @param board A completed
 	 * Sudoku puzzle
 	 */
-	public InsanePuzzle(Board board) {
+	InsanePuzzle(Board board) {
 		this(board, DefaultRNG.getDefaultGenerator());
 	}
 	
@@ -37,7 +37,7 @@ class InsanePuzzle extends Puzzle {
 	 * from the given completed
 	 * Sudoku puzzle
 	 */
-	public InsanePuzzle(Board board, Random rng) {
+	InsanePuzzle(Board board, Random rng) {
 		super(board, SequentialDifficultyAdjustor.getInstance(), 21, 33, 0, rng);
 	}
 	

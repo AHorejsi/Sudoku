@@ -5,7 +5,9 @@ import java.util.Random;
 
 /**
  * Generates a new Sudoku puzzle
- * completely from scratch
+ * completely from scratch that
+ * is ready for a player to
+ * solve
  * @author Alex Horejsi
  */
 public class LocalFactory implements PuzzleFactory {
@@ -27,7 +29,11 @@ public class LocalFactory implements PuzzleFactory {
 		Board board = null;
 		info = info.toLowerCase();
 		
-		if (info.contains("9x9"))
+		if (info.contains("4x4"))
+			board = new Board4x4(rng);
+		else if (info.contains("6x6"))
+			board = new Board6x6(rng);
+		else if (info.contains("9x9"))
 			board = new Board9x9(rng);
 		
 		if (info.contains("basic"))

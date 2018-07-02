@@ -29,7 +29,7 @@ interface DifficultyAdjustor {
 	 * minimum number of givens any row, column,
 	 * or box may have
 	 */
-	public void adjust(Board board, Random rng, int lowerRangeOnGivens, int upperRangeOnGivens, int lowerBoundOnGivensPerUnit);
+	void adjust(Board board, Random rng, int lowerRangeOnGivens, int upperRangeOnGivens, int lowerBoundOnGivensPerUnit);
 	
 	/**
 	 * Adjusts a Sudoku puzzle for a given set
@@ -47,7 +47,7 @@ interface DifficultyAdjustor {
 	 * minimum number of givens any row, column,
 	 * or box may have
 	 */
-	public default void adjust(Board board, int lowerRangeOnGivens, int upperRangeOnGivens, int lowerBoundOnGivensPerUnit) {
+	default void adjust(Board board, int lowerRangeOnGivens, int upperRangeOnGivens, int lowerBoundOnGivensPerUnit) {
 		this.adjust(board, DefaultRNG.getDefaultGenerator(), lowerRangeOnGivens, upperRangeOnGivens, lowerBoundOnGivensPerUnit);
 	}
 	
