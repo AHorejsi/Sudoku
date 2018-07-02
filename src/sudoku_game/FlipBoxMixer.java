@@ -27,10 +27,54 @@ class FlipBoxMixer implements Mixer {
 	}
 	
 	private void rowFlip(Board board, Random rng) {
-		if (board.getDimensions() == 9)
+		if (board.getDimensions() == 4)
+			this.rowFlip4x4(board.table, rng);
+		else if (board.getDimensions() == 6)
+			this.rowFlip6x6(board.table, rng);
+		else if (board.getDimensions() == 9)
 			this.rowFlip9x9(board.table, rng);
 		else
 			this.rowFlip16x16(board.table, rng);
+	}
+	
+	private void rowFlip4x4(Cell[][] table, Random rng) {
+		Cell[] temp;
+		
+		if (rng.nextBoolean()) {
+			for (int i = 0 ; i < 2 ; i++) {
+				temp = table[i];
+				table[i] = table[i + 2];
+				table[i + 2] = temp;
+			}
+		}
+	}
+	
+	private void rowFlip6x6(Cell[][] table, Random rng) {
+		Cell[] temp;
+		int option = rng.nextInt(3);
+		
+		if (option == 0) {
+			for (int i = 0 ; i < 2 ; i++) {
+				temp = table[i];
+				table[i] = table[i + 2];
+				table[i + 2] = temp;
+			}
+		}
+		else {
+			for (int i = 0 ; i < 2 ; i++) {
+				temp = table[i];
+				table[i] = table[i + 4];
+				table[i + 4] = temp;
+			}
+		}
+		
+		if (rng.nextBoolean()) {
+			for (int i = 2 ; i < 4 ; i++) {
+				temp = table[i];
+				table[i] = table[i + 2];
+				table[i + 2] = temp;
+			}
+		}
 	}
 	
 	private void rowFlip9x9(Cell[][] table, Random rng) {
@@ -114,10 +158,42 @@ class FlipBoxMixer implements Mixer {
 	}
 	
 	private void columnFlip(Board board, Random rng) {
-		if (board.getDimensions() == 9)
+		if (board.getDimensions() == 4)
+			this.columnFlip4x4(board.table, rng);
+		else if (board.getDimensions() == 6)
+			this.columnFlip6x6(board.table, rng);
+		else if (board.getDimensions() == 9)
 			this.columnFlip9x9(board.table, rng);
 		else
 			this.columnFlip16x16(board.table, rng);
+	}
+	
+	private void columnFlip4x4(Cell[][] table, Random rng) {
+		Cell temp;
+		
+		if (rng.nextBoolean()) {
+			for (int i = 0 ; i < 4 ; i++) {
+				for (int j = 0 ; j < 2 ; j++) {
+					temp = table[i][j];
+					table[i][j] = table[i][j + 2];
+					table[i][j + 2] = temp;
+				}
+			}
+		}
+	}
+	
+	private void columnFlip6x6(Cell[][] table, Random rng) {
+		Cell temp;
+		
+		if (rng.nextBoolean()) {
+			for (int i = 0 ; i < 6 ; i++) {
+				for (int j = 0 ; j < 3 ; j++) {
+					temp = table[i][j];
+					table[i][j] = table[i][j + 3];
+					table[i][j + 3] = temp;
+				}
+			}
+		}
 	}
 	
 	private void columnFlip9x9(Cell[][] table, Random rng) {
