@@ -3,6 +3,7 @@ package local_game;
 import java.util.Collection;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 import sudoku_game.Mixer;
 import sudoku_game.SimpleMixerFactory;
@@ -25,11 +26,12 @@ public class Main extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) {
-		Collection<Mixer> mixers = SimpleMixerFactory.getInstance().getFactory("linkedlist flip flipbox swap");
+		Collection<Mixer> mixers = SimpleMixerFactory.getInstance().getFactory("linkedlist rotate flip flipbox swap");
 		GUIPuzzle gui = new SimpleGUIPuzzle(mixers);
 		Scene sc = new Scene(gui);
 		primaryStage.setTitle("Sudoku");
 		primaryStage.setFullScreen(true);
+		primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
 		primaryStage.setScene(sc);
 		primaryStage.show();
 	}

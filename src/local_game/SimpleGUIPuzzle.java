@@ -19,7 +19,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import sudoku_game.DefaultRNG;
 import sudoku_game.LocalFactory;
 import sudoku_game.Mixer;
 import sudoku_game.Puzzle;
@@ -147,8 +146,10 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 	}
 	
 	private void insertIntoMaps(GridPaneCreator... gpcs) {
+		int dimensions;
+		
 		for (GridPaneCreator gpc : gpcs) {
-			int dimensions = gpc.getDimensions();
+			dimensions = gpc.getDimensions();
 			this.gridpanes.put(dimensions, gpc.getGridPane());
 			this.textfields.put(dimensions, gpc.getTextFields());
 		}
@@ -156,7 +157,7 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 	
 	@Override
 	public void generatePuzzle() {
-		Puzzle puzzle = SimpleGUIPuzzle.factory.createPuzzle(this.settings.toString(), DefaultRNG.getDefaultGenerator(), this.mixers);
+		Puzzle puzzle = SimpleGUIPuzzle.factory.createPuzzle(this.settings.toString(), this.mixers);
 		int dimensions = this.settings.dimensions();
 		TextField[][] tfs = this.textfields.get(dimensions);
 		GridPane gps = this.gridpanes.get(dimensions);
@@ -203,6 +204,7 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 		HBox mainMenu = new HBox();
 		mainMenu.getStyleClass().addAll("bordered", "centered", "whiteBack");
 		mainMenu.getChildren().addAll(this.play, this.settingsButton, this.exit);
+		
 		this.mainMenu = mainMenu;
 	}
 	
@@ -216,6 +218,8 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 			
 			SimpleGUIPuzzle.this.settingsButton.setOnMouseClicked(ev -> {
 				bp.setCenter(set);
+				SimpleGUIPuzzle.this.leftSide.getChildren().clear();
+				SimpleGUIPuzzle.this.rightSide.getChildren().clear();
 			});
 			
 			children.get(4).setOnMouseClicked(ev -> {

@@ -113,6 +113,8 @@ public class SimpleMixerFactory implements MixerFactory {
 				mixers.add(FlipBoxMixer.getInstance());
 			else if (str.equalsIgnoreCase("swap"))
 				mixers.add(SwapMixer.getInstance());
+			else if (str.equalsIgnoreCase("rotate"))
+				mixers.add(RotateMixer.getInstance());
 		}
 		
 		return mixers;
