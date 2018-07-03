@@ -8,7 +8,7 @@ import java.util.Random;
  * @author Alex Horejsi
  */
 public class DefaultRNG {
-	private static Random defaultGenerator = new Random();
+	private static Random defaultGenerator = new ImmutableRandom();
 	
 	/**
 	 * Returns the default random number generator
@@ -16,5 +16,14 @@ public class DefaultRNG {
 	 */
 	public static Random getDefaultGenerator() {
 		return DefaultRNG.defaultGenerator;
+	}
+	
+	private static class ImmutableRandom extends Random {
+		private static final long serialVersionUID = -5569275294824071575L;
+
+		@Override
+		public void setSeed(long seed) throws UnsupportedOperationException {
+			throw new UnsupportedOperationException("Default random number generator cannot have its seed set");
+		}
 	}
 }
