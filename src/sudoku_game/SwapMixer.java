@@ -26,12 +26,14 @@ class SwapMixer implements Mixer {
 	public void mix(Board board, Random rng) {
 		Cell[][] table = board.table;
 		char[] values = this.shuffle(board.legalValues.getValues(), rng);
+		int dimensions = board.getDimensions();
 		char current;
 		int index;
 		
-		for (int row = 0 ; row < table.length ; row++) {
-			for (int col = 0 ; col < table[row].length ; col++) {
+		for (int row = 0 ; row < dimensions ; row++) {
+			for (int col = 0 ; col < dimensions ; col++) {
 				current = table[row][col].getValue();
+				
 				if (current != '\u0000') {
 					if (Character.isDigit(current))
 						index = current - '0' - 1;

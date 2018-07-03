@@ -37,8 +37,8 @@ class BitwiseChecker implements Checker {
 				return false;
 		}
 		
-		Integer rowIncrement = board.rowSizeInBox();
-		Integer columnIncrement = board.colSizeInBox(); 
+		int rowIncrement = board.rowSizeInBox();
+		int columnIncrement = board.colSizeInBox(); 
 		
 		for (int row = 0 ; row < dimensions ; row += rowIncrement) {
 			for (int col = 0 ; col < dimensions ; col += columnIncrement) {

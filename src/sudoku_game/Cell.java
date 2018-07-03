@@ -11,7 +11,7 @@ interface Cell {
 	 * @return The value in this cell or
 	 * '\u0000' if there is no value
 	 */
-	public char getValue();
+	char getValue();
 	
 	/**
 	 * Changes the value in this cell
@@ -19,7 +19,7 @@ interface Cell {
 	 * @throws IllegalStateException Thrown if this
 	 * cell is not allowed to be edited
 	 */
-	public void setValue(char value) throws IllegalStateException;
+	void setValue(char value) throws IllegalStateException;
 	
 	/**
 	 * Empties this cell so that it contains
@@ -27,14 +27,14 @@ interface Cell {
 	 * @throws IllegalStateException Thrown if
 	 * this cell is not allowed to be edited
 	 */
-	public void setEmptyValue() throws IllegalStateException;
+	void setEmptyValue() throws IllegalStateException;
 	
 	/**
 	 * Checks if this cell is editable
 	 * @return <tt>true</tt> if this cell
 	 * is editable, <tt>false</tt> if not
 	 */
-	public boolean isEditable();
+	boolean isEditable();
 	
 	/**
 	 * Empties this cell so that is contains
@@ -43,7 +43,7 @@ interface Cell {
 	 * puzzle, not when a user is editing a
 	 * puzzle
 	 */
-	public void setEmptyForSetUp();
+	void setEmptyForSetUp();
 	
 	/**
 	 * Changes the value in this cell. This method
@@ -52,7 +52,7 @@ interface Cell {
 	 * a puzzle
 	 * @param value The new value for this cell
 	 */
-	public void setValueForSetUp(char value);
+	void setValueForSetUp(char value);
 	
 	/**
 	 * Sets whether or not this cell will be editable
@@ -63,5 +63,5 @@ interface Cell {
 	 * @param editable Value indicating this cell's
 	 * editability
 	 */
-	public void setEditable(boolean editable);
+	void setEditable(boolean editable);
 }

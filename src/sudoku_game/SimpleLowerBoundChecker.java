@@ -1,10 +1,21 @@
 package sudoku_game;
 
+/**
+ * Simple implementation
+ * of {@code LowerBoundChecker}
+ * @author Alex Horejsi
+ */
 class SimpleLowerBoundChecker implements LowerBoundChecker {
 	private static LowerBoundChecker checker = new SimpleLowerBoundChecker();
 	
 	private SimpleLowerBoundChecker() {}
 	
+	/**
+	 * Returns the single instance
+	 * of {@code SimpleLowerBoundChecker}
+	 * @return The single instance
+	 * of {@code SimpleLowerBoundChecker}
+	 */
 	public static LowerBoundChecker getInstance() {
 		return SimpleLowerBoundChecker.checker;
 	}

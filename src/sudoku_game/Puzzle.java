@@ -44,7 +44,7 @@ public abstract class Puzzle {
 	 * the Sudoku board or the difficulty adjustor is
 	 * <tt>null</tt>
 	 */
-	Puzzle(Board board, DifficultyAdjustor adjustor, int lowerRangeOnGivens, int upperRangeOnGivens, int lowerBoundOnGivensPerUnit) 
+	protected Puzzle(Board board, DifficultyAdjustor adjustor, int lowerRangeOnGivens, int upperRangeOnGivens, int lowerBoundOnGivensPerUnit) 
 			throws NullPointerException {
 		this(board, adjustor, lowerRangeOnGivens, upperRangeOnGivens, lowerBoundOnGivensPerUnit, DefaultRNG.getDefaultGenerator());
 	}
@@ -85,7 +85,7 @@ public abstract class Puzzle {
 	 * the Sudoku board or the difficulty adjustor is
 	 * <tt>null</tt>
 	 */
-	Puzzle(Board board, DifficultyAdjustor adjustor, int lowerRangeOnGivens, int upperRangeOnGivens, int lowerBoundOnGivensPerUnit,
+	protected Puzzle(Board board, DifficultyAdjustor adjustor, int lowerRangeOnGivens, int upperRangeOnGivens, int lowerBoundOnGivensPerUnit,
 			Random rng) throws NullPointerException {
 		this.board = Objects.requireNonNull(board);
 		adjustor.adjust(board, rng, lowerRangeOnGivens, upperRangeOnGivens, lowerBoundOnGivensPerUnit);
