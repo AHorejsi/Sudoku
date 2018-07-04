@@ -96,11 +96,11 @@ abstract class Board {
 	 * the {@code Cell} to be edited has been set
 	 * as non-editable
 	 */
-	public void setValueAt(char value, int row, int col) throws IndexOutOfBoundsException, IllegalArgumentException, NoneditableCellException {
+	public void setValueAt(char value, int row, int col) throws IndexOutOfBoundsException, 
+			IllegalArgumentException, NoneditableCellException {
 		if (!this.isLegalValue(value))
 			throw new IllegalArgumentException("Illegal value: " + value);
-		if (!this.table[row][col].isEditable())
-			throw new NoneditableCellException("Non-editable cell: row = " + row + ", column = " + col);
+		this.noneditable(row, col);
 		this.outOfBounds(row, col);
 		this.table[row][col].setValue(value);
 	}
@@ -123,8 +123,7 @@ abstract class Board {
 	 * as non-editable
 	 */
 	public void deleteValueAt(int row, int col) throws IndexOutOfBoundsException, NoneditableCellException {
-		if (!this.table[row][col].isEditable())
-			throw new NoneditableCellException();
+		this.noneditable(row, col);
 		this.outOfBounds(row, col);
 		this.table[row][col].setEmptyValue();
 	}
@@ -167,6 +166,11 @@ abstract class Board {
 	private void outOfBounds(int row, int col) {
 		if (row < 0 || row >= this.table.length || col < 0 || col >= this.table.length)
 			throw new IndexOutOfBoundsException();
+	}
+	
+	private void noneditable(int row, int col) {
+		if (!this.table[row][col].isEditable())
+			throw new NoneditableCellException("Non-editable cell: row = " + row + ", column = " + col);
 	}
 	
 	/**

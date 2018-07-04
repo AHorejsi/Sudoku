@@ -15,7 +15,7 @@ import sudoku_game.SimpleMixerFactory;
  */
 public class Main extends Application {
 	/**
-	 * Main method call
+	 * Main method
 	 * to initiate
 	 * program
 	 * @param args Unused
@@ -28,11 +28,10 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		Collection<Mixer> mixers = SimpleMixerFactory.getInstance().getFactory("linkedlist rotate flip flipbox swap");
 		GUIPuzzle gui = new SimpleGUIPuzzle(mixers);
-		Scene sc = new Scene(gui);
 		primaryStage.setTitle("Sudoku");
 		primaryStage.setFullScreen(true);
 		primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
-		primaryStage.setScene(sc);
+		primaryStage.setScene(new Scene(gui));
 		primaryStage.show();
 	}
 }

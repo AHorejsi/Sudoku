@@ -4,7 +4,7 @@ import java.util.Random;
 
 /**
  * Mixes up a Sudoku puzzle
- * by flipping it 180 degrees
+ * by rotating it 180 degrees
  * or not at all
  * @author Alex Horejsi
  */

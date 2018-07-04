@@ -5,25 +5,53 @@ import javafx.beans.value.ObservableValue;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
+/**
+ * Creates a {@code GridPane} with
+ * instances of {@code TextField} 
+ * that will serve as part of the GUI
+ * for the Sudoku game
+ * @author Alex Horejsi
+ */
 abstract class GridPaneCreator implements Runnable {
 	protected GridPane gp;
 	protected TextField[][] cells;
 	protected int dimensions;
 	protected int sizeOfTextField;
 	
+	/**
+	 * Defines the dimensions and
+	 * size of the text fields for
+	 * the {@code GridPane}
+	 * @param dimensions The dimensions
+	 * of this {@code GridPane}
+	 * @param sizeOfTextField The size
+	 * of the {@code TextField}s
+	 */
 	GridPaneCreator(int dimensions, int sizeOfTextField) {
 		this.dimensions = dimensions;
 		this.sizeOfTextField = sizeOfTextField;
 	}
 	
+	/**
+	 * Returns the {@code GridPane}
+	 * @return The {@code GridPane}
+	 */
 	public GridPane getGridPane() {
 		return this.gp;
 	}
 	
+	/**
+	 * Returns a 2D array of {@code TextField} 
+	 * @return A 2D array of {@code TextField}
+	 */
 	public TextField[][] getTextFields() {
 		return this.cells;
 	}
 	
+	/**
+	 * Returns the dimensions of the {@code GridPane}
+	 * @return The dimensions of the {@code GridPane}
+	 */
 	public int getDimensions() {
 		return this.dimensions;
 	}
@@ -36,7 +64,7 @@ abstract class GridPaneCreator implements Runnable {
 		
 		for (int i = 0 ; i < this.dimensions ; i++) {
 			for (int j = 0 ; j < this.dimensions ; j++) {
-				TextField tf = this.createTextField();
+				TextField tf = this.createTextField();				
 				cells[i][j] = tf;
 				gp.add(tf, j, i);
 			}

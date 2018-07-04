@@ -35,6 +35,10 @@ public class LocalFactory implements PuzzleFactory {
 			board = new Board6x6(rng);
 		else if (info.contains("9x9"))
 			board = new Board9x9(rng);
+		else if (info.contains("12x12"))
+			board = new Board12x12(rng);
+		else if (info.contains("16x16"))
+			board = new Board16x16(rng);
 		
 		if (info.contains("basic"))
 			puzzle = new BasicPuzzle(board, rng);

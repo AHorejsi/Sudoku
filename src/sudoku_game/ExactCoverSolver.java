@@ -26,28 +26,4 @@ class ExactCoverSolver implements Solver {
 	public boolean hasUniqueSolution(Board board) {
 		
 	}
-	
-	private static class Node {
-		private Boolean filled;
-		private Node up;
-		private Node down;
-		private Node left;
-		private Node right;
-		
-		public Node() {}
-		
-		public Node(Boolean filled) {
-			this.filled = filled;
-		}
-	}
-	
-	private static class ColumnNode extends Node {
-		private String name;
-		
-		public ColumnNode() {}
-		
-		public ColumnNode(String name) {
-			this.name = name;
-		}
-	}
 }
