@@ -7,7 +7,7 @@ import java.util.Random;
  * nine-by-nine Sudoku boards
  * @author Alex Horejsi
  */
-class Board9x9 extends Board {
+public class Board9x9 extends Board {
 	/**
 	 * Constructs a nine-by-nine Sudoku
 	 * board using the default random number

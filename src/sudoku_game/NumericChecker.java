@@ -10,7 +10,7 @@ package sudoku_game;
  * to another single digit number
  * @author Alex Horejsi
  */
-class NumericChecker implements Checker {
+public class NumericChecker implements Checker {
 	private static Checker checker = new NumericChecker();
 	
 	private NumericChecker() {}

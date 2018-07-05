@@ -45,11 +45,10 @@ class RandomizedDifficultyAdjustor implements DifficultyAdjustor {
 		int current = length * length;
 		Solver solver = BacktrackingSolver.getInstance();
 		LowerBoundChecker checker = SimpleLowerBoundChecker.getInstance();
+		int row;
+		int col;
 		
 		while (current > amount) {
-			int row;
-			int col;
-			
 			do {
 				row = rng.nextInt(length);
 				col = rng.nextInt(length);

@@ -8,7 +8,7 @@ import java.util.Random;
  * Sudoku puzzles
  * @author Alex Horejsi
  */
-class Board12x12 extends Board {
+public class Board12x12 extends Board {
 	/**
 	 * Constructs a twelve-by-twelve Sudoku
 	 * board using the default random number

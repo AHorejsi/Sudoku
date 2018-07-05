@@ -5,7 +5,7 @@ package sudoku_game;
  * nine-by-nine Sudoku puzzle's boxes
  * @author Alex Horejsi
  */
-class BoxInfo9x9 implements BoxInfo {
+public class BoxInfo9x9 implements BoxInfo {
 	private static BoxInfo boxInfo = new BoxInfo9x9();
 	
 	private BoxInfo9x9() {}

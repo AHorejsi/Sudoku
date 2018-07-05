@@ -16,10 +16,10 @@ class Generator12x12 implements Generator {
 	public Cell[][] generate(Random rng) {
 		this.table = new Cell[12][12];
 		
-		this.fillInitialBoxes(rng);
+		this.fillInitialCells(rng);
 	}
 	
-	private void fillInitialBoxes(Random rng) {
+	private void fillInitialCells(Random rng) {
 		this.fillBox(rng);
 		this.fillRow(rng);
 		this.fillColumn(rng);

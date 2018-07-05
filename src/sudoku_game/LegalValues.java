@@ -9,7 +9,7 @@ import java.util.Arrays;
  * a Sudoku puzzle with certain dimensions
  * @author Alex Horejsi
  */
-abstract class LegalValues {
+public abstract class LegalValues {
 	private char[] values;
 	
 	protected LegalValues(char[] values) {

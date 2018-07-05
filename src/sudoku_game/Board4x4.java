@@ -8,7 +8,7 @@ import java.util.Random;
  * Sudoku boards
  * @author Alex Horejsi
  */
-class Board4x4 extends Board {
+public class Board4x4 extends Board {
 	/**
 	 * Constructs a four-by-four Sudoku
 	 * board using the default random number

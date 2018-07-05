@@ -9,7 +9,7 @@ import java.util.Random;
  * level
  * @author Alex Horejsi
  */
-class MediumPuzzle extends Puzzle {
+public class MediumPuzzle extends Puzzle {
 	/**
 	 * Creates a medium Sudoku puzzle
 	 * instance with the given

@@ -5,7 +5,7 @@ package sudoku_game;
  * four-by-four Sudoku puzzle's boxes
  * @author Alex Horejsi
  */
-class BoxInfo4x4 implements BoxInfo {
+public class BoxInfo4x4 implements BoxInfo {
 	private static BoxInfo boxInfo = new BoxInfo4x4();
 	
 	private BoxInfo4x4() {}

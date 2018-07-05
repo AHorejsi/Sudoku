@@ -8,7 +8,7 @@ import java.util.Random;
  * Sudoku puzzles
  * @author Alex Horejsi
  */
-class Board6x6 extends Board {
+public class Board6x6 extends Board {
 	/**
 	 * Constructs a six-by-six Sudoku
 	 * board using the default random number
@@ -36,7 +36,7 @@ class Board6x6 extends Board {
 		super(LegalValues6x6.getInstance(), 
 			  NumericChecker.getInstance(), 
 			  BoxInfo6x6.getInstance(), 
-			  Generator6x6.getInstance().generate());
+			  Generator6x6.getInstance().generate(rng));
 	}
 	
 	/**

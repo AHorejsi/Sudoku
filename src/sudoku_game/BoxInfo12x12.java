@@ -7,7 +7,7 @@ package sudoku_game;
  * puzzle's boxes
  * @author Alex Horejsi
  */
-class BoxInfo12x12 implements BoxInfo {
+public class BoxInfo12x12 implements BoxInfo {
 	private static BoxInfo boxInfo = new BoxInfo12x12();
 	
 	private BoxInfo12x12() {}

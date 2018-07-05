@@ -28,7 +28,10 @@ class Generator4x4 implements Generator {
 		
 		this.fillRemaining(0, 0, rng);
 		
-		return this.table;
+		Cell[][] table = this.table;
+		this.table = null;
+		
+		return table;
 	}
 	
 	private boolean fillRemaining(int i, int j, Random rng) {

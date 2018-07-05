@@ -6,7 +6,7 @@ package sudoku_game;
  * Legal values: 1, 2, 3, 4
  * @author Alex Horejsi
  */
-class LegalValues4x4 extends LegalValues {
+public class LegalValues4x4 extends LegalValues {
 	private static LegalValues val = new LegalValues4x4();
 	
 	private LegalValues4x4() {

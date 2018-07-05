@@ -8,10 +8,10 @@ package sudoku_game;
  * only works on Sudoku puzzles
  * whose legal values consist of all
  * single digit numbers and any number
- * capital letters starting with A
+ * capital letters starting with 'A'
  * @author Alex Horejsi
  */
-class AlphanumericChecker implements Checker {
+public class AlphanumericChecker implements Checker {
 	private static Checker checker = new AlphanumericChecker();
 	
 	private AlphanumericChecker() {}

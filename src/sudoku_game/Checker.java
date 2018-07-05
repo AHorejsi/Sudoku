@@ -5,7 +5,7 @@ package sudoku_game;
  * @author Alex Horejsi
  */
 @FunctionalInterface
-interface Checker {
+public interface Checker {
 	/**
 	 * Checks if the given Sudoku board
 	 * is solved
@@ -16,5 +16,5 @@ interface Checker {
 	 * Sudoku board is solved, <tt>false</tt>
 	 * otherwise
 	 */
-	boolean isSolved(Board board);
+	public boolean isSolved(Board board);
 }

@@ -9,7 +9,7 @@ import java.util.Random;
  * level
  * @author Alex Horejsi
  */
-class HardPuzzle extends Puzzle {
+public class HardPuzzle extends Puzzle {
 	/**
 	 * Creates a hard Sudoku puzzle
 	 * instance with the given

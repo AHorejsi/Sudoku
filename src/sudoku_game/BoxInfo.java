@@ -6,7 +6,7 @@ package sudoku_game;
  * Sudoku puzzle's boxes
  * @author Alex Horejsi
  */
-interface BoxInfo {
+public interface BoxInfo {
 	/**
 	 * Returns the number of rows a given
 	 * Sudoku puzzle's boxes have

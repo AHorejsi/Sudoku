@@ -7,7 +7,7 @@ import java.util.Objects;
  * a Sudoku board
  * @author Alex Horejsi
  */
-abstract class Board {
+public abstract class Board {
 	Cell[][] table;
 	LegalValues legalValues;
 	Checker checker;

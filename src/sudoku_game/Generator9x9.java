@@ -29,7 +29,10 @@ class Generator9x9 implements Generator {
 		this.fillMajorDiagonal(rng);
 		this.fillRemaining(0, 3);
 		
-		return this.table;
+		Cell[][] table = this.table;
+		this.table = null;
+		
+		return table;
 	}
 	
 	private void fillMajorDiagonal(Random rng) {
@@ -39,20 +42,26 @@ class Generator9x9 implements Generator {
 	}
 	
 	private void fillBox(int i, int j, Random rng) {
+		char[] values = LegalValues9x9.getInstance().getValues();
+		this.shuffle(values, rng);
+		
 		int end = i + 3;
-		int bits = 0;
-		int n;
+		int index = 0;
 		
 		for (int row = i ; row < end ; row++) {
 			for (int col = j ; col < end ; col++) {
-				do {
-					n = rng.nextInt(9);
-				} while ((bits & (1 << n)) != 0);
-				
-				bits |= (1 << n);
-				int digit = n + 1;
-				this.table[row][col] = new ConcreteCell((char)(digit + '0'));
+				this.table[row][col] = new ConcreteCell(values[index]);
+				index++;
 			}
+		}
+	}
+	
+	private void shuffle(char[] values, Random rng) {
+		for (int i = values.length - 1 ; i > 0 ; i--) {
+			int pos = rng.nextInt(i);
+			char temp = values[pos];
+			values[pos] = values[i];
+			values[i] = temp;
 		}
 	}
 	

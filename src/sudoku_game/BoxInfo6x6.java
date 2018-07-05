@@ -6,7 +6,7 @@ package sudoku_game;
  * Sudoku puzzle's boxes
  * @author Alex Horejsi
  */
-class BoxInfo6x6 implements BoxInfo {
+public class BoxInfo6x6 implements BoxInfo {
 	private static BoxInfo boxInfo = new BoxInfo6x6();
 	
 	private BoxInfo6x6() {}
