@@ -4,25 +4,25 @@ import java.util.Random;
 
 /**
  * Instances of this class
- * represent six-by-six
+ * represent twelve-by-twelve
  * Sudoku puzzles
  * @author Alex Horejsi
  */
-class Board6x6 extends Board {
+class Board12x12 extends Board {
 	/**
-	 * Constructs a six-by-six Sudoku
+	 * Constructs a twelve-by-twelve Sudoku
 	 * board using the default random number
 	 * generator
 	 */
-	Board6x6() {
-		super(LegalValues6x6.getInstance(), 
-			  NumericChecker.getInstance(), 
-			  BoxInfo6x6.getInstance(), 
-			  Generator6x6.getInstance().generate());
+	Board12x12() {
+		super(LegalValues12x12.getInstance(),
+			  AlphanumericChecker.getInstance(),
+			  BoxInfo12x12.getInstance(),
+			  Generator12x12.getInstance().generate());
 	}
 	
 	/**
-	 * Constructs a six-by-six Sudoku
+	 * Constructs a twelve-by-twelve Sudoku
 	 * board using the given random
 	 * number generator
 	 * @param rng The random number
@@ -32,15 +32,15 @@ class Board6x6 extends Board {
 	 * if the given random number
 	 * generator is <tt>null</tt>
 	 */
-	Board6x6(Random rng) {
-		super(LegalValues6x6.getInstance(), 
-			  NumericChecker.getInstance(), 
-			  BoxInfo6x6.getInstance(), 
-			  Generator6x6.getInstance().generate());
+	Board12x12(Random rng) {
+		super(LegalValues12x12.getInstance(),
+			  AlphanumericChecker.getInstance(),
+			  BoxInfo12x12.getInstance(),
+			  Generator12x12.getInstance().generate(rng));
 	}
 	
 	/**
-	 * Constructs a six-by-six Sudoku
+	 * Constructs a twelve-by-twelve Sudoku
 	 * board using the given 2D array
 	 * of cells
 	 * @param table A 2D array of cells
@@ -50,10 +50,10 @@ class Board6x6 extends Board {
 	 * if the given 2D array of cells is
 	 * <tt>null<tt>
 	 */
-	Board6x6(Cell[][] table) {
-		super(LegalValues6x6.getInstance(), 
-			  NumericChecker.getInstance(), 
-			  BoxInfo6x6.getInstance(), 
+	Board12x12(Cell[][] table) {
+		super(LegalValues12x12.getInstance(),
+			  AlphanumericChecker.getInstance(),
+			  BoxInfo12x12.getInstance(),
 			  table);
 	}
 }

@@ -15,7 +15,7 @@ class Board9x9 extends Board {
 	 */
 	Board9x9() {
 		super(LegalValues9x9.getInstance(), 
-			  BitwiseChecker.getInstance(), 
+			  NumericChecker.getInstance(), 
 			  BoxInfo9x9.getInstance(), 
 			  Generator9x9.getInstance().generate());
 	}
@@ -33,7 +33,7 @@ class Board9x9 extends Board {
 	 */
 	Board9x9(Random rng) throws NullPointerException {
 		super(LegalValues9x9.getInstance(), 
-			  BitwiseChecker.getInstance(), 
+			  NumericChecker.getInstance(), 
 			  BoxInfo9x9.getInstance(), 
 			  Generator9x9.getInstance().generate(rng));
 	}
@@ -51,7 +51,7 @@ class Board9x9 extends Board {
 	 */
 	Board9x9(Cell[][] table) throws NullPointerException {
 		super(LegalValues9x9.getInstance(), 
-			  BitwiseChecker.getInstance(), 
+			  NumericChecker.getInstance(), 
 			  BoxInfo9x9.getInstance(), 
 			  table);
 	}

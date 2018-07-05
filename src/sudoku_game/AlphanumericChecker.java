@@ -4,22 +4,26 @@ package sudoku_game;
  * This class checks if a
  * Sudoku puzzle is complete
  * and valid using bitwise
- * operations
+ * operations. This implementation
+ * only works on Sudoku puzzles
+ * whose legal values consist of all
+ * single digit numbers and any number
+ * capital letters starting with A
  * @author Alex Horejsi
  */
-class BitwiseChecker implements Checker {
-	private static Checker checker = new BitwiseChecker();
+class AlphanumericChecker implements Checker {
+	private static Checker checker = new AlphanumericChecker();
 	
-	private BitwiseChecker() {}
+	private AlphanumericChecker() {}
 	
 	/**
 	 * Returns the single instance
-	 * of {@code BitwiseChecker}
+	 * of {@code AlphanumericChecker}
 	 * @return The single instance
-	 * of {@code BitwiseChecker}
+	 * of {@code AlphanumericChecker}
 	 */
 	public static Checker getInstance() {
-		return BitwiseChecker.checker;
+		return AlphanumericChecker.checker;
 	}
 	
 	@Override
@@ -58,7 +62,7 @@ class BitwiseChecker implements Checker {
 			value = board.getValueAt(row, col);
 			if (!board.isLegalValue(value))
 				return false;
-			bits |= 1 << (Character.isDigit(value) ? value - '0' - 1 : value - 'A' + 10);
+			bits |= 1 << (Character.isDigit(value) ? value - '0' : value - 54);
 		}
 		
 		return bits == success;
@@ -72,7 +76,7 @@ class BitwiseChecker implements Checker {
 			value = board.getValueAt(row, col);
 			if (!board.isLegalValue(value))
 				return false;
-			bits |= 1 << (Character.isDigit(value) ? value - '0' - 1 : value - 'A' + 10);
+			bits |= 1 << (Character.isDigit(value) ? value - '0' : value - 54);
 		}
 		
 		return bits == success;
@@ -89,7 +93,7 @@ class BitwiseChecker implements Checker {
 				value = board.getValueAt(i, j);
 				if (!board.isLegalValue(value))
 					return false;
-				bits |= 1 << (Character.isDigit(value) ? value - '0' - 1 : value - 'A' + 10);
+				bits |= 1 << (Character.isDigit(value) ? value - '0' : value - 54);
 			}
 		}
 		

@@ -16,7 +16,7 @@ class Board4x4 extends Board {
 	 */
 	Board4x4() {
 		super(LegalValues4x4.getInstance(),
-			  BitwiseChecker.getInstance(),
+			  NumericChecker.getInstance(),
 			  BoxInfo4x4.getInstance(),
 			  Generator4x4.getInstance().generate());
 	}
@@ -34,7 +34,7 @@ class Board4x4 extends Board {
 	 */
 	Board4x4(Random rng) {
 		super(LegalValues4x4.getInstance(),
-			  BitwiseChecker.getInstance(),
+			  NumericChecker.getInstance(),
 			  BoxInfo4x4.getInstance(),
 			  Generator4x4.getInstance().generate(rng));
 	}
@@ -52,7 +52,7 @@ class Board4x4 extends Board {
 	 */
 	Board4x4(Cell[][] table) {
 		super(LegalValues4x4.getInstance(),
-			  BitwiseChecker.getInstance(),
+			  NumericChecker.getInstance(),
 			  BoxInfo4x4.getInstance(),
 			  table);
 	}

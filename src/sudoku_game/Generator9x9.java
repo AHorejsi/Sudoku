@@ -39,7 +39,6 @@ class Generator9x9 implements Generator {
 	}
 	
 	private void fillBox(int i, int j, Random rng) {
-		int range = this.table.length;
 		int end = i + 3;
 		int bits = 0;
 		int n;
@@ -47,7 +46,7 @@ class Generator9x9 implements Generator {
 		for (int row = i ; row < end ; row++) {
 			for (int col = j ; col < end ; col++) {
 				do {
-					n = rng.nextInt(range);
+					n = rng.nextInt(9);
 				} while ((bits & (1 << n)) != 0);
 				
 				bits |= (1 << n);
