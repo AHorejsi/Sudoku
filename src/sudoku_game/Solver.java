@@ -15,5 +15,5 @@ interface Solver {
 	 * @return <tt>true</tt> if the board has
 	 * a unique solution, <tt>false</tt> otherwise
 	 */
-	public boolean hasUniqueSolution(Board board);
+	boolean hasUniqueSolution(Board board);
 }

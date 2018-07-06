@@ -2,7 +2,7 @@ package sudoku_game;
 
 import java.util.Random;
 
-class Generator12x12 implements Generator {	
+class Generator12x12 implements Generator {
 	private static Generator gen = new Generator12x12();
 	private Cell[][] table;
 	
@@ -17,69 +17,65 @@ class Generator12x12 implements Generator {
 		this.table = new Cell[12][12];
 		
 		this.fillInitialCells(rng);
+		
+		return this.table;
 	}
 	
 	private void fillInitialCells(Random rng) {
-		this.fillBox(rng);
-		this.fillRow(rng);
-		this.fillColumn(rng);
+		int[] bits = this.fillBox(rng);
+		this.fillRow(rng, bits[0]);
+		this.fillColumn(rng, bits[1]);
 	}
 	
-	private void fillBox(Random rng) {
+	private int[] fillBox(Random rng) {
+		int[] bits = new int[2];
 		char[] values = LegalValues12x12.getInstance().getValues();
 		this.shuffle(values, rng);
 		int index = 0;
 		
 		for (int i = 0 ; i < 3 ; i++) {
 			for (int j = 0 ; j < 4 ; j++) {
+				if (i == 0)
+					bits[0] |= 1 << (Character.isDigit(values[index]) ? values[index] - '0' : values[index] - 54);
+				if (j == 0)
+					bits[1] |= 1 << (Character.isDigit(values[index]) ? values[index] - '0' : values[index] - 54);
+				
 				this.table[i][j] = new ConcreteCell(values[index]);
 				index++;
 			}
 		}
+		
+		return bits;
 	}
 	
-	private void fillRow(Random rng) {
+	private void fillRow(Random rng, int bits) {
 		char[] values = LegalValues12x12.getInstance().getValues();
 		this.shuffle(values, rng);
 		int j = 4;
 		
 		for (int index = 0 ; index < 12 ; index++) {
-			if (!this.rowContains(values[index])) {
+			int bit = (Character.isDigit(values[index]) ? values[index] - '0' : values[index] - 54);
+			
+			if (!((bits & (1 << bit)) != 0)) {
 				this.table[0][j] = new ConcreteCell(values[index]);
 				j++;
 			}
 		}
 	}
 	
-	private boolean rowContains(char value) {
-		for (int j = 0 ; j < 4 ; j++) {
-			if (value == this.table[0][j].getValue())
-				return true;
-		}
-		
-		return false;
-	}
-	
-	private void fillColumn(Random rng) {
+	private void fillColumn(Random rng, int bits) {
 		char[] values = LegalValues12x12.getInstance().getValues();
 		this.shuffle(values, rng);
 		int i = 3;
 		
 		for (int index = 0 ; index < 12 ; index++) {
-			if (!this.columnContains(values[index])) {
+			int bit = (Character.isDigit(values[index]) ? values[index] - '0' : values[index] - 54);
+			
+			if (!((bits & (1 << bit)) != 0)) {
 				this.table[i][0] = new ConcreteCell(values[index]);
 				i++;
 			}
 		}
-	}
-	
-	private boolean columnContains(char value) {
-		for (int i = 0 ; i < 3 ; i++) {
-			if (value == this.table[i][0].getValue())
-				return true;
-		}
-		
-		return false;
 	}
 	
 	private void shuffle(char[] values, Random rng) {

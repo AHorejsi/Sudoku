@@ -70,6 +70,10 @@ import java.util.concurrent.CopyOnWriteArraySet;
  * 	</thead>
  * 	<tbody>
  * 		<tr>
+ * 			<td>{@code RotateMixer}</td>
+ * 			<td>"rotate"</td>
+ * 		</tr>
+ * 		<tr>
  * 			<td>{@code FlipMixer}</td>
  * 			<td>"flip"</td>
  * 		</tr>

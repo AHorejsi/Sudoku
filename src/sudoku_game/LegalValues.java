@@ -24,7 +24,8 @@ public abstract class LegalValues {
 	 * for legality
 	 * @return <tt>true</tt> if the given
 	 * <tt>char</tt> value is legal for a
-	 * Sudoku puzzle
+	 * Sudoku puzzle, <tt>false</tt>
+	 * otherwise
 	 */
 	public boolean isLegal(char value) {
 		return Arrays.binarySearch(this.values, value) >= 0;

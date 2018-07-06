@@ -45,7 +45,7 @@ public class NumericChecker implements Checker {
 		
 		for (int row = 0 ; row < dimensions ; row += rowIncrement) {
 			for (int col = 0 ; col < dimensions ; col += columnIncrement) {
-				if (!this.validBox(row, col, board, success, dimensions))
+				if (!this.validBox(row, col, board, success))
 					return false;
 			}
 		}
@@ -81,7 +81,7 @@ public class NumericChecker implements Checker {
 		return bits == success;
 	}
 	
-	private boolean validBox(int row, int col, Board board, Integer success, Integer dimensions) {
+	private boolean validBox(int row, int col, Board board, Integer success) {
 		int bits = 0;
 		int endRow = row + board.rowSizeInBox();
 		int endCol = col + board.colSizeInBox();

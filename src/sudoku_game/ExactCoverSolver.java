@@ -24,6 +24,18 @@ class ExactCoverSolver implements Solver {
 	
 	@Override
 	public boolean hasUniqueSolution(Board board) {
+		Node head = this.constructMatrix(board.getDimensions());
+	}
+	
+	private Node constructMatrix(int dimensions) {
+		
+	}
+	
+	private static class Node {
+		
+	}
+	
+	private static class ColumnNode extends Node {
 		
 	}
 }

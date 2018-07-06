@@ -1,7 +1,8 @@
 package sudoku_game;
 
 /**
- * Checks if a given Sudoku puzzle is solved
+ * Checks if a given Sudoku
+ * puzzle is solved
  * @author Alex Horejsi
  */
 @FunctionalInterface
