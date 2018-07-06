@@ -16,18 +16,18 @@ interface Cell {
 	/**
 	 * Changes the value in this cell
 	 * @param value The new value for this cell
-	 * @throws IllegalStateException Thrown if this
+	 * @throws NoneditableCellException Thrown if this
 	 * cell is not allowed to be edited
 	 */
-	void setValue(char value) throws IllegalStateException;
+	void setValue(char value) throws NoneditableCellException;
 	
 	/**
 	 * Empties this cell so that it contains
 	 * no value at all
-	 * @throws IllegalStateException Thrown if
+	 * @throws NoneditableCellException Thrown if
 	 * this cell is not allowed to be edited
 	 */
-	void setEmptyValue() throws IllegalStateException;
+	void setEmptyValue() throws NoneditableCellException;
 	
 	/**
 	 * Checks if this cell is editable
