@@ -3,8 +3,8 @@ package sudoku_game;
 import java.util.Objects;
 
 /**
- * Instances of this class represent
- * a Sudoku board
+ * Instances of this class 
+ * represent a Sudoku board
  * @author Alex Horejsi
  */
 public abstract class Board {
@@ -129,10 +129,10 @@ public abstract class Board {
 	}
 	
 	/**
-	 * Returns the dimensions of
-	 * this Sudoku board
-	 * @return The dimensions of
-	 * this Sudoku board
+	 * Returns the dimensions 
+	 * of this Sudoku board
+	 * @return The dimensions 
+	 * of this Sudoku board
 	 */
 	public int getDimensions() {
 		return this.table.length;

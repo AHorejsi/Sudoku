@@ -4,12 +4,10 @@ import java.util.Random;
 
 /**
  * Default random number generator holder to be used
- * should a user opt to not provide one themselves. The
- * instance of {@code Random} provided by this class
- * cannot have its seed set
+ * should a user opt to not provide one themselves
  * @author Alex Horejsi
  */
-public class DefaultRNG {
+class DefaultRNG {
 	private static Random defaultGenerator = new Random();
 	
 	private DefaultRNG() {}

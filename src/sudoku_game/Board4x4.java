@@ -32,7 +32,7 @@ public class Board4x4 extends Board {
 	 * if the given random number
 	 * generator is <tt>null</tt>
 	 */
-	Board4x4(Random rng) {
+	Board4x4(Random rng) throws NullPointerException {
 		super(LegalValues4x4.getInstance(),
 			  NumericChecker.getInstance(),
 			  BoxInfo4x4.getInstance(),
@@ -50,7 +50,7 @@ public class Board4x4 extends Board {
 	 * if the given 2D array of cells is
 	 * <tt>null<tt>
 	 */
-	Board4x4(Cell[][] table) {
+	Board4x4(Cell[][] table) throws NullPointerException {
 		super(LegalValues4x4.getInstance(),
 			  NumericChecker.getInstance(),
 			  BoxInfo4x4.getInstance(),

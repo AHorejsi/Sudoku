@@ -17,8 +17,6 @@ class Generator12x12 implements Generator {
 		this.table = new Cell[12][12];
 		
 		this.fillInitialCells(rng);
-		
-		return this.table;
 	}
 	
 	private void fillInitialCells(Random rng) {
