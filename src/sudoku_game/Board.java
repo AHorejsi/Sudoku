@@ -213,9 +213,15 @@ public abstract class Board {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		
-		for (int i = 0 ; i < table.length ; i++) {
-			for (int j = 0 ; j < table.length ; j++) {
-				sb.append(this.table[i][j].getValue());
+		for (int i = 0 ; i < this.table.length ; i++) {
+			for (int j = 0 ; j < this.table[i].length ; j++) {
+				char value = this.table[i][j].getValue();
+				
+				if (value == '\u0000')
+					sb.append('?');
+				else
+					sb.append(value);
+				
 				sb.append(' ');
 			}
 			
