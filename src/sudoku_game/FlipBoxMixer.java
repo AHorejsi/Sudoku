@@ -22,19 +22,21 @@ class FlipBoxMixer implements Mixer {
 	
 	@Override
 	public void mix(Board board, Random rng) {
-		this.rowFlip(board, rng);
-		this.columnFlip(board, rng);
+		Cell[][] table = board.getTable();
+		
+		this.rowFlip(table, rng);
+		this.columnFlip(table, rng);
 	}
 	
-	private void rowFlip(Board board, Random rng) {
-		if (board.getDimensions() == 4)
-			this.rowFlip4x4(board.table, rng);
-		else if (board.getDimensions() == 6)
-			this.rowFlip6x6(board.table, rng);
-		else if (board.getDimensions() == 9)
-			this.rowFlip9x9(board.table, rng);
+	private void rowFlip(Cell[][] table, Random rng) {
+		if (table.length == 4)
+			this.rowFlip4x4(table, rng);
+		else if (table.length == 6)
+			this.rowFlip6x6(table, rng);
+		else if (table.length == 9)
+			this.rowFlip9x9(table, rng);
 		else
-			this.rowFlip16x16(board.table, rng);
+			this.rowFlip16x16(table, rng);
 	}
 	
 	private void rowFlip4x4(Cell[][] table, Random rng) {
@@ -157,15 +159,15 @@ class FlipBoxMixer implements Mixer {
 		}
 	}
 	
-	private void columnFlip(Board board, Random rng) {
-		if (board.getDimensions() == 4)
-			this.columnFlip4x4(board.table, rng);
-		else if (board.getDimensions() == 6)
-			this.columnFlip6x6(board.table, rng);
-		else if (board.getDimensions() == 9)
-			this.columnFlip9x9(board.table, rng);
+	private void columnFlip(Cell[][] table, Random rng) {
+		if (table.length == 4)
+			this.columnFlip4x4(table, rng);
+		else if (table.length == 6)
+			this.columnFlip6x6(table, rng);
+		else if (table.length == 9)
+			this.columnFlip9x9(table, rng);
 		else
-			this.columnFlip16x16(board.table, rng);
+			this.columnFlip16x16(table, rng);
 	}
 	
 	private void columnFlip4x4(Cell[][] table, Random rng) {

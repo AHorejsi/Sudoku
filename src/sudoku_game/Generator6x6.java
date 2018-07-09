@@ -39,9 +39,9 @@ class Generator6x6 implements Generator {
 			i++;
 			j = 0;
 		}
-		if (i == 6) {
+		
+		if (i == 6)
 			return true;
-		}
 		
 		char[] shuffled = this.shuffle(rng);
 		

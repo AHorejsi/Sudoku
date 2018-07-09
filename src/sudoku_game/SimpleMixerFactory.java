@@ -105,7 +105,7 @@ public class SimpleMixerFactory implements MixerFactory {
 	}
 	
 	@Override
-	public Collection<Mixer> getFactory(String info) {
+	public Collection<Mixer> getMixers(String info) {
 		String[] data = info.split(" ");
 		
 		Collection<Mixer> mixers = this.determineDataStructure(data[0]);

@@ -54,7 +54,7 @@ class Generator12x12 implements Generator {
 		for (int index = 0 ; index < 12 ; index++) {
 			int bit = (Character.isDigit(values[index]) ? values[index] - '0' : values[index] - 54);
 			
-			if (!((bits & (1 << bit)) != 0)) {
+			if ((bits & (1 << bit)) == 0) {
 				this.table[0][j] = new ConcreteCell(values[index]);
 				j++;
 			}
@@ -69,7 +69,7 @@ class Generator12x12 implements Generator {
 		for (int index = 0 ; index < 12 ; index++) {
 			int bit = (Character.isDigit(values[index]) ? values[index] - '0' : values[index] - 54);
 			
-			if (!((bits & (1 << bit)) != 0)) {
+			if ((bits & (1 << bit)) == 0) {
 				this.table[i][0] = new ConcreteCell(values[index]);
 				i++;
 			}
@@ -82,6 +82,27 @@ class Generator12x12 implements Generator {
 			char temp = values[pos];
 			values[pos] = values[i];
 			values[i] = temp;
+		}
+	}
+	
+	private static class Node {
+		Boolean filled;
+		Node up;
+		Node down;
+		Node left;
+		Node right;
+		
+		public Node(Boolean filled) {
+			this.filled = filled;
+		}
+	}
+	
+	private static class ColumnNode extends Node {
+		char name;
+		
+		public ColumnNode(Boolean filled, char name) {
+			super(filled);
+			this.name = name;
 		}
 	}
 }

@@ -23,7 +23,7 @@ class FlipMixer implements Mixer {
 	
 	@Override
 	public void mix(Board board, Random rng) {
-		Cell[][] table = board.table;
+		Cell[][] table = board.getTable();
 		int option = rng.nextInt(4);
 		
 		if (option == 0)

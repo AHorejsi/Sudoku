@@ -17,5 +17,5 @@ public interface MixerFactory {
 	 * @return A {@code Collection} consisting
 	 * of one {@code Mixer} or more
 	 */
-	public Collection<Mixer> getFactory(String info);
+	public Collection<Mixer> getMixers(String info);
 }

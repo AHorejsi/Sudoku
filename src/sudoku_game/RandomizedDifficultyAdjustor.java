@@ -27,7 +27,7 @@ class RandomizedDifficultyAdjustor implements DifficultyAdjustor {
 				board.getDimensions() * board.getDimensions());
 		int lowerBound = this.determineLowerBound(lowerBoundOnGivensPerUnit, board.getDimensions());
 		this.performAdjustment(board, rng, amount, lowerBound);
-		DifficultyAdjustor.setEditableCells(board.table);
+		DifficultyAdjustor.setEditableCells(board.getTable());
 	}
 	
 	private int determineAmountOfGivens(Random rng, int lower, int upper, int total) {
@@ -40,7 +40,7 @@ class RandomizedDifficultyAdjustor implements DifficultyAdjustor {
 	}
 	
 	private void performAdjustment(Board board, Random rng, int amount, int lowerBound) {
-		Cell[][] table = board.table;
+		Cell[][] table = board.getTable();
 		int length = table.length;
 		int current = length * length;
 		Solver solver = BacktrackingSolver.getInstance();

@@ -39,9 +39,9 @@ class Generator4x4 implements Generator {
 			i++;
 			j = 0;
 		}
-		if (i == 4) {
+		
+		if (i == 4)
 			return true;
-		}
 		
 		char[] shuffled = this.shuffle(rng);
 		
@@ -61,6 +61,19 @@ class Generator4x4 implements Generator {
 		}
 		
 		return false;
+	}
+	
+	private char[] shuffle(Random rng) {
+		char[] values = LegalValues4x4.getInstance().getValues();
+		
+		for (int i = values.length - 1 ; i > 0 ; i--) {
+			int pos = rng.nextInt(i);
+			char temp = values[pos];
+			values[pos] = values[i];
+			values[i] = temp;
+		}
+		
+		return values;
 	}
 	
 	private boolean safe(int i, int j, char digit) {
@@ -102,18 +115,5 @@ class Generator4x4 implements Generator {
 		}
 		
 		return true;
-	}
-	
-	private char[] shuffle(Random rng) {
-		char[] values = LegalValues4x4.getInstance().getValues();
-		
-		for (int i = values.length - 1 ; i > 0 ; i--) {
-			int pos = rng.nextInt(i);
-			char temp = values[pos];
-			values[pos] = values[i];
-			values[i] = temp;
-		}
-		
-		return values;
 	}
 }

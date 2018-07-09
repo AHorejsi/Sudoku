@@ -8,10 +8,10 @@ import java.util.Objects;
  * @author Alex Horejsi
  */
 public abstract class Board {
-	Cell[][] table;
-	LegalValues legalValues;
-	Checker checker;
-	BoxInfo boxInfo;
+	private Cell[][] table;
+	private LegalValues legalValues;
+	private Checker checker;
+	private BoxInfo boxInfo;
 	
 	/**
 	 * Creates a Sudoku board
@@ -33,6 +33,22 @@ public abstract class Board {
 		this.checker = Objects.requireNonNull(checker);
 		this.boxInfo = Objects.requireNonNull(boxInfo);
 		this.table = Objects.requireNonNull(table);
+	}
+	
+	Cell[][] getTable() {
+		return this.table;
+	}
+	
+	LegalValues getLegalValues() {
+		return this.legalValues;
+	}
+	
+	Checker getChecker() {
+		return this.checker;
+	}
+	
+	BoxInfo getBoxInfo() {
+		return this.boxInfo;
 	}
 	
 	/**

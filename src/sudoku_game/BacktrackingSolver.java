@@ -12,8 +12,10 @@ class BacktrackingSolver implements Solver {
 	private BacktrackingSolver() {}
 	
 	/**
-	 * Returns the single instance of {@code BacktrackingSolver}
-	 * @return The single instance of {@code BacktrackingSolver}
+	 * Returns the single instance 
+	 * of {@code BacktrackingSolver}
+	 * @return The single instance 
+	 * of {@code BacktrackingSolver}
 	 */
 	public static Solver getInstance() {
 		return BacktrackingSolver.solver;

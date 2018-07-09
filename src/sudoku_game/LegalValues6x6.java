@@ -14,10 +14,10 @@ public class LegalValues6x6 extends LegalValues {
 	}
 	
 	/**
-	 * Returns the single instance of
-	 * {@code LegalValues6x6}
-	 * @return The single instance of
-	 * {@code LegalValues6x6}
+	 * Returns the single instance
+	 * of {@code LegalValues6x6}
+	 * @return The single instance
+	 * of {@code LegalValues6x6}
 	 */
 	public static LegalValues getInstance() {
 		return LegalValues6x6.val;

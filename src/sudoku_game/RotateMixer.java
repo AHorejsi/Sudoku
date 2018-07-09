@@ -26,7 +26,7 @@ class RotateMixer implements Mixer {
 	@Override
 	public void mix(Board board, Random rng) {
 		if (rng.nextBoolean())
-			this.rotate180(board.table);
+			this.rotate180(board.getTable());
 	}
 	
 	private void rotate180(Cell[][] table) {
