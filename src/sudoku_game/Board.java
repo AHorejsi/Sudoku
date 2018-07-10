@@ -35,18 +35,46 @@ public abstract class Board {
 		this.table = Objects.requireNonNull(table);
 	}
 	
+	/**
+	 * Returns the 2D array of instances
+	 * of {@code Cell} that represents the
+	 * Sudoku board
+	 * @return The 2D array of instances
+	 * of {@code Cell} that represents the
+	 * Sudoku board
+	 */
 	Cell[][] getTable() {
 		return this.table;
 	}
 	
+	/**
+	 * Returns data on the legal values
+	 * for this Sudoku board
+	 * @return Data on the legal values
+	 * for this Sudoku board
+	 */
 	LegalValues getLegalValues() {
 		return this.legalValues;
 	}
 	
+	/**
+	 * Returns the {@code Checker} that
+	 * is used to check if this Sudoku
+	 * board is solved
+	 * @return The {@code Checker} that
+	 * is used to check if this Sudoku
+	 * board is solved
+	 */
 	Checker getChecker() {
 		return this.checker;
 	}
 	
+	/**
+	 * Returns data on the boxes of
+	 * this Sudoku board
+	 * @return Data on the boxes of
+	 * this Sudoku board
+	 */
 	BoxInfo getBoxInfo() {
 		return this.boxInfo;
 	}

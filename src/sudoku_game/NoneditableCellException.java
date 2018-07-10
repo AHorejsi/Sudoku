@@ -8,7 +8,7 @@ package sudoku_game;
  * non-editable
  * @author Alex Horejsi
  */
-public class NoneditableCellException extends RuntimeException {
+public class NoneditableCellException extends IllegalStateException {
 	private static final long serialVersionUID = 3750707403323100909L;
 	
 	/**

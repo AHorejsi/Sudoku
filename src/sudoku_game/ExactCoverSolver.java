@@ -30,12 +30,13 @@ class ExactCoverSolver implements Solver {
 	
 	private Node createMatrix(Board board) {
 		int dimensions = board.getDimensions();
-		Integer rows = dimensions * dimensions * dimensions;
-		Integer cols = 4 * dimensions * dimensions;
 		
-		Node node = new ColumnNode(false, '\u0000');
-		node.right = this.createMatrix(board.table, 0, 0, rows, cols);
+		Node node = new Node(false);
+		node.right = this.createMatrix(board.getTable(), 0, 0,
+									   dimensions * dimensions * dimensions,
+									   4 * dimensions * dimensions);
 		node.right.left = node;
+		this.makeCircular(node);
 		
 		return node;
 	}
@@ -74,15 +75,15 @@ class ExactCoverSolver implements Solver {
 		private Node left;
 		private Node right;
 		
-		private Node(boolean filled) {
+		private Node(Boolean filled) {
 			this.filled = filled;
 		}
 	}
 	
 	private static class ColumnNode extends Node {
-		private char name;
+		private String name;
 		
-		private ColumnNode(boolean filled, char name) {
+		private ColumnNode(boolean filled, String name) {
 			super(filled);
 			this.name = name;
 		}

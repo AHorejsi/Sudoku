@@ -23,7 +23,7 @@ class BacktrackingSolver implements Solver {
 	
 	@Override
 	public boolean hasUniqueSolution(Board board) {
-		return this.solve(board, board.legalValues.getValues(), 0, 0, 0, board.getDimensions()) == 1;
+		return this.solve(board, board.getLegalValues().getValues(), 0, 0, 0, board.getDimensions()) == 1;
 	}
 	
 	private int solve(Board board, char[] legalValues, int count, int row, int col, int length) {
@@ -39,18 +39,20 @@ class BacktrackingSolver implements Solver {
 				count = this.solve(board, legalValues, count, row, col + 1, length);
 		}
 		else {
+			Cell[][] table = board.getTable();
+			
 			for (int i = 0 ; i < length ; i++) {
 				if (count > 1)
 					return count;
 				if (this.safe(board, row, col, legalValues[i])) {
-					board.table[row][col].setValueForSetUp(legalValues[i]);
+					table[row][col].setValueForSetUp(legalValues[i]);
 					
 					if (col == length - 1)
 						count = this.solve(board, legalValues, count, row + 1, 0, length);
 					else
 						count = this.solve(board, legalValues, count, row, col + 1, length);
 					
-					board.table[row][col].setEmptyForSetUp();
+					table[row][col].setEmptyForSetUp();
 				}
 			}
 		}
@@ -61,10 +63,10 @@ class BacktrackingSolver implements Solver {
 	private boolean safe(Board board, int i, int j, char digit) {
 		int endRow = board.rowSizeInBox();
 		int endCol = board.colSizeInBox();
-		Cell[][] table = board.table;
+		Cell[][] table = board.getTable();
 		
 		return this.safeRow(table, i, digit, table.length) && this.safeCol(table, j, digit, table.length) && 
-				this.safeBox(table, i - i % endRow, j - j % endCol, digit, endRow, endCol);
+			   this.safeBox(table, i - i % endRow, j - j % endCol, digit, endRow, endCol);
 	}
 	
 	private boolean safeRow(Cell[][] table, int i, char digit, int end) {
