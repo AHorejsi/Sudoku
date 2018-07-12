@@ -81,8 +81,10 @@ public class NumericChecker implements Checker {
 		return bits == success;
 	}
 	
-	private boolean validBox(int row, int col, Board board, Integer endRow, Integer endCol, Integer success) {
+	private boolean validBox(int row, int col, Board board, Integer rowIncrement, Integer columnIncrement, Integer success) {
 		int bits = 0;
+		int endRow = row + rowIncrement;
+		int endCol = col + columnIncrement;
 		char value;
 		
 		for (int i = row ; i < endRow ; i++) {
