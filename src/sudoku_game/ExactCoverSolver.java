@@ -9,10 +9,6 @@ package sudoku_game;
  */
 class ExactCoverSolver implements Solver {
 	private static Solver solver = new ExactCoverSolver();
-	private Cell[][] table;
-	private int rows;
-	private int cols;
-	
 	private ExactCoverSolver() {}
 	
 	/**
@@ -29,9 +25,9 @@ class ExactCoverSolver implements Solver {
 	public boolean hasUniqueSolution(Board board) {
 		int dimensions = board.getDimensions();
 		
-		this.table = board.getTable();
-		this.rows = dimensions * dimensions * dimensions;
-		this.cols = 4 * dimensions * dimensions;
+		Cell[][] table = board.getTable();
+		int rows = dimensions * dimensions * dimensions;
+		int cols = 4 * dimensions * dimensions;
 	}
 	
 	private static class Node {

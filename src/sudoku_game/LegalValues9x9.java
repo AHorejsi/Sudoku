@@ -25,6 +25,6 @@ public class LegalValues9x9 extends LegalValues {
 	
 	@Override
 	public boolean isLegal(char value) {
-		return Character.isDigit(value);
+		return value >= '1' && value <= '9';
 	}
 }

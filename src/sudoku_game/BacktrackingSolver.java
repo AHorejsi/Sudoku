@@ -26,7 +26,7 @@ class BacktrackingSolver implements Solver {
 		return this.solve(board, board.getLegalValues().getValues(), 0, 0, 0, board.getDimensions()) == 1;
 	}
 	
-	private int solve(Board board, char[] legalValues, int count, int row, int col, int length) {
+	private int solve(Board board, char[] legalValues, int count, int row, int col, Integer length) {
 		if (count > 1)
 			return count;
 		

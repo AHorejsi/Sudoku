@@ -45,7 +45,7 @@ class SequentialDifficultyAdjustor implements DifficultyAdjustor {
 	private void performAdjustment(Board board, int amount, int lowerBound) {
 		Cell[][] table = board.getTable();
 		int current = table.length * table.length;
-		Solver solver = BacktrackingSolver.getInstance();
+		Solver solver = ExactCoverSolver.getInstance();
 		LowerBoundChecker checker = SimpleLowerBoundChecker.getInstance();
 		
 		for (int i = 0 ; i < table.length ; i++) {
