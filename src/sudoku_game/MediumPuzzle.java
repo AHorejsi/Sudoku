@@ -38,7 +38,7 @@ public class MediumPuzzle extends Puzzle {
 	 * Sudoku puzzle
 	 */
 	MediumPuzzle(Board board, Random rng) {
-		super(board, S_PathDifficultyAdjustor.getInstance(), 40, 43, 33, rng);
+		super(board, JumpCellDifficultyAdjustor.getInstance(), 40, 43, 33, rng);
 	}
 	
 	@Override
