@@ -15,6 +15,12 @@ import sudoku_game.SimpleMixerFactory;
  */
 public class Main extends Application {
 	/**
+	 * Empty public 
+	 * constructor
+	 */
+	public Main() {}
+	
+	/**
 	 * Main method
 	 * to initiate
 	 * program
@@ -26,7 +32,7 @@ public class Main extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) {
-		Collection<Mixer> mixers = SimpleMixerFactory.getInstance().getFactory("linkedlist rotate flip flipbox swap");
+		Collection<Mixer> mixers = SimpleMixerFactory.getInstance().getMixers("linkedlist rotate flip flipbox swap");
 		GUIPuzzle gui = new SimpleGUIPuzzle(mixers);
 		primaryStage.setTitle("Sudoku");
 		primaryStage.setFullScreen(true);

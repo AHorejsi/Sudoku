@@ -56,6 +56,7 @@ class Generator4x4 implements Generator {
 					
 				if (this.fillRemaining(i, j + 1, rng))
 					return true;
+				
 				this.table[i][j].setEmptyForSetUp();
 			}
 		}

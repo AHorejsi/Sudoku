@@ -23,10 +23,10 @@ class Settings extends StackPane {
 		ComboBox<Integer> dimensionsDropDown = new ComboBox<Integer>();
 		ComboBox<String> difficultyDropDown = new ComboBox<String>();
 		
-		dimensionsDropDown.getItems().addAll(4, 6, 9);
-		difficultyDropDown.getItems().addAll("Basic", "Easy", "Medium", "Hard", "Insane");
-		
+		dimensionsDropDown.getItems().addAll(4, 6, 8, 9, 12, 16);
 		dimensionsDropDown.setSelectionModel(ArrayDimensionSelectionModel.getInstance());
+		
+		difficultyDropDown.getItems().addAll("Basic", "Easy", "Medium", "Hard", "Insane");
 		difficultyDropDown.setSelectionModel(ArrayDifficultySelectionModel.getInstance());
 		
 		gp.add(dimensionsLabel, 0, 0);

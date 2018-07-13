@@ -85,7 +85,10 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 	private void createGUIToUseLater() {
 		GridPaneCreator gpc4x4 = new GridPane4x4Creator();
 		GridPaneCreator gpc6x6 = new GridPane6x6Creator();
+		GridPaneCreator gpc8x8 = new GridPaneCreator8x8();
 		GridPaneCreator gpc9x9 = new GridPane9x9Creator();
+		GridPaneCreator gpc12x12 = new GridPane12x12Creator();
+		GridPaneCreator gpc16x16 = new GridPane16x16Creator();
 		
 		Thread t1 = new Thread(new CreateSettingsButton());
 		Thread t2 = new Thread(new CreateReturnToMainMenuButton());
@@ -100,6 +103,9 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 		Thread t11 = new Thread(gpc4x4);
 		Thread t12 = new Thread(gpc6x6);
 		Thread t13 = new Thread(gpc9x9);
+		Thread t14 = new Thread(gpc12x12);
+		Thread t15 = new Thread(gpc16x16);
+		Thread t16 = new Thread(gpc8x8);
 		
 		t1.start();
 		t2.start();
@@ -114,6 +120,9 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 		t11.start();
 		t12.start();
 		t13.start();
+		t14.start();
+		t15.start();
+		t16.start();
 		
 		try {
 			t1.join();
@@ -129,11 +138,14 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 			t11.join();
 			t12.join();
 			t13.join();
+			t14.join();
+			t15.join();
+			t16.join();
 		} catch (InterruptedException ex) {
 			throw new InternalError(ex);
 		}
 		
-		this.insertIntoMaps(gpc4x4, gpc6x6, gpc9x9);
+		this.insertIntoMaps(gpc4x4, gpc6x6, gpc8x8, gpc9x9, gpc12x12, gpc16x16);
 		this.setUpMainMenu();
 	}
 	
@@ -200,6 +212,79 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 		this.mainMenu = mainMenu;
 	}
 	
+	private class Settings extends StackPane {
+		private int dimensions = 9;
+		private String difficulty = "Medium";
+		
+		Settings() {
+			GridPane gp = new GridPane();
+			gp.getStyleClass().addAll("grayBack", "centered", "settingsScreen");
+			
+			Label dimensionsLabel = new Label("Dimensions: ");
+			Label difficultyLabel = new Label("Difficulty: ");
+			this.styleLabels(dimensionsLabel, difficultyLabel);
+			
+			ComboBox<Integer> dimensionsDropDown = new ComboBox<Integer>();
+			ComboBox<String> difficultyDropDown = new ComboBox<String>();
+			
+			dimensionsDropDown.getItems().addAll(4, 6, 9, 12, 16);
+			difficultyDropDown.getItems().addAll("Basic", "Easy", "Medium", "Hard", "Insane");
+			
+			dimensionsDropDown.setSelectionModel(ArrayDimensionSelectionModel.getInstance());
+			difficultyDropDown.setSelectionModel(ArrayDifficultySelectionModel.getInstance());
+			
+			gp.add(dimensionsLabel, 0, 0);
+			gp.add(dimensionsDropDown, 1, 0);
+			gp.add(difficultyLabel, 0, 1);
+			gp.add(difficultyDropDown, 1, 1);
+			
+			Button exit = new Button("Apply and Exit");
+			gp.add(exit, 0, 2);
+			
+			for (Node node : gp.getChildren())
+				node.getStyleClass().add("centered");
+			
+			this.addEventHandlersToComboBoxes(dimensionsDropDown, difficultyDropDown);
+			this.getChildren().add(gp);
+			this.getStyleClass().add("centered");
+		}
+		
+		public int dimensions() {
+			return this.dimensions;
+		}
+		
+		public void setDimensions(int dimensions) {
+			this.dimensions = dimensions;
+		}
+		
+		public void setDifficulty(String difficulty) {
+			this.difficulty = difficulty;
+		}
+		
+		private void styleLabels(Label... labels) {
+			for (Label label : labels)
+				label.getStyleClass().addAll("centered", "settingsLabel");
+		}
+		
+		private void addEventHandlersToComboBoxes(ComboBox<?>... comboBoxes) {
+			for (ComboBox<?> comboBox : comboBoxes) {
+				comboBox.setOnHidden(ev -> {
+					SelectionModel<?> model = comboBox.getSelectionModel();
+					
+					if (model instanceof DimensionSelectionModel)
+						this.dimensions = (int)model.getSelectedItem();
+					else
+						this.difficulty = (String)model.getSelectedItem();
+				});
+			}
+		}
+		
+		@Override
+		public String toString() {
+			return this.dimensions + "x" + this.dimensions + " " + this.difficulty;
+		}
+	}
+	
 	private class CreateSettingsButton implements Runnable {
 		@SuppressWarnings("unchecked")
 		@Override
@@ -260,7 +345,7 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 			hb.getStyleClass().addAll("whiteBack", "centered", "bordered");
 			hb.getChildren().addAll(submit, reset, exit);
 			
-			submit.setOnAction(ev -> {
+			submit.setOnMouseClicked(ev -> {
 				int dimensions = settings.dimensions();
 				TextField[][] tfs = SimpleGUIPuzzle.this.textfields.get(dimensions);
 				Puzzle puzzle = SimpleGUIPuzzle.this.puzzle;
@@ -330,9 +415,11 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 		public void run() {
 			StackPane left = SimpleGUIPuzzle.this.leftSide;
 			StackPane right = SimpleGUIPuzzle.this.rightSide;
+			
 			left.setMaxSize(100, 100);
 			left.setMinSize(100, 100);
 			left.getStyleClass().addAll("blackBack", "centered");
+			
 			right.setMaxSize(100, 100);
 			right.setMinSize(100, 100);
 			right.getStyleClass().addAll("blackBack", "centered");

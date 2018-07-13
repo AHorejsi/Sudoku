@@ -3,12 +3,13 @@ package sudoku_game;
 /**
  * Checks if a Sudoku board
  * has a unique solution by
- * modeling it as an exact
+ * reducing it to an exact
  * cover problem
  * @author Alex Horejsi
  */
 class ExactCoverSolver implements Solver {
 	private static Solver solver = new ExactCoverSolver();
+	
 	private ExactCoverSolver() {}
 	
 	/**
@@ -28,30 +29,32 @@ class ExactCoverSolver implements Solver {
 		Cell[][] table = board.getTable();
 		int rows = dimensions * dimensions * dimensions;
 		int cols = 4 * dimensions * dimensions;
+		
+		
 	}
 	
 	private static class Node {
-		private ColumnNode head;
-		private Node up;
-		private Node down;
-		private Node left;
-		private Node right;
+		ColumnNode head;
+		Node up;
+		Node down;
+		Node left;
+		Node right;
 	}
 	
 	private static class ColumnNode extends Node {
-		private int size;
-		private ColumnID info;
+		int size;
+		ColumnID info;
 	}
 	
 	private static class ColumnID {
-		private int constraint = -1;
-		private int number = -1;
-		private int position = -1;
+		int constraint = -1;
+		int number = -1;
+		int position = -1;
 	}
 	
 	private static class Clue {
-		private char val;
-		private int row;
-		private int col;
+		Cell val;
+		int row;
+		int col;
 	}
 }

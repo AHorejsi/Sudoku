@@ -53,9 +53,9 @@ interface DifficultyAdjustor {
 	
 	/**
 	 * Sets all of empty cells to be editable and
-	 * all non-empty cells to be readonly
+	 * all non-empty cells to be read-only
 	 * @param table The Sudoku board to have its
-	 * cells set as editable or readonly
+	 * cells set as editable or read-only
 	 */
 	static void setEditableCells(Cell[][] table) {
 		for (int i = 0 ; i < table.length ; i++) {

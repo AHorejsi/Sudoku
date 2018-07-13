@@ -12,6 +12,13 @@ import java.util.Arrays;
 public abstract class LegalValues {
 	private char[] values;
 	
+	/**
+	 * Defines the legal values for this
+	 * instance of {@code LegalValues}
+	 * @param values The legal values to
+	 * be stored in this instance of
+	 * {@code LegalValues}
+	 */
 	protected LegalValues(char[] values) {
 		this.values = values;
 	}
@@ -35,8 +42,8 @@ public abstract class LegalValues {
 	 * Returns a <tt>char</tt> array
 	 * containing all of the legal <tt>char</tt>
 	 * values for this Sudoku puzzle. The <tt>char</tt>
-	 * array that is returned should be a independent
-	 * of any data fields in this class
+	 * array that is returned is a deep copy of the
+	 * array contained in this object
 	 * @return A <tt>char</tt> array containing
 	 * all of the legal <tt>char</tt> values for
 	 * a Sudoku puzzle

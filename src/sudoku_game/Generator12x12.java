@@ -84,25 +84,4 @@ class Generator12x12 implements Generator {
 			values[i] = temp;
 		}
 	}
-	
-	private static class Node {
-		Boolean filled;
-		Node up;
-		Node down;
-		Node left;
-		Node right;
-		
-		public Node(Boolean filled) {
-			this.filled = filled;
-		}
-	}
-	
-	private static class ColumnNode extends Node {
-		char name;
-		
-		public ColumnNode(Boolean filled, char name) {
-			super(filled);
-			this.name = name;
-		}
-	}
 }
