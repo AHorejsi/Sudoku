@@ -46,7 +46,7 @@ class S_PathDifficultyAdjustor implements DifficultyAdjustor {
 		Cell[][] table = board.getTable();
 		int length = table.length;
 		int current = length * length;
-		Solver solver = ExactCoverSolver.getInstance();
+		Solver solver = BacktrackingSolver.getInstance();
 		LowerBoundChecker checker = SimpleLowerBoundChecker.getInstance();
 		
 		for (int i = 0 ; i < length ; i++) {

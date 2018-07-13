@@ -17,6 +17,12 @@ class Generator12x12 implements Generator {
 		this.table = new Cell[12][12];
 		
 		this.fillInitialCells(rng);
+		this.fillRemaining(1, 4);
+		
+		Cell[][] table = this.table;
+		this.table = null;
+		
+		return table;
 	}
 	
 	private void fillInitialCells(Random rng) {
@@ -83,5 +89,78 @@ class Generator12x12 implements Generator {
 			values[pos] = values[i];
 			values[i] = temp;
 		}
+	}
+	
+	private boolean fillRemaining(int i, int j) {
+		if (j == 12) {
+			i++;
+			
+			if (i <= 2)
+				j = 4;
+			else
+				j = 1;
+		}
+		
+		if (i == 12)
+			return true;
+		
+		for (char digit = '0' ; digit <= 'B' ; digit++) {
+			if (digit == ':')
+				digit = 'A';
+			
+			if (this.safe(i, j, digit)) {
+				if (this.table[i][j] == null)
+					this.table[i][j] = new ConcreteCell(digit);
+				else
+					this.table[i][j].setValueForSetUp(digit);
+					
+				if (this.fillRemaining(i, j + 1))
+					return true;
+				this.table[i][j].setEmptyForSetUp();
+			}
+		}
+		
+		return false;
+	}
+	
+	private boolean safe(int i, int j, char digit) {
+		return this.safeRow(i, digit) && 
+			   this.safeCol(j, digit) && 
+			   this.safeBox(i - i % 3, j - j % 4, digit);
+	}
+	
+	private boolean safeRow(int i, char digit) {
+		for (int j = 0 ; j < 12 ; j++) {
+			if (this.table[i][j] != null) {
+				if (this.table[i][j].getValue() == digit)
+					return false;
+			}
+		}
+		
+		return true;
+	}
+	
+	private boolean safeCol(int j, char digit) {
+		for (int i = 0 ; i < 12 ; i++) {
+			if (this.table[i][j] != null) {
+				if (this.table[i][j].getValue() == digit)
+					return false;
+			}
+		}
+		
+		return true;
+	}
+	
+	private boolean safeBox(int i, int j, char digit) {
+		for (int row = 0 ; row < 3 ; row++) {
+			for (int col = 0 ; col < 4 ; col++) {
+				if (this.table[row + i][col + j] != null) {
+					if (this.table[row + i][col + j].getValue() == digit)
+						return false;
+				}
+			}
+		}
+		
+		return true;
 	}
 }
