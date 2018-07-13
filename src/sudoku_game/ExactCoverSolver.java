@@ -1,5 +1,7 @@
 package sudoku_game;
 
+import java.util.ArrayList;
+
 /**
  * Checks if a Sudoku board
  * has a unique solution by
@@ -26,9 +28,20 @@ class ExactCoverSolver implements Solver {
 	public boolean hasUniqueSolution(Board board) {
 		int dimensions = board.getDimensions();
 		
+		byte[][] matrix = this.createMatrix(board);
+	}
+	
+	private byte[][] createMatrix(Board board) {
 		Cell[][] table = board.getTable();
-		int rows = dimensions * dimensions * dimensions;
-		int cols = 4 * dimensions * dimensions;
+		ArrayList<Clue> cluesList = new ArrayList<Clue>();
+		int dimensions = board.getDimensions();
+		
+		for (int i = 0 ; i < dimensions ; i++) {
+			for (int j = 0 ; j < dimensions ; j++) {
+				if (table[i][j].getValue() != '\u0000')
+					cluesList.add(new Clue(table[i][j], i, j));
+			}
+		}
 		
 		
 	}
@@ -56,5 +69,11 @@ class ExactCoverSolver implements Solver {
 		Cell val;
 		int row;
 		int col;
+		
+		private Clue(Cell val, int row, int col) {
+			this.val = val;
+			this.row = row;
+			this.col = col;
+		}
 	}
 }

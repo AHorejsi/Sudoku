@@ -7,8 +7,10 @@ import java.util.Random;
  * should a user opt to not provide one themselves
  * @author Alex Horejsi
  */
-class DefaultRNG {
-	private static Random defaultGenerator = new ImmutableRandom();
+class DefaultRNG extends Random {
+	private static final long serialVersionUID = 1775403578435790735L;
+	private static Random defaultGenerator = new DefaultRNG();
+	private boolean seedIsSet = false;
 	
 	private DefaultRNG() {}
 	
@@ -20,20 +22,10 @@ class DefaultRNG {
 		return DefaultRNG.defaultGenerator;
 	}
 	
-	private static class ImmutableRandom extends Random {
-		private static final long serialVersionUID = -6105475001788975491L;
-		private boolean set = false;
-		
-		private ImmutableRandom() {
-			super();
-		}
-		
-		@Override
-		public void setSeed(long seed) throws UnsupportedOperationException {
-			if (this.set)
-				throw new UnsupportedOperationException();
-			super.setSeed(seed);
-			this.set = true;
-		}
+	@Override
+	public void setSeed(long seed) {
+		if (this.seedIsSet)
+			throw new UnsupportedOperationException("Default RNG cannot have its seed set");
+		this.seedIsSet = true;
 	}
 }
