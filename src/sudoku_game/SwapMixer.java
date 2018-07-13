@@ -1,5 +1,8 @@
 package sudoku_game;
 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -25,27 +28,24 @@ class SwapMixer implements Mixer {
 	@Override
 	public void mix(Board board, Random rng) {
 		Cell[][] table = board.getTable();
-		char[] values = this.shuffle(board.getLegalValues().getValues(), rng);
+		char[] values = board.getLegalValues().getValues();
+		Map<Character, Character> map = this.shuffle(values, rng);
 		int dimensions = board.getDimensions();
 		char current;
-		int index;
 		
 		for (int row = 0 ; row < dimensions ; row++) {
 			for (int col = 0 ; col < dimensions ; col++) {
 				current = table[row][col].getValue();
 				
-				if (current != '\u0000') {
-					if (Character.isDigit(current))
-						index = current - '0' - 1;
-					else
-						index = current - 'A' + 9;
-					table[row][col].setValueForSetUp(values[index]);
-				}
+				if (current != '\u0000')
+					table[row][col].setValueForSetUp(map.get(current));
 			}
 		}
 	}
 	
-	private char[] shuffle(char[] values, Random rng) {		
+	private Map<Character, Character> shuffle(char[] values, Random rng) {
+		char[] copy = Arrays.copyOf(values, values.length);
+		
 		for (int i = values.length - 1 ; i > 0 ; i--) {
 			int pos = rng.nextInt(i);
 			char temp = values[pos];
@@ -53,6 +53,11 @@ class SwapMixer implements Mixer {
 			values[i] = temp;
 		}
 		
-		return values;
+		Map<Character, Character> map = new HashMap<Character, Character>();
+		
+		for (int i = 0 ; i < values.length ; i++)
+			map.put(copy[i], values[i]);
+		
+		return map;
 	}
 }
