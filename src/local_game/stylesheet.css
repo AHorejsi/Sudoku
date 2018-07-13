@@ -74,3 +74,15 @@
 	-fx-border-width: 8px;
 	-fx-border-color: black;
 }
+
+.leftPadding {
+	-fx-padding: 0px 0px 0px 5px;
+}
+
+.topPadding {
+	-fx-padding: 5px 0px 0px 0px;
+}
+
+.topLeftPadding {
+	-fx-padding: 5px 0px 0px 5px;
+}

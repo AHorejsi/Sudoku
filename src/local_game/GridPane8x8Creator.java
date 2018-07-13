@@ -3,31 +3,31 @@ package local_game;
 import javafx.scene.layout.StackPane;
 
 /**
- * Creates a sixteen-by-sixteen
+ * Creates an eight-by-eight
  * {@code GridPane}
  * @author Alex Horejsi
  */
-class GridPane16x16Creator extends GridPaneCreator {
+class GridPane8x8Creator extends GridPaneCreator {
 	/**
 	 * Defines the dimensions
 	 * and size of the text
 	 * fields
 	 */
-	GridPane16x16Creator() {
-		super(16, 40);
+	GridPane8x8Creator() {
+		super(8, 60);
 	}
 	
 	@Override
 	public StackPane createStackPane(int row, int col) {
 		StackPane sp = new StackPane();
 		
-		if (row == 4 || row == 8 || row == 12) {
-			if (col == 4 || col == 8 || col == 12)
+		if (row == 2 || row == 4 || row == 6) {
+			if (col == 4)
 				sp.getStyleClass().add("topLeftPadding");
 			else
 				sp.getStyleClass().add("topPadding");
 		}
-		else if (col == 4 || col == 8 || col == 12)
+		else if (col == 4)
 			sp.getStyleClass().add("leftPadding");
 		
 		return sp;

@@ -4,6 +4,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 
 /**
  * Creates a {@code GridPane} with
@@ -56,17 +57,32 @@ abstract class GridPaneCreator implements Runnable {
 		return this.dimensions;
 	}
 	
+	/**
+	 * Creates a {@code StackPane} with the
+	 * appropriate padding based on the way
+	 * the Sudoku puzzle's boxes are
+	 * separated
+	 * @param row The row of the cell
+	 * @param col The column of the cell
+	 * @return A {@code StackPane} with the
+	 * appropriate padding
+	 */
+	public abstract StackPane createStackPane(int row, int col);
+	
 	@Override
 	public void run() {
 		GridPane gp = new GridPane();
-		TextField[][] cells = new TextField[dimensions][dimensions];
+		TextField[][] cells = new TextField[this.dimensions][this.dimensions];
 		gp.getStyleClass().addAll("blackBack", "centered", "gridPaneGaps", "bordered");
 		
 		for (int i = 0 ; i < this.dimensions ; i++) {
 			for (int j = 0 ; j < this.dimensions ; j++) {
-				TextField tf = this.createTextField();				
+				TextField tf = this.createTextField();	
+				StackPane sp = this.createStackPane(i, j);
+				sp.getChildren().add(tf);
+				
 				cells[i][j] = tf;
-				gp.add(tf, j, i);
+				gp.add(sp, j, i);
 			}
 		}
 		

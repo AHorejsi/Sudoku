@@ -85,7 +85,7 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 	private void createGUIToUseLater() {
 		GridPaneCreator gpc4x4 = new GridPane4x4Creator();
 		GridPaneCreator gpc6x6 = new GridPane6x6Creator();
-		GridPaneCreator gpc8x8 = new GridPaneCreator8x8();
+		GridPaneCreator gpc8x8 = new GridPane8x8Creator();
 		GridPaneCreator gpc9x9 = new GridPane9x9Creator();
 		GridPaneCreator gpc12x12 = new GridPane12x12Creator();
 		GridPaneCreator gpc16x16 = new GridPane16x16Creator();
@@ -227,7 +227,7 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 			ComboBox<Integer> dimensionsDropDown = new ComboBox<Integer>();
 			ComboBox<String> difficultyDropDown = new ComboBox<String>();
 			
-			dimensionsDropDown.getItems().addAll(4, 6, 9, 12, 16);
+			dimensionsDropDown.getItems().addAll(4, 6, 8, 9, 12, 16);
 			difficultyDropDown.getItems().addAll("Basic", "Easy", "Medium", "Hard", "Insane");
 			
 			dimensionsDropDown.setSelectionModel(ArrayDimensionSelectionModel.getInstance());
