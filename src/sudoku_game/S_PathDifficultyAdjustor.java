@@ -9,7 +9,7 @@ import java.util.Random;
  * which values should be removed
  * @author Alex Horejsi
  */
-class S_PathDifficultyAdjustor implements DifficultyAdjustor {
+public class S_PathDifficultyAdjustor implements DifficultyAdjustor {
 	private static DifficultyAdjustor adjustor = new S_PathDifficultyAdjustor();
 	
 	private S_PathDifficultyAdjustor() {}

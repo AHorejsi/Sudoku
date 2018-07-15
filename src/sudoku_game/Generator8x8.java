@@ -6,7 +6,7 @@ import java.util.Random;
  * Generates eight-by-eight Sudoku puzzles
  * @author Alex Horejsi
  */
-class Generator8x8 implements Generator {	
+public class Generator8x8 implements Generator {	
 	private static Generator gen = new Generator8x8();
 	private Cell[][] table;
 	

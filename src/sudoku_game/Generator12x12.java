@@ -2,7 +2,7 @@ package sudoku_game;
 
 import java.util.Random;
 
-class Generator12x12 implements Generator {
+public class Generator12x12 implements Generator {
 	private static Generator gen = new Generator12x12();
 	private Cell[][] table;
 	

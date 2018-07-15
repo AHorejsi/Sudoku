@@ -8,7 +8,7 @@ import java.util.Random;
  * vertically, both or not at all.
  * @author Alex Horejsi
  */
-class FlipMixer implements Mixer {
+public class FlipMixer implements Mixer {
 	private static Mixer mixer = new FlipMixer();
 	
 	private FlipMixer() {}

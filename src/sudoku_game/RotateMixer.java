@@ -8,7 +8,7 @@ import java.util.Random;
  * or not at all
  * @author Alex Horejsi
  */
-class RotateMixer implements Mixer {
+public class RotateMixer implements Mixer {
 	private static Mixer mixer = new RotateMixer();
 	
 	private RotateMixer() {}

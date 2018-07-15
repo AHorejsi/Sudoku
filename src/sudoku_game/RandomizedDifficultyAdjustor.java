@@ -6,7 +6,7 @@ import java.util.Random;
  * Selects values to remove from a Sudoku puzzle randomly
  * @author Alex Horejsi
  */
-class RandomizedDifficultyAdjustor implements DifficultyAdjustor {
+public class RandomizedDifficultyAdjustor implements DifficultyAdjustor {
 	private static DifficultyAdjustor adjustor = new RandomizedDifficultyAdjustor();
 	
 	private RandomizedDifficultyAdjustor() {}

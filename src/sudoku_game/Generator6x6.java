@@ -6,7 +6,7 @@ import java.util.Random;
  * Generates six-by-six Sudoku puzzle
  * @author Alex Horejsi
  */
-class Generator6x6 implements Generator {
+public class Generator6x6 implements Generator {
 	private static Generator gen = new Generator6x6();
 	private Cell[][] table;
 	

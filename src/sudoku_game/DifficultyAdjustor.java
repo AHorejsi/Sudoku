@@ -11,7 +11,7 @@ import java.util.Random;
  * @author Alex Horejsi
  */
 @FunctionalInterface
-interface DifficultyAdjustor {
+public interface DifficultyAdjustor {
 	/**
 	 * Adjusts a Sudoku puzzle for a given set
 	 * of difficulty parameters

@@ -8,6 +8,8 @@ import java.util.Random;
  * @author Alex Horejsi
  */
 public class Board9x9 extends Board {
+	private static BoxInfo boxInfo = new SimpleBoxInfo(3, 3);
+	
 	/**
 	 * Constructs a nine-by-nine Sudoku
 	 * board using the default random number
@@ -16,7 +18,7 @@ public class Board9x9 extends Board {
 	Board9x9() {
 		super(LegalValues9x9.getInstance(), 
 			  NumericChecker.getInstance(), 
-			  BoxInfo9x9.getInstance(), 
+			  Board9x9.boxInfo, 
 			  Generator9x9.getInstance().generate());
 	}
 	
@@ -34,7 +36,7 @@ public class Board9x9 extends Board {
 	Board9x9(Random rng) throws NullPointerException {
 		super(LegalValues9x9.getInstance(), 
 			  NumericChecker.getInstance(), 
-			  BoxInfo9x9.getInstance(), 
+			  Board9x9.boxInfo, 
 			  Generator9x9.getInstance().generate(rng));
 	}
 	
@@ -52,7 +54,7 @@ public class Board9x9 extends Board {
 	Board9x9(Cell[][] table) throws NullPointerException {
 		super(LegalValues9x9.getInstance(), 
 			  NumericChecker.getInstance(), 
-			  BoxInfo9x9.getInstance(), 
+			  Board9x9.boxInfo, 
 			  table);
 	}
 }

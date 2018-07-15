@@ -2,7 +2,7 @@ package sudoku_game;
 
 import java.util.Random;
 
-class JumpCellDifficultyAdjustor implements DifficultyAdjustor {
+public class JumpCellDifficultyAdjustor implements DifficultyAdjustor {
 	private static DifficultyAdjustor adjustor = new JumpCellDifficultyAdjustor();
 	
 	private JumpCellDifficultyAdjustor() {}

@@ -7,7 +7,7 @@ package sudoku_game;
  * @author Alex Horejsi
  */
 @FunctionalInterface
-interface Solver {
+public interface Solver {
 	/**
 	 * Checks if the given board has
 	 * a unique solution

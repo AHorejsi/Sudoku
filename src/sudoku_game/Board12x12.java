@@ -9,6 +9,8 @@ import java.util.Random;
  * @author Alex Horejsi
  */
 public class Board12x12 extends Board {
+	private static BoxInfo boxInfo = new SimpleBoxInfo(3, 4);
+	
 	/**
 	 * Constructs a twelve-by-twelve Sudoku
 	 * board using the default random number
@@ -17,7 +19,7 @@ public class Board12x12 extends Board {
 	Board12x12() {
 		super(LegalValues12x12.getInstance(),
 			  AlphanumericChecker.getInstance(),
-			  BoxInfo12x12.getInstance(),
+			  Board12x12.boxInfo,
 			  Generator12x12.getInstance().generate());
 	}
 	
@@ -35,7 +37,7 @@ public class Board12x12 extends Board {
 	Board12x12(Random rng) throws NullPointerException {
 		super(LegalValues12x12.getInstance(),
 			  AlphanumericChecker.getInstance(),
-			  BoxInfo12x12.getInstance(),
+			  Board12x12.boxInfo,
 			  Generator12x12.getInstance().generate(rng));
 	}
 	
@@ -53,7 +55,7 @@ public class Board12x12 extends Board {
 	Board12x12(Cell[][] table) throws NullPointerException {
 		super(LegalValues12x12.getInstance(),
 			  AlphanumericChecker.getInstance(),
-			  BoxInfo12x12.getInstance(),
+			  Board12x12.boxInfo,
 			  table);
 	}
 }

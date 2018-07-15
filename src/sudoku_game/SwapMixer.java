@@ -12,7 +12,7 @@ import java.util.Random;
  * This is done for all possible values
  * @author Alex Horejsi
  */
-class SwapMixer implements Mixer {
+public class SwapMixer implements Mixer {
 	private static Mixer mixer = new SwapMixer();
 	
 	private SwapMixer() {}

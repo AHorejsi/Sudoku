@@ -5,7 +5,7 @@ package sudoku_game;
  * cell within a Sudoku puzzle
  * @author Alex Horejsi
  */
-interface Cell {
+public interface Cell {
 	/**
 	 * Obtains the value in this cell
 	 * @return The value in this cell or

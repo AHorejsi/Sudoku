@@ -4,7 +4,7 @@ package sudoku_game;
  * Concrete implementation of the {@code Cell} class
  * @author Alex Horejsi
  */
-class ConcreteCell implements Cell {
+public class ConcreteCell implements Cell {
 	private char value;
 	private boolean editable;
 	

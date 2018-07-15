@@ -6,7 +6,7 @@ import java.util.Random;
  * Generates four-by-four Sudoku puzzles
  * @author Alex Horejsi
  */
-class Generator4x4 implements Generator {
+public class Generator4x4 implements Generator {
 	private static Generator gen = new Generator4x4();
 	private Cell[][] table;
 	

@@ -10,7 +10,7 @@ package sudoku_game;
  * @author Alex Horejsi
  */
 @FunctionalInterface
-interface LowerBoundChecker {
+public interface LowerBoundChecker {
 	/**
 	 * Checks if the cell at the given
 	 * row and column indices has the

@@ -58,28 +58,6 @@ public abstract class Board {
 	}
 	
 	/**
-	 * Returns the {@code Checker} that
-	 * is used to check if this Sudoku
-	 * board is solved
-	 * @return The {@code Checker} that
-	 * is used to check if this Sudoku
-	 * board is solved
-	 */
-	Checker getChecker() {
-		return this.checker;
-	}
-	
-	/**
-	 * Returns data on the boxes of
-	 * this Sudoku board
-	 * @return Data on the boxes of
-	 * this Sudoku board
-	 */
-	BoxInfo getBoxInfo() {
-		return this.boxInfo;
-	}
-	
-	/**
 	 * Obtains the value stored at the given
 	 * row and column position
 	 * @param row The row index of the value
@@ -207,12 +185,12 @@ public abstract class Board {
 		return this.checker.isSolved(this);
 	}
 	
-	private void outOfBounds(int row, int col) {
+	private void outOfBounds(int row, int col) throws IndexOutOfBoundsException {
 		if (row < 0 || row >= this.table.length || col < 0 || col >= this.table.length)
 			throw new IndexOutOfBoundsException();
 	}
 	
-	private void noneditable(int row, int col) {
+	private void noneditable(int row, int col) throws NoneditableCellException {
 		if (!this.table[row][col].isEditable())
 			throw new NoneditableCellException("Non-editable cell: row = " + row + ", column = " + col);
 	}

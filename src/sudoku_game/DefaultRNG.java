@@ -4,10 +4,12 @@ import java.util.Random;
 
 /**
  * Default random number generator holder to be used
- * should a user opt to not provide one themselves
+ * should a user opt to not provide one themselves.
+ * This random number generator cannot have its seed
+ * custom set
  * @author Alex Horejsi
  */
-class DefaultRNG extends Random {
+public class DefaultRNG extends Random {
 	private static final long serialVersionUID = 1775403578435790735L;
 	private static Random defaultGenerator = new DefaultRNG();
 	private boolean seedIsSet = false;

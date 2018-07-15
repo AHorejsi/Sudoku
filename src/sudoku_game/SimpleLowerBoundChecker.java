@@ -5,7 +5,7 @@ package sudoku_game;
  * of {@code LowerBoundChecker}
  * @author Alex Horejsi
  */
-class SimpleLowerBoundChecker implements LowerBoundChecker {
+public class SimpleLowerBoundChecker implements LowerBoundChecker {
 	private static LowerBoundChecker checker = new SimpleLowerBoundChecker();
 	
 	private SimpleLowerBoundChecker() {}

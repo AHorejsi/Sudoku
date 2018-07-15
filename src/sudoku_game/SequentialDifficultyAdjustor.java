@@ -9,7 +9,7 @@ import java.util.Random;
  * which values should be removed
  * @author Alex Horejsi
  */
-class SequentialDifficultyAdjustor implements DifficultyAdjustor {
+public class SequentialDifficultyAdjustor implements DifficultyAdjustor {
 	private static DifficultyAdjustor adjustor = new SequentialDifficultyAdjustor();
 	
 	private SequentialDifficultyAdjustor() {}

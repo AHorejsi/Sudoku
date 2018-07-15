@@ -7,7 +7,7 @@ import java.util.Random;
  * of a Sudoku puzzle
  * @author Alex Horejsi
  */
-class FlipBoxMixer implements Mixer {
+public class FlipBoxMixer implements Mixer {
 	private static Mixer mixer = new FlipBoxMixer();
 	
 	private FlipBoxMixer() {}

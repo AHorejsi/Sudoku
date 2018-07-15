@@ -6,7 +6,7 @@ package sudoku_game;
  * backtracking algorithm
  * @author Alex Horejsi
  */
-class BacktrackingSolver implements Solver {
+public class BacktrackingSolver implements Solver {
 	private static Solver solver = new BacktrackingSolver();
 	
 	private BacktrackingSolver() {}

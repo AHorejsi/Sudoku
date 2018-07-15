@@ -9,7 +9,7 @@ import java.util.Random;
  * @author Alex Horejsi
  */
 @FunctionalInterface
-interface Generator {
+public interface Generator {
 	/**
 	 * Generates a completed 
 	 * Sudoku puzzle
