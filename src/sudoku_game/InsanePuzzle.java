@@ -10,6 +10,8 @@ import java.util.Random;
  * @author Alex Horejsi
  */
 public class InsanePuzzle extends Puzzle {
+	private static String difficulty = "Insane";
+	
 	/**
 	 * Creates a insane Sudoku puzzle
 	 * instance with the given
@@ -38,7 +40,7 @@ public class InsanePuzzle extends Puzzle {
 	 * Sudoku puzzle
 	 */
 	InsanePuzzle(Board board, Random rng) {
-		super(board, SequentialDifficultyAdjustor.getInstance(), 21, 33, 0, rng);
+		super(board, SequentialDifficultyAdjustor.getInstance(), 21, 33, 0, rng, InsanePuzzle.difficulty);
 	}
 	
 	@Override

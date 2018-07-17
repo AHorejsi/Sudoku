@@ -10,6 +10,8 @@ import java.util.Random;
  * @author Alex Horejsi
  */
 public class EasyPuzzle extends Puzzle {
+	private static String difficulty = "Easy";
+	
 	/**
 	 * Creates a easy Sudoku puzzle
 	 * instance with the given
@@ -38,11 +40,6 @@ public class EasyPuzzle extends Puzzle {
 	 * Sudoku puzzle
 	 */
 	EasyPuzzle(Board board, Random rng) {
-		super(board, RandomizedDifficultyAdjustor.getInstance(), 44, 57, 44, rng);
-	}
-	
-	@Override
-	public String getDifficulty() {
-		return "EASY";
+		super(board, RandomizedDifficultyAdjustor.getInstance(), 44, 57, 44, rng, EasyPuzzle.difficulty);
 	}
 }

@@ -11,6 +11,7 @@ import java.util.Random;
  */
 public abstract class Puzzle {
 	private Board board;
+	private String difficulty;
 	
 	/**
 	 * Constructs a Sudoku puzzle using
@@ -44,9 +45,10 @@ public abstract class Puzzle {
 	 * the Sudoku board or the difficulty adjustor is
 	 * <tt>null</tt>
 	 */
-	protected Puzzle(Board board, DifficultyAdjustor adjustor, int lowerRangeOnGivens, int upperRangeOnGivens, int lowerBoundOnGivensPerUnit) 
-			throws NullPointerException {
-		this(board, adjustor, lowerRangeOnGivens, upperRangeOnGivens, lowerBoundOnGivensPerUnit, DefaultRNG.getDefaultGenerator());
+	protected Puzzle(Board board, DifficultyAdjustor adjustor, int lowerRangeOnGivens, int upperRangeOnGivens, 
+					 int lowerBoundOnGivensPerUnit, String difficulty) throws NullPointerException {
+		this(board, adjustor, lowerRangeOnGivens, upperRangeOnGivens, lowerBoundOnGivensPerUnit,
+			 DefaultRNG.getDefaultGenerator(), difficulty);
 	}
 	
 	/**
@@ -86,8 +88,9 @@ public abstract class Puzzle {
 	 * <tt>null</tt>
 	 */
 	protected Puzzle(Board board, DifficultyAdjustor adjustor, int lowerRangeOnGivens, int upperRangeOnGivens,
-					 int lowerBoundOnGivensPerUnit, Random rng) throws NullPointerException {
+					 int lowerBoundOnGivensPerUnit, Random rng, String difficulty) throws NullPointerException {
 		this.board = Objects.requireNonNull(board);
+		this.difficulty = Objects.requireNonNull(difficulty);
 		adjustor.adjust(board, rng, lowerRangeOnGivens, upperRangeOnGivens, lowerBoundOnGivensPerUnit);
 	}
 	
@@ -241,7 +244,9 @@ public abstract class Puzzle {
 	 * @return The difficulty level of
 	 * this Sudoku puzzle
 	 */
-	public abstract String getDifficulty();
+	public String getDifficulty() {
+		return this.difficulty;
+	}
 	
 	@Override
 	public String toString() {

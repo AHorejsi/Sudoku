@@ -10,6 +10,8 @@ import java.util.Random;
  * @author Alex Horejsi
  */
 public class HardPuzzle extends Puzzle {
+	private static String difficulty = "Hard";
+	
 	/**
 	 * Creates a hard Sudoku puzzle
 	 * instance with the given
@@ -38,7 +40,7 @@ public class HardPuzzle extends Puzzle {
 	 * Sudoku puzzle
 	 */
 	HardPuzzle(Board board, Random rng) {
-		super(board, S_PathDifficultyAdjustor.getInstance(), 35, 38, 22);
+		super(board, S_PathDifficultyAdjustor.getInstance(), 35, 38, 22, HardPuzzle.difficulty);
 	}
 	
 	@Override
