@@ -29,7 +29,7 @@ public interface DifficultyAdjustor {
 	 * minimum number of givens any row, column,
 	 * or box may have
 	 */
-	void adjust(Board board, Random rng, int lowerRangeOnGivens, int upperRangeOnGivens, int lowerBoundOnGivensPerUnit);
+	public void adjust(Board board, Random rng, int lowerRangeOnGivens, int upperRangeOnGivens, int lowerBoundOnGivensPerUnit);
 	
 	/**
 	 * Adjusts a Sudoku puzzle for a given set
@@ -47,7 +47,7 @@ public interface DifficultyAdjustor {
 	 * minimum number of givens any row, column,
 	 * or box may have
 	 */
-	default void adjust(Board board, int lowerRangeOnGivens, int upperRangeOnGivens, int lowerBoundOnGivensPerUnit) {
+	public default void adjust(Board board, int lowerRangeOnGivens, int upperRangeOnGivens, int lowerBoundOnGivensPerUnit) {
 		this.adjust(board, DefaultRNG.getDefaultGenerator(), lowerRangeOnGivens, upperRangeOnGivens, lowerBoundOnGivensPerUnit);
 	}
 	
@@ -57,7 +57,7 @@ public interface DifficultyAdjustor {
 	 * @param table The Sudoku board to have its
 	 * cells set as editable or read-only
 	 */
-	static void setEditableCells(Cell[][] table) {
+	public static void setEditableCells(Cell[][] table) {
 		for (int i = 0 ; i < table.length ; i++) {
 			for (int j = 0 ; j < table.length ; j++) {
 				if (table[i][j].getValue() == '\u0000')

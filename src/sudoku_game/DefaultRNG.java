@@ -29,5 +29,6 @@ public class DefaultRNG extends Random {
 		if (this.seedIsSet)
 			throw new UnsupportedOperationException("Default RNG cannot have its seed set");
 		this.seedIsSet = true;
+		super.setSeed(seed);
 	}
 }

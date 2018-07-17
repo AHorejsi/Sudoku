@@ -85,10 +85,20 @@ public abstract class Puzzle {
 	 * the Sudoku board or the difficulty adjustor is
 	 * <tt>null</tt>
 	 */
-	protected Puzzle(Board board, DifficultyAdjustor adjustor, int lowerRangeOnGivens, int upperRangeOnGivens, int lowerBoundOnGivensPerUnit,
-			Random rng) throws NullPointerException {
+	protected Puzzle(Board board, DifficultyAdjustor adjustor, int lowerRangeOnGivens, int upperRangeOnGivens,
+					 int lowerBoundOnGivensPerUnit, Random rng) throws NullPointerException {
 		this.board = Objects.requireNonNull(board);
 		adjustor.adjust(board, rng, lowerRangeOnGivens, upperRangeOnGivens, lowerBoundOnGivensPerUnit);
+	}
+	
+	/**
+	 * Returns the board for this
+	 * Sudoku puzzle
+	 * @return The board for this
+	 * Sudoku puzzle
+	 */
+	Board getBoard() {
+		return this.board;
 	}
 	
 	/**

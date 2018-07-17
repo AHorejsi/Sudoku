@@ -207,7 +207,7 @@ public abstract class Board {
 	
 	/**
 	 * Returns the number of columns
-	 * in thsi Sudoku board's boxes
+	 * in this Sudoku board's boxes
 	 * @return The number of columns
 	 * in this Sudoku board's boxes
 	 */

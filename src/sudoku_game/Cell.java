@@ -11,7 +11,7 @@ public interface Cell {
 	 * @return The value in this cell or
 	 * '\u0000' if there is no value
 	 */
-	char getValue();
+	public char getValue();
 	
 	/**
 	 * Changes the value in this cell
@@ -19,7 +19,7 @@ public interface Cell {
 	 * @throws NoneditableCellException Thrown if this
 	 * cell is not allowed to be edited
 	 */
-	void setValue(char value) throws NoneditableCellException;
+	public void setValue(char value) throws NoneditableCellException;
 	
 	/**
 	 * Empties this cell so that it contains
@@ -27,14 +27,14 @@ public interface Cell {
 	 * @throws NoneditableCellException Thrown if
 	 * this cell is not allowed to be edited
 	 */
-	void setEmptyValue() throws NoneditableCellException;
+	public void setEmptyValue() throws NoneditableCellException;
 	
 	/**
 	 * Checks if this cell is editable
 	 * @return <tt>true</tt> if this cell
 	 * is editable, <tt>false</tt> if not
 	 */
-	boolean isEditable();
+	public boolean isEditable();
 	
 	/**
 	 * Empties this cell so that is contains
@@ -43,7 +43,7 @@ public interface Cell {
 	 * puzzle, not when a user is editing a
 	 * puzzle
 	 */
-	void setEmptyForSetUp();
+	public void setEmptyForSetUp();
 	
 	/**
 	 * Changes the value in this cell. This method
@@ -52,7 +52,7 @@ public interface Cell {
 	 * a puzzle
 	 * @param value The new value for this cell
 	 */
-	void setValueForSetUp(char value);
+	public void setValueForSetUp(char value);
 	
 	/**
 	 * Sets whether or not this cell will be editable
@@ -63,5 +63,5 @@ public interface Cell {
 	 * @param editable Value indicating this cell's
 	 * editability
 	 */
-	void setEditable(boolean editable);
+	public void setEditable(boolean editable);
 }

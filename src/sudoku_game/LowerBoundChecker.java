@@ -29,5 +29,5 @@ public interface LowerBoundChecker {
 	 * specified lower bound is met,
 	 * <tt>false</tt> otherwise
 	 */
-	boolean check(Board board, int row, int col, int lowerBound);
+	public boolean check(Board board, int row, int col, int lowerBound);
 }

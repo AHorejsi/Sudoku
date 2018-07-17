@@ -43,7 +43,7 @@ public class RandomizedDifficultyAdjustor implements DifficultyAdjustor {
 		Cell[][] table = board.getTable();
 		int length = table.length;
 		int current = length * length;
-		Solver solver = BacktrackingSolver.getInstance();
+		Solver solver = ExactCoverSolver.getInstance();
 		LowerBoundChecker checker = SimpleLowerBoundChecker.getInstance();
 		int row;
 		int col;

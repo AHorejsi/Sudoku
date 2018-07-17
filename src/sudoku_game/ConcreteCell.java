@@ -24,16 +24,16 @@ public class ConcreteCell implements Cell {
 	}
 	
 	@Override
-	public void setValue(char value) throws IllegalStateException {
+	public void setValue(char value) throws NoneditableCellException {
 		if (!this.editable)
-			throw new IllegalStateException();
+			throw new NoneditableCellException();
 		this.value = value;
 	}
 	
 	@Override
-	public void setEmptyValue() throws IllegalStateException {
+	public void setEmptyValue() throws NoneditableCellException {
 		if (!this.editable)
-			throw new IllegalStateException();
+			throw new NoneditableCellException();
 		this.value = '\u0000';
 	}
 	
