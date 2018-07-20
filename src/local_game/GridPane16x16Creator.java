@@ -7,7 +7,7 @@ import javafx.scene.layout.StackPane;
  * {@code GridPane}
  * @author Alex Horejsi
  */
-class GridPane16x16Creator extends GridPaneCreator {
+public class GridPane16x16Creator extends GridPaneCreator {
 	/**
 	 * Defines the dimensions
 	 * and size of the text

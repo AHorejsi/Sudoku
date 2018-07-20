@@ -13,7 +13,7 @@ import javafx.scene.layout.StackPane;
  * for the Sudoku game
  * @author Alex Horejsi
  */
-abstract class GridPaneCreator implements Runnable {
+public abstract class GridPaneCreator implements Runnable {
 	protected GridPane gp;
 	protected TextField[][] cells;
 	protected int dimensions;
@@ -101,6 +101,8 @@ abstract class GridPaneCreator implements Runnable {
 			public void changed(ObservableValue<? extends String> obs, String oldValue, String newValue) {
 				if (newValue.length() > 1)
 					tf.setText(oldValue);
+				if (Character.isLetter(tf.getText().charAt(0)))
+					tf.setText(tf.getText().toUpperCase());
 			}
 		});
 		

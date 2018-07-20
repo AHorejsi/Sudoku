@@ -32,7 +32,8 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		Collection<Mixer> mixers = SimpleMixerFactory.getInstance().getMixers("linkedlist rotate flip flipbox swap");
-		GUIPuzzle gui = new SimpleGUIPuzzle(mixers);
+		GUIPuzzle gui = new SimpleGUIPuzzle();
+		gui.getMixers().addAll(mixers);
 		primaryStage.setTitle("Sudoku");
 		primaryStage.setScene(new Scene(gui));
 		primaryStage.show();

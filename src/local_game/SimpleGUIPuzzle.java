@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -49,35 +48,13 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 	private StackPane successScreen = new StackPane();
 	private static PuzzleFactory factory = LocalFactory.getInstance();
 	
-	
 	/**
-	 * Creates a {@code SimpleGUIPuzzle}
-	 * that initially uses a default
-	 * random number generator and no
-	 * mixers
+	 * Creates an instance
+	 * of {@code SimpleGUIPuzzle}
 	 */
 	public SimpleGUIPuzzle() {
-		this(null);
-	}
-	
-	/**
-	 * Creates a {@code SimpleGUIPuzzle}
-	 * that initially uses the given mixers
-	 * and the given random number
-	 * generator
-	 * @param mixers The mixers to be
-	 * used by this {@code SimpleGUIPuzzle}
-	 * @param rng The random number
-	 * generator to be used by this
-	 * {@code SimpleGUIPuzzle}
-	 */
-	public SimpleGUIPuzzle(Collection<Mixer> mixers) {
 		this.getStylesheets().add("local_game/stylesheet.css");
 		this.getStyleClass().addAll("centered", "blackBack");
-		
-		if (mixers != null)
-			this.mixers.addAll(mixers);
-		
 		this.createGUIToUseLater();
 		this.setUpBorderPane();
 	}
@@ -99,13 +76,12 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 		Thread t7 = new Thread(new CreateSideBar());
 		Thread t8 = new Thread(new CreateImage());
 		Thread t9 = new Thread(new CreateSuccessScreen());
-		Thread t10 = new Thread(new CreateInvalidMessage());
-		Thread t11 = new Thread(gpc4x4);
-		Thread t12 = new Thread(gpc6x6);
-		Thread t13 = new Thread(gpc9x9);
-		Thread t14 = new Thread(gpc12x12);
-		Thread t15 = new Thread(gpc16x16);
-		Thread t16 = new Thread(gpc8x8);
+		Thread t10 = new Thread(gpc4x4);
+		Thread t11 = new Thread(gpc6x6);
+		Thread t12 = new Thread(gpc9x9);
+		Thread t13 = new Thread(gpc12x12);
+		Thread t14 = new Thread(gpc16x16);
+		Thread t15 = new Thread(gpc8x8);
 		
 		t1.start();
 		t2.start();
@@ -122,7 +98,6 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 		t13.start();
 		t14.start();
 		t15.start();
-		t16.start();
 		
 		try {
 			t1.join();
@@ -140,7 +115,6 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 			t13.join();
 			t14.join();
 			t15.join();
-			t16.join();
 		} catch (InterruptedException ex) {
 			throw new InternalError(ex);
 		}
@@ -166,19 +140,24 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 		TextField[][] tfs = this.textfields.get(dimensions);
 		GridPane gps = this.gridpanes.get(dimensions);
 		this.puzzle = puzzle;
+		char ch;
 		
 		for (int i = 0 ; i < dimensions ; i++) {
 			for (int j = 0 ; j < dimensions ; j++) {
-				tfs[i][j].setText(String.valueOf(puzzle.getValueAt(i, j)));
-				tfs[i][j].getStyleClass().retainAll("centered", "textField");
+				ch = puzzle.getValueAt(i, j);
 				
-				if (puzzle.editableCellAt(i, j)) {
-					tfs[i][j].getStyleClass().add("whiteBack");
-					tfs[i][j].setEditable(true);
-				}
-				else {
-					tfs[i][j].getStyleClass().add("yellowTextField");
-					tfs[i][j].setEditable(false);
+				if (ch != '\u0000') {
+					tfs[i][j].setText(String.valueOf(ch));
+					tfs[i][j].getStyleClass().retainAll("centered", "textField");
+					
+					if (puzzle.editableCellAt(i, j)) {
+						tfs[i][j].getStyleClass().add("whiteBack");
+						tfs[i][j].setEditable(true);
+					}
+					else {
+						tfs[i][j].getStyleClass().add("yellowTextField");
+						tfs[i][j].setEditable(false);
+					}
 				}
 			}
 		}
@@ -268,7 +247,7 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 		
 		private void addEventHandlersToComboBoxes(ComboBox<?>... comboBoxes) {
 			for (ComboBox<?> comboBox : comboBoxes) {
-				comboBox.setOnHidden(ev -> {
+				comboBox.setOnMouseClicked(ev -> {
 					SelectionModel<?> model = comboBox.getSelectionModel();
 					
 					if (model instanceof DimensionSelectionModel)
@@ -341,6 +320,12 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 			Button submit = new Button("Submit");
 			Button reset = new Button("Reset");
 			Button exit = new Button("Exit");
+			StackPane left = SimpleGUIPuzzle.this.leftSide;
+			StackPane right = SimpleGUIPuzzle.this.rightSide;
+			Label invalid1 = new Label("Invalid!");
+			Label invalid2 = new Label("Invalid!");
+			invalid1.getStyleClass().add("invalid");
+			invalid2.getStyleClass().add("invalid");	
 			submit.getStyleClass().add("centered");
 			hb.getStyleClass().addAll("whiteBack", "centered", "bordered");
 			hb.getChildren().addAll(submit, reset, exit);
@@ -370,7 +355,16 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 					}
 				}
 				
-				bp.fireEvent(new ActionEvent());
+				if (SimpleGUIPuzzle.this.puzzle != null) {
+					if (SimpleGUIPuzzle.this.puzzle.isSolved())
+						bp.setCenter(SimpleGUIPuzzle.this.successScreen);
+					else {
+						if (left.getChildren().isEmpty()) {
+							left.getChildren().add(invalid1);
+							right.getChildren().add(invalid2);
+						}
+					}
+				}
 			});
 			
 			reset.setOnMouseClicked(ev -> {
@@ -457,32 +451,6 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 			Label label = new Label("Success!");
 			label.getStyleClass().add("successLabel");
 			screen.getChildren().add(label);
-		}
-	}
-	
-	private class CreateInvalidMessage implements Runnable {
-		@Override
-		public void run() {
-			BorderPane bp = SimpleGUIPuzzle.this.bp;
-			StackPane left = SimpleGUIPuzzle.this.leftSide;
-			StackPane right = SimpleGUIPuzzle.this.rightSide;
-			Label invalid1 = new Label("Invalid!");
-			Label invalid2 = new Label("Invalid!");
-			invalid1.getStyleClass().add("invalid");
-			invalid2.getStyleClass().add("invalid");			
-			
-			bp.addEventHandler(ActionEvent.ACTION, ev -> {
-				if (SimpleGUIPuzzle.this.puzzle != null) {
-					if (SimpleGUIPuzzle.this.puzzle.isSolved())
-						bp.setCenter(SimpleGUIPuzzle.this.successScreen);
-					else {
-						if (left.getChildren().isEmpty()) {
-							left.getChildren().add(invalid1);
-							right.getChildren().add(invalid2);
-						}
-					}
-				}
-			});
 		}
 	}
 }
