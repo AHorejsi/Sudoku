@@ -1,6 +1,6 @@
 package sudoku_game;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 
 /**
@@ -70,40 +70,40 @@ public class ExactCoverSolver implements Solver {
 	}
 	
 	private ColumnNode createDoublyLinkedMatrix(Board board, char[] values, boolean[][] matrix) {
-		//int dimensions = board.getDimensions();
+		int dimensions = board.getDimensions();
 		ColumnNode root = new ColumnNode();
 		ColumnNode currentColumn = root;
 		
 		for (int col = 0 ; col < matrix[0].length ; col++) {
-			//ColumnID id = new ColumnID();
+			ColumnID id = new ColumnID();
 			
-//			if (col < 3 * dimensions * dimensions) {
-//				int i = (col / (3 * dimensions)) + 1;
-//				id.number = values[i];
-//				int index = col - (i - 1) * 3 * dimensions;
-//				
-//				if (index < dimensions) {
-//					id.constraint = 0;
-//					id.position = index;
-//				}
-//				else if (index < 2 * dimensions) {
-//					id.constraint = 1;
-//					id.position = index - dimensions;
-//				}
-//				else {
-//					id.constraint = 2;
-//					id.position = index - 2 * dimensions;
-//				}
-//			}
-//			else {
-//				id.constraint = 3;
-//				id.position = col - 3 * dimensions * dimensions;
-//			}
+			if (col < 3 * dimensions * dimensions) {
+				int i = (col / (3 * dimensions)) /*+ 1*/;
+				id.number = values[i];
+				int index = col - (i - 1) * 3 * dimensions;
+				
+				if (index < dimensions) {
+					id.constraint = 0;
+					id.position = index;
+				}
+				else if (index < 2 * dimensions) {
+					id.constraint = 1;
+					id.position = index - dimensions;
+				}
+				else {
+					id.constraint = 2;
+					id.position = index - 2 * dimensions;
+				}
+			}
+			else {
+				id.constraint = 3;
+				id.position = col - 3 * dimensions * dimensions;
+			}
 			
 			currentColumn.right = new ColumnNode();
 			currentColumn.right.left = currentColumn;
 			currentColumn = (ColumnNode)currentColumn.right;
-			//currentColumn.info = id;
+			currentColumn.info = id;
 			currentColumn.head = currentColumn;
 		}
 		
@@ -164,42 +164,41 @@ public class ExactCoverSolver implements Solver {
 	}
 	
 	private int search(ColumnNode root, int count, int check) {
-		System.out.println(count);
-		
-		if (root.right == root) {
+		if (root.right == root)
 			count++;
-			return count;
-		}
-		
-		ColumnNode column = this.chooseNextColumn(root);
-		this.cover(column);
-		Node row = column.down;
-		ArrayList<Node> sol = new ArrayList<Node>();
-		
-		while (row != column) {
-			sol.add(row);
-			Node node = row.right;
+		else {
+			ColumnNode column = this.chooseNextColumn(root);
+			this.cover(column);
+			Node row = column.down;
+			HashMap<Integer, Node> sol = new HashMap<Integer, Node>();
 			
-			while (node != row) {
-				this.cover(node.head);
-				node = node.right;
+			while (row != column) {
+				System.out.println("TEST");
+				if (check < sol.size())
+					sol.remove(check);
+				
+				sol.put(check, row);
+				Node j = row.right;
+				
+				while (j != row) {
+					this.cover(j.head);
+					j = j.right;
+				}
+				
+				count = this.search(root, count, check + 1);
+				Node row2 = sol.get(check);
+				Node j2 = row2.left;
+				
+				while (j2 != row2) {
+					this.uncover(j2.head);
+					j2 = j2.left;
+				}
+				
+				row = row.down;
 			}
 			
-			count = this.search(root, count, check + 1);
-			
-			sol.remove(row);
-			Node row2 = sol.get(check);
-			Node node2 = row2.left;
-			
-			while (row2 != node2) {
-				this.uncover(node2.head);
-				node2 = node2.left;
-			}
-			
-			row = row.down;
+			this.uncover(column);
 		}
-		
-		this.uncover(column);
 		
 		return count;
 	}
@@ -218,7 +217,7 @@ public class ExactCoverSolver implements Solver {
 		return smallest;
 	}
 	
-	private void cover(ColumnNode column) {
+	private void cover(Node column) {
 		column.right.left = column.left;
 		column.left.right = column.right;
 		Node currentRow = column.down;
@@ -237,7 +236,7 @@ public class ExactCoverSolver implements Solver {
 		}
 	}
 	
-	private void uncover(ColumnNode column) {
+	private void uncover(Node column) {
 		Node currentRow = column.up;
 		
 		while (currentRow != column) {
@@ -250,10 +249,11 @@ public class ExactCoverSolver implements Solver {
 				currentNode = currentNode.left;
 			}
 			
-			column.right.left = column;
-			column.left.right = column;
 			currentRow = currentRow.up;
 		}
+		
+		column.right.left = column;
+		column.left.right = column;
 	}
 	
 	private static class Node {
@@ -266,14 +266,14 @@ public class ExactCoverSolver implements Solver {
 	
 	private static class ColumnNode extends Node {
 		int size;
-		//ColumnID info;
+		ColumnID info;
 	}
 	
-//	private static class ColumnID {
-//		int constraint;
-//		char number;
-//		int position;
-//	}
+	private static class ColumnID {
+		int constraint;
+		char number;
+		int position;
+	}
 	
 	private static class Clue {
 		char val;
