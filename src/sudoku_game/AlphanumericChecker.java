@@ -62,7 +62,7 @@ public class AlphanumericChecker implements Checker {
 			value = board.getValueAt(row, col);
 			if (!board.isLegalValue(value))
 				return false;
-			bits |= 1 << (Character.isDigit(value) ? value - '0' : value - 54);
+			bits |= 1 << (Character.isDigit(value) ? value - '0' : value - 55);
 		}
 		
 		return bits == success;
@@ -76,7 +76,7 @@ public class AlphanumericChecker implements Checker {
 			value = board.getValueAt(row, col);
 			if (!board.isLegalValue(value))
 				return false;
-			bits |= 1 << (Character.isDigit(value) ? value - '0' : value - 54);
+			bits |= 1 << (Character.isDigit(value) ? value - '0' : value - 55);
 		}
 		
 		return bits == success;
@@ -93,7 +93,7 @@ public class AlphanumericChecker implements Checker {
 				value = board.getValueAt(i, j);
 				if (!board.isLegalValue(value))
 					return false;
-				bits |= 1 << (Character.isDigit(value) ? value - '0' : value - 54);
+				bits |= 1 << (Character.isDigit(value) ? value - '0' : value - 55);
 			}
 		}
 		

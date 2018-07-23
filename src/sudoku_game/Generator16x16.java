@@ -7,16 +7,6 @@ import java.util.List;
 import java.util.Random;
 
 public class Generator16x16 implements Generator {
-	public static void main(String[] args) {
-		Cell[][] table = Generator16x16.getInstance().generate();
-		
-		for (int i = 0 ; i < 16 ; i++) {
-			for (int j = 0 ; j < 16 ; j++)
-				System.out.print(table[i][j] + " ");
-			System.out.println();
-		}
-	}
-	
 	private static Generator gen = new Generator16x16();
 	private Cell[][] table;
 	private char[] values;
@@ -31,10 +21,10 @@ public class Generator16x16 implements Generator {
 	
 	@Override
 	public Cell[][] generate(Random rng) {
-		this.table = new Cell[16][16];
+		this.table = new Cell[16][16];	
 		this.values = LegalValues16x16.getInstance().getValues();
 		this.answer = new LinkedList<Node>();
-		this.fillMajorDiagonal(rng);
+		this.fillInitialValues(rng);		
 		boolean[][] matrix = this.createMatrix();
 		this.placeInitialValues(matrix);
 		this.header = this.createDoublyLinkedMatrix(matrix);
@@ -43,38 +33,13 @@ public class Generator16x16 implements Generator {
 		this.values = null;
 		this.answer = null;
 		this.header = null;
+		SwapMixer.getInstance().mix(new Board16x16(table), rng);
 		
 		return table;
 	}
 	
-	private void fillMajorDiagonal(Random rng) {
-		this.fillBox(0, 0, rng);
-		this.fillBox(4, 4, rng);
-		this.fillBox(8, 8, rng);
-		this.fillBox(12, 12, rng);
-	}
-	
-	private void fillBox(int i, int j, Random rng) {
-		char[] values = LegalValues16x16.getInstance().getValues();
-		this.shuffle(values, rng);
-		int end = i + 4;
-		int index = 0;
+	private void fillInitialValues(Random rng) {
 		
-		for (int row = i ; row < end ; row++) {
-			for (int col = j ; col < end ; col++) {
-				this.table[row][col] = new ConcreteCell(values[index]);
-				index++;
-			}
-		}
-	}
-	
-	private void shuffle(char[] values, Random rng) {
-		for (int i = values.length - 1 ; i > 0 ; i--) {
-			int pos = rng.nextInt(i);
-			char temp = values[pos];
-			values[pos] = values[i];
-			values[i] = temp;
-		}
 	}
 	
 	private boolean[][] createMatrix() {
@@ -148,22 +113,17 @@ public class Generator16x16 implements Generator {
 	}
 	
 	private void placeInitialValues(boolean[][] matrix) {
-		this.placeBox(0, 0, matrix);
-		this.placeBox(4, 4, matrix);
-		this.placeBox(8, 8, matrix);
-		this.placeBox(12, 12, matrix);
-	}
-	
-	private void placeBox(int i, int j, boolean[][] matrix) {
-		int end = i + 4;
-		
-		for (int row = i ; row < end ; row++) {
-			for (int col = j ; col < end ; col++) {
-				char value = this.table[row][col].getValue();
+		for (int i = 0 ; i < 16 ; i++) {
+			for (int j = 0 ; j < 16 ; j++) {
+				Cell cell = this.table[i][j];
 				
-				for (int valuesIndex = 0 ; valuesIndex < 16 ; valuesIndex++) {
-					if (value != this.values[valuesIndex])
-						Arrays.fill(matrix[this.getIndex(row, col, valuesIndex)], false);
+				if (cell != null) {
+					char value = cell.getValue();
+					
+					for (int valuesIndex = 0 ; valuesIndex < 16 ; valuesIndex++) {
+						if (value != this.values[valuesIndex])
+							Arrays.fill(matrix[this.getIndex(i, j, valuesIndex)], false);
+					}
 				}
 			}
 		}
@@ -205,10 +165,8 @@ public class Generator16x16 implements Generator {
 	}
 	
 	private Cell[][] search(int k, Cell[][] table) {
-		if (this.header.right == this.header) {
-			System.out.println("TEST");
+		if (this.header.right == this.header)
 			this.constructTable(table);
-		}
 		else {
 			ColumnNode col = this.chooseNextColumn();
 			col.cover();
@@ -268,7 +226,7 @@ public class Generator16x16 implements Generator {
 			int answer2 = Integer.parseInt(rcNode.right.column.name);
 			int row = answer1 / 16;
 			int col = answer1 % 16;
-			char value = this.values[(answer2 % 16) + 1];
+			char value = this.values[(answer2 % 16)];
 			table[row][col] = new ConcreteCell(value);
 		}
 		
