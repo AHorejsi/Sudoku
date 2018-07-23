@@ -35,7 +35,7 @@ public class InsanePuzzle extends Puzzle {
 	 * Sudoku puzzle
 	 * @param rng The random
 	 * number generator to be used
-	 * in the removing a values
+	 * in the removing of values
 	 * from the given completed
 	 * Sudoku puzzle
 	 */

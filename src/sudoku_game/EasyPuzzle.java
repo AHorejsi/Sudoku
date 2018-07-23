@@ -13,7 +13,7 @@ public class EasyPuzzle extends Puzzle {
 	private static String difficulty = "Easy";
 	
 	/**
-	 * Creates a easy Sudoku puzzle
+	 * Creates an easy Sudoku puzzle
 	 * instance with the given
 	 * completed Sudoku board
 	 * and the default random
@@ -35,7 +35,7 @@ public class EasyPuzzle extends Puzzle {
 	 * Sudoku puzzle
 	 * @param rng The random
 	 * number generator to be used
-	 * in the removing a values
+	 * in the removing of values
 	 * from the given completed
 	 * Sudoku puzzle
 	 */

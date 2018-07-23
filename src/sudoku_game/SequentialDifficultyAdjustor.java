@@ -45,7 +45,7 @@ public class SequentialDifficultyAdjustor implements DifficultyAdjustor {
 	private void performAdjustment(Board board, int amount, int lowerBound) {
 		Cell[][] table = board.getTable();
 		int current = table.length * table.length;
-		Solver solver = ExactCoverSolver.getInstance();
+		Solver solver = this.getSolver(board.getDimensions());
 		LowerBoundChecker checker = SimpleLowerBoundChecker.getInstance();
 		
 		for (int i = 0 ; i < table.length ; i++) {
@@ -65,5 +65,15 @@ public class SequentialDifficultyAdjustor implements DifficultyAdjustor {
 					return;
 			}
 		}
+	}
+	
+	private Solver getSolver(int dimensions) {
+		double sqrt = Math.sqrt(dimensions);
+		int roundedSqrt = (int)dimensions;
+		
+		if (sqrt == roundedSqrt)
+			return ExactCoverSolver.getInstance();
+		else
+			return CandidateSolver.getInstance();
 	}
 }
