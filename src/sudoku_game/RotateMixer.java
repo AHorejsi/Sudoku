@@ -25,8 +25,48 @@ public class RotateMixer implements Mixer {
 	
 	@Override
 	public void mix(Board board, Random rng) {
-		if (rng.nextBoolean())
-			this.rotate180(board.getTable());
+		if (this.isPerfectSquare(board.getDimensions())) {
+			int option = rng.nextInt(4);
+			
+			if (option == 0)
+				this.rotate90(board.getTable());
+			else if (option == 1)
+				this.rotate180(board.getTable());
+			else if (option == 2)
+				this.rotate270(board.getTable());
+		}
+		else {
+			if (rng.nextBoolean())
+				this.rotate180(board.getTable());
+		}
+	}
+	
+	private boolean isPerfectSquare(int dimensions) {
+		double sqrt = Math.sqrt(dimensions);
+		int roundedSqrt = (int)sqrt;
+		
+		return sqrt == roundedSqrt;
+	}
+	
+	private void rotate90(Cell[][] table) {
+		int end = table.length >>> 1;
+		Cell temp;
+		int x;
+		int y;
+		
+		for (int i = 0 ; i < end ; i++) {
+			x = table.length - 1 - i;
+			
+			for (int j = i ; j < x ; j++) {
+				temp = table[i][j];
+				y = table.length - 1 - j;
+				
+				table[i][j] = table[j][x];
+				table[j][x] = table[x][y];
+				table[x][y] = table[y][i];
+				table[y][i] = temp;
+			}
+		}
 	}
 	
 	private void rotate180(Cell[][] table) {
@@ -62,6 +102,27 @@ public class RotateMixer implements Mixer {
 			
 			i++;
 			j--;
+		}
+	}
+	
+	private void rotate270(Cell[][] table) {
+		int end = table.length >>> 1;
+		Cell temp;
+		int x;
+		int y;
+		
+		for (int i = 0 ; i < end ; i++) {
+			x = table.length - 1 - i;
+			
+			for (int j = i ; j < x ; j++) {
+				temp = table[i][j];
+				y = table.length - 1 - j;
+				
+				table[i][j] = table[y][i];
+				table[y][i] = table[x][y];
+				table[x][y] = table[j][x];
+				table[j][x] = temp;
+			}
 		}
 	}
 }
