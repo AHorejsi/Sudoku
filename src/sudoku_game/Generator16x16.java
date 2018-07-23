@@ -37,8 +37,8 @@ public class Generator16x16 implements Generator {
 		this.fillMajorDiagonal(rng);
 		boolean[][] matrix = this.createMatrix();
 		this.placeInitialValues(matrix);
-		this.createDoublyLinkedMatrix(matrix);
-		Cell[][] table = this.search(0, null);
+		this.header = this.createDoublyLinkedMatrix(matrix);
+		Cell[][] table = this.search(0, new Cell[16][16]);
 		this.table = null;
 		this.values = null;
 		this.answer = null;
@@ -169,17 +169,17 @@ public class Generator16x16 implements Generator {
 		}
 	}
 	
-	private void createDoublyLinkedMatrix(boolean[][] matrix) {
-		this.header = new ColumnNode("header");
-		ArrayList<ColumnNode> columnNodes = new ArrayList<ColumnNode>();
+	private ColumnNode createDoublyLinkedMatrix(boolean[][] matrix) {
+		ColumnNode hNode = new ColumnNode("header");
+		List<ColumnNode> columnNodes = new ArrayList<ColumnNode>();
 		
 		for (int i = 0 ; i < 1024 ; i++) {
-			ColumnNode node = new ColumnNode(Integer.toString(i));
+			ColumnNode node = new ColumnNode(String.valueOf(i));
 			columnNodes.add(node);
-			this.header = (ColumnNode)node.hookRight(node);
+			hNode = (ColumnNode)hNode.hookRight(node); 
 		}
 		
-		this.header = this.header.right.column;
+		hNode = hNode.right.column;
 		
 		for (boolean[] row : matrix) {
 			Node prev = null;
@@ -199,12 +199,16 @@ public class Generator16x16 implements Generator {
 			}
 		}
 		
-		this.header.size = 1024;
+		hNode.size = 1024;
+		
+		return hNode;
 	}
 	
 	private Cell[][] search(int k, Cell[][] table) {
-		if (this.header.right == this.header)
-			table = this.constructTable();
+		if (this.header.right == this.header) {
+			System.out.println("TEST");
+			this.constructTable(table);
+		}
 		else {
 			ColumnNode col = this.chooseNextColumn();
 			col.cover();
@@ -245,8 +249,7 @@ public class Generator16x16 implements Generator {
 		return ret;
 	}
 	
-	private Cell[][] constructTable() {
-		Cell[][] table = new Cell[16][16];
+	private Cell[][] constructTable(Cell[][] table) {
 		
 		for (Node node : this.answer) {
 			Node rcNode = node;
