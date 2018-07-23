@@ -1,11 +1,9 @@
 package local_game;
 
-import java.util.Collection;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import sudoku_game.Mixer;
-import sudoku_game.SimpleMixerFactory;
+import sudoku_game.AllMixer;
 
 /**
  * Starting point of 
@@ -31,9 +29,8 @@ public class Main extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) {
-		Collection<Mixer> mixers = SimpleMixerFactory.getInstance().getMixers("linkedlist rotate flip flipbox swap");
 		GUIPuzzle gui = new SimpleGUIPuzzle();
-		gui.getMixers().addAll(mixers);
+		gui.getMixers().add(AllMixer.getInstance());
 		primaryStage.setTitle("Sudoku");
 		primaryStage.setScene(new Scene(gui));
 		primaryStage.show();
