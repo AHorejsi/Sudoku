@@ -78,7 +78,9 @@ public class JumpCellDifficultyAdjustor implements DifficultyAdjustor {
 	
 	private Solver getSolver(int dimensions) {
 		double sqrt = Math.sqrt(dimensions);
-		int roundedSqrt = (int)dimensions;
+		int roundedSqrt = (int)sqrt;
+		
+		System.out.println(sqrt + " " + roundedSqrt);
 		
 		if (sqrt == roundedSqrt)
 			return ExactCoverSolver.getInstance();

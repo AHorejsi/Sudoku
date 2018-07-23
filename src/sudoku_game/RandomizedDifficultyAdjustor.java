@@ -69,7 +69,7 @@ public class RandomizedDifficultyAdjustor implements DifficultyAdjustor {
 	
 	private Solver getSolver(int dimensions) {
 		double sqrt = Math.sqrt(dimensions);
-		int roundedSqrt = (int)dimensions;
+		int roundedSqrt = (int)sqrt;
 		
 		if (sqrt == roundedSqrt)
 			return ExactCoverSolver.getInstance();
