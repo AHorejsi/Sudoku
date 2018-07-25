@@ -42,9 +42,4 @@ public class InsanePuzzle extends Puzzle {
 	InsanePuzzle(Board board, Random rng) {
 		super(board, SequentialDifficultyAdjustor.getInstance(), 21, 33, 0, rng, InsanePuzzle.difficulty);
 	}
-	
-	@Override
-	public String getDifficulty() {
-		return "INSANE";
-	}
 }
