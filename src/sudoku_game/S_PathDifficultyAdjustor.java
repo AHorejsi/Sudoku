@@ -78,6 +78,6 @@ public class S_PathDifficultyAdjustor implements DifficultyAdjustor {
 		if (sqrt == roundedSqrt)
 			return ExactCoverSolver.getInstance();
 		else
-			return CandidateSolver.getInstance();
+			return BacktrackingSolver.getInstance();
 	}
 }

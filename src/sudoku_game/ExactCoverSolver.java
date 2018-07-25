@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ExactCoverSolver implements Solver {
+public class ExactCoverSolver implements Solver {	
 	private static Solver solver = new ExactCoverSolver();
 	private Board board;
 	private char[] values;
@@ -35,7 +35,7 @@ public class ExactCoverSolver implements Solver {
 		this.header = null;
 		this.answer = null;
 		
-		return result == 1;
+		return result <= 1;
 	}
 	
 	private boolean[][] createMatrix(Board board, int dimensions) {
@@ -113,7 +113,7 @@ public class ExactCoverSolver implements Solver {
 	private void placeInitialValues(boolean[][] matrix, int dimensions) {
 		for (int i = 0 ; i < dimensions ; i++) {
 			for (int j = 0 ; j < dimensions ; j++) {
-				char value = board.getValueAt(i, j);
+				char value = this.board.getValueAt(i, j);
 				
 				if (value != '\u0000') {
 					for (int valIndex = 0 ; valIndex < dimensions ; valIndex++) {
@@ -126,12 +126,12 @@ public class ExactCoverSolver implements Solver {
 	}
 	
 	private ColumnNode createDoublyLinkedMatrix(boolean[][] matrix) {
-		ColumnNode hNode = new ColumnNode("header");
+		ColumnNode hNode = new ColumnNode();
 		List<ColumnNode> columnNodes = new ArrayList<ColumnNode>();
 		int cols = matrix[0].length;
 		
 		for (int i = 0 ; i < cols ; i++) {
-			ColumnNode node = new ColumnNode(String.valueOf(i));
+			ColumnNode node = new ColumnNode();
 			columnNodes.add(node);
 			hNode = (ColumnNode)hNode.hookRight(node);
 		}
@@ -182,6 +182,8 @@ public class ExactCoverSolver implements Solver {
 				for (Node node = row.left ; node != row ; node = node.left)
 					node.column.uncover();
 			}
+			
+			col.uncover();
 		}
 		
 		return count;
@@ -239,8 +241,8 @@ public class ExactCoverSolver implements Solver {
 		}
 		
 		void unlinkLeftRight() {
-			this.left.right = this.right;
 			this.right.left = this.left;
+			this.left.right = this.right;
 		}
 		
 		void relinkLeftRight() {
@@ -259,11 +261,9 @@ public class ExactCoverSolver implements Solver {
 	
 	private static class ColumnNode extends Node {
 		int size = 0;
-		String name;
 		
-		ColumnNode(String name) {
+		ColumnNode() {
 			super();
-			this.name = name;
 			super.column = this;
 		}
 		

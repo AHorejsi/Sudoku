@@ -99,10 +99,12 @@ public abstract class GridPaneCreator implements Runnable {
 		tf.textProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> obs, String oldValue, String newValue) {
-				if (newValue.length() > 1)
-					tf.setText(oldValue);
-				if (Character.isLetter(tf.getText().charAt(0)))
-					tf.setText(tf.getText().toUpperCase());
+				if (newValue != null) {
+					if (newValue.length() > 1)
+						tf.setText(oldValue);
+					if (Character.isLetter(tf.getText().charAt(0)))
+						tf.setText(tf.getText().toUpperCase());
+				}
 			}
 		});
 		

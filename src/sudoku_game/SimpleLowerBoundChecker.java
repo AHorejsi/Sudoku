@@ -22,14 +22,17 @@ public class SimpleLowerBoundChecker implements LowerBoundChecker {
 	
 	@Override
 	public boolean check(Board board, int row, int col, int lowerBound) {
-		return this.checkRow(board, row, lowerBound) &&
-			   this.checkCol(board, col, lowerBound) &&
-			   this.checkBox(board, row - row % board.rowSizeInBox(), col - col % board.colSizeInBox(), lowerBound);
+		Integer dimensions = board.getDimensions();
+		Integer boxRow = board.rowSizeInBox();
+		Integer boxCol = board.colSizeInBox();
+		
+		return this.checkRow(board, row, dimensions, lowerBound) &&
+			   this.checkCol(board, col, dimensions, lowerBound) &&
+			   this.checkBox(board, row - row % boxRow, col - col % boxCol, lowerBound, boxRow, boxCol);
 	}
 	
-	private boolean checkRow(Board board, int row, int lowerBound) {
+	private boolean checkRow(Board board, int row, Integer dimensions, int lowerBound) {
 		int count = 0;
-		int dimensions = board.getDimensions();
 		
 		for (int col = 0 ; col < dimensions ; col++) {
 			if (board.getValueAt(row, col) != '\u0000')
@@ -39,9 +42,8 @@ public class SimpleLowerBoundChecker implements LowerBoundChecker {
 		return count >= lowerBound;
 	}
 	
-	private boolean checkCol(Board board, int col, int lowerBound) {
+	private boolean checkCol(Board board, int col, Integer dimensions, int lowerBound) {
 		int count = 0;
-		int dimensions = board.getDimensions();
 		
 		for (int row = 0 ; row < dimensions ; row++) {
 			if (board.getValueAt(row, col) != '\u0000')
@@ -51,14 +53,12 @@ public class SimpleLowerBoundChecker implements LowerBoundChecker {
 		return count >= lowerBound;
 	}
 	
-	private boolean checkBox(Board board, int row, int col, int lowerBound) {
+	private boolean checkBox(Board board, int row, int col, int lowerBound, Integer boxRow, Integer boxCol) {
 		int count = 0;
-		int endRow = row + board.rowSizeInBox();
-		int endCol = col + board.colSizeInBox();
 		
-		for (int i = row ; i < endRow ; i++) {
-			for (int j = col ; j < endCol ; j++) {
-				if (board.getValueAt(i, j) != '\u0000')
+		for (int i = 0 ; i < boxRow ; i++) {
+			for (int j = 0 ; j < boxCol ; j++) {
+				if (board.getValueAt(i + row, j + col) != '\u0000')
 					count++;
 			}
 		}

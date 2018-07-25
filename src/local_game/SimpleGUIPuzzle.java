@@ -145,10 +145,10 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 		for (int i = 0 ; i < dimensions ; i++) {
 			for (int j = 0 ; j < dimensions ; j++) {
 				ch = puzzle.getValueAt(i, j);
+				tfs[i][j].getStyleClass().retainAll("centered", "textField");
 				
 				if (ch != '\u0000') {
 					tfs[i][j].setText(String.valueOf(ch));
-					tfs[i][j].getStyleClass().retainAll("centered", "textField");
 					
 					if (puzzle.editableCellAt(i, j)) {
 						tfs[i][j].getStyleClass().add("whiteBack");
@@ -158,6 +158,10 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 						tfs[i][j].getStyleClass().add("yellowTextField");
 						tfs[i][j].setEditable(false);
 					}
+				}
+				else {
+					tfs[i][j].getStyleClass().add("whiteBack");
+					tfs[i][j].setText(null);
 				}
 			}
 		}
@@ -192,7 +196,7 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 	}
 	
 	private class Settings extends StackPane {
-		private int dimensions = 9;
+		private Integer dimensions = 9;
 		private String difficulty = "Medium";
 		
 		Settings() {
@@ -250,10 +254,17 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 				comboBox.setOnMouseClicked(ev -> {
 					SelectionModel<?> model = comboBox.getSelectionModel();
 					
-					if (model instanceof DimensionSelectionModel)
-						this.dimensions = (int)model.getSelectedItem();
-					else
-						this.difficulty = (String)model.getSelectedItem();
+					if (model instanceof DimensionSelectionModel) {
+						Integer dim = (Integer)model.getSelectedItem();
+						if (dim != null)
+							this.dimensions = dim;
+					}
+					else {
+						String diff = (String)model.getSelectedItem();
+						if (diff != null)
+							this.difficulty = (String)model.getSelectedItem();
+					}
+						
 				});
 			}
 		}
@@ -339,16 +350,19 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 				for (int i = 0 ; i < dimensions ; i++) {
 					for (int j = 0 ; j < dimensions ; j++) {
 						if (puzzle.editableCellAt(i, j)) {
-							if (tfs[i][j].getText() == null || tfs[i][j].getText().isEmpty())
+							String text = tfs[i][j].getText();
+							TextField tf = tfs[i][j];
+							
+							if (text == null || text.isEmpty())
 								puzzle.deleteValueAt(i, j);
 							else {
-								value = tfs[i][j].getText().charAt(0);
+								value = text.charAt(0);
 								
 								if (!puzzle.isLegalValue(value))
-									tfs[i][j].getStyleClass().add("redBack");
+									tf.getStyleClass().add("redBack");
 								else {
 									puzzle.setValueAt(value, i, j);
-									tfs[i][j].getStyleClass().add("whiteBack");
+									tf.getStyleClass().add("whiteBack");
 								}
 							}
 						}

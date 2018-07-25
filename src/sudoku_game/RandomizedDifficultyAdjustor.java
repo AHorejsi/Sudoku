@@ -48,6 +48,8 @@ public class RandomizedDifficultyAdjustor implements DifficultyAdjustor {
 		int row;
 		int col;
 		
+		//For some reason, upon second generation, the puzzle is not complete
+		
 		while (current > amount) {
 			do {
 				row = rng.nextInt(length);
@@ -58,6 +60,7 @@ public class RandomizedDifficultyAdjustor implements DifficultyAdjustor {
 				char value = table[row][col].getValue();
 				table[row][col].setEmptyForSetUp();
 				current--;
+				
 				
 				if (!solver.hasUniqueSolution(board)) {
 					table[row][col].setValueForSetUp(value);
@@ -74,6 +77,6 @@ public class RandomizedDifficultyAdjustor implements DifficultyAdjustor {
 		if (sqrt == roundedSqrt)
 			return ExactCoverSolver.getInstance();
 		else
-			return CandidateSolver.getInstance();
+			return BacktrackingSolver.getInstance();
 	}
 }
