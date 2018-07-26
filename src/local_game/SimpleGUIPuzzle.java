@@ -197,7 +197,7 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 	}
 	
 	private class Settings extends StackPane {
-		private Integer dimensions = 9;
+		private int dimensions = 9;
 		private String difficulty = "Medium";
 		
 		Settings() {
