@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import sudoku_game.FlipBoxMixer;
 import sudoku_game.FlipMixer;
+import sudoku_game.InnerMixer;
 import sudoku_game.Mixer;
 import sudoku_game.RotateMixer;
 import sudoku_game.SwapMixer;
@@ -39,6 +40,7 @@ public class Main extends Application {
 		mixers.add(RotateMixer.getInstance());
 		mixers.add(FlipMixer.getInstance());
 		mixers.add(FlipBoxMixer.getInstance());
+		mixers.add(InnerMixer.getInstance());
 		mixers.add(SwapMixer.getInstance());
 		primaryStage.setTitle("Sudoku");
 		primaryStage.setScene(new Scene(gui));

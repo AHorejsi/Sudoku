@@ -28,7 +28,7 @@ public class SwapMixer implements Mixer {
 	@Override
 	public void mix(Board board, Random rng) {
 		Cell[][] table = board.getTable();
-		Map<Character, Character> map = this.shuffle(rng);
+		Map<Character, Character> map = this.shuffle(board.getLegalValues().getValues(), rng);
 		int dimensions = board.getDimensions();
 		char current;
 		
@@ -42,8 +42,7 @@ public class SwapMixer implements Mixer {
 		}
 	}
 	
-	private Map<Character, Character> shuffle(Random rng) {
-		char[] values = LegalValues16x16.getInstance().getValues();
+	private Map<Character, Character> shuffle(char[] values, Random rng) {
 		char[] copy = Arrays.copyOf(values, values.length);
 		
 		for (int i = values.length - 1 ; i > 0 ; i--) {

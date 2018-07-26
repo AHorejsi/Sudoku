@@ -1,7 +1,5 @@
 package sudoku_game;
 
-import java.util.Objects;
-
 /**
  * Instances of this class 
  * represent a Sudoku board
@@ -21,19 +19,19 @@ public abstract class Board {
 	 * this Sudoku board
 	 * @param checker Object that checks if
 	 * this Sudoku board is solved
-	 * @param boxInfo Object that provides basic
-	 * information about the boxes of this Sudoku
-	 * board
+	 * @param boxRows The number of rows
+	 * contained in a box of this Sudoku
+	 * puzzle
+	 * @param boxCols The number of columns
+	 * contained in a box if this Sudoku
+	 * puzzle
 	 * @param table The cells that shall make up
 	 * this Sudoku board
-	 * @throws NullPointerException Thrown if any
-	 * of the parameters are <tt>null</tt>
 	 */
-	protected Board(LegalValues legalValues, Checker checker, Integer boxRows, Integer boxCols, Cell[][] table) 
-			throws NullPointerException {
-		this.legalValues = Objects.requireNonNull(legalValues);
-		this.checker = Objects.requireNonNull(checker);
-		this.table = Objects.requireNonNull(table);
+	protected Board(LegalValues legalValues, Checker checker, Integer boxRows, Integer boxCols, Cell[][] table) {
+		this.legalValues = legalValues;
+		this.checker = checker;
+		this.table = table;
 		this.boxRows = boxRows;
 		this.boxCols = boxCols;
 	}

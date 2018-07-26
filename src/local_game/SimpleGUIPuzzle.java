@@ -319,6 +319,7 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 				bp.setBottom(SimpleGUIPuzzle.this.mainMenu);
 				SimpleGUIPuzzle.this.leftSide.getChildren().clear();
 				SimpleGUIPuzzle.this.rightSide.getChildren().clear();
+				SimpleGUIPuzzle.this.puzzle = null;
 			});
 		}
 	}
