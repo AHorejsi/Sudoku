@@ -14,7 +14,7 @@ public class GridPane16x16Creator extends GridPaneCreator {
 	 * fields
 	 */
 	GridPane16x16Creator() {
-		super(16, 30);
+		super(16, 35);
 	}
 	
 	@Override

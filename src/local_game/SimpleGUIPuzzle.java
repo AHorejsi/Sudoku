@@ -162,6 +162,7 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 				else {
 					tfs[i][j].getStyleClass().add("whiteBack");
 					tfs[i][j].setText(null);
+					tfs[i][j].setEditable(true);
 				}
 			}
 		}

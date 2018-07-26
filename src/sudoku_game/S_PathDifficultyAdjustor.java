@@ -1,7 +1,7 @@
 package sudoku_game;
 
 import java.util.Random;
-//TODO This needs work
+
 /**
  * Moves through the Sudoku puzzle in an
  * S-like pattern. As the Sudoku puzzle
@@ -11,6 +11,7 @@ import java.util.Random;
  */
 public class S_PathDifficultyAdjustor implements DifficultyAdjustor {
 	private static DifficultyAdjustor adjustor = new S_PathDifficultyAdjustor();
+	
 	
 	private S_PathDifficultyAdjustor() {}
 	
