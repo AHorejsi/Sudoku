@@ -8,7 +8,7 @@ import java.util.Random;
  * @author Alex Horejsi
  */
 public class Board9x9 extends Board {
-	private static BoxInfo boxInfo = new SimpleBoxInfo(3, 3);
+	private static Integer boxRowCols = 3;
 	
 	/**
 	 * Constructs a nine-by-nine Sudoku
@@ -18,7 +18,8 @@ public class Board9x9 extends Board {
 	Board9x9() {
 		super(LegalValues9x9.getInstance(), 
 			  NumericChecker.getInstance(), 
-			  Board9x9.boxInfo, 
+			  Board9x9.boxRowCols,
+			  Board9x9.boxRowCols,
 			  Generator9x9.getInstance().generate());
 	}
 	
@@ -36,7 +37,8 @@ public class Board9x9 extends Board {
 	Board9x9(Random rng) throws NullPointerException {
 		super(LegalValues9x9.getInstance(), 
 			  NumericChecker.getInstance(), 
-			  Board9x9.boxInfo, 
+			  Board9x9.boxRowCols,
+			  Board9x9.boxRowCols,
 			  Generator9x9.getInstance().generate(rng));
 	}
 	
@@ -54,7 +56,8 @@ public class Board9x9 extends Board {
 	Board9x9(Cell[][] table) throws NullPointerException {
 		super(LegalValues9x9.getInstance(), 
 			  NumericChecker.getInstance(), 
-			  Board9x9.boxInfo, 
+			  Board9x9.boxRowCols,
+			  Board9x9.boxRowCols,
 			  table);
 	}
 }

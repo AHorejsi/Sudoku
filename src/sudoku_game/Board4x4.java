@@ -9,7 +9,7 @@ import java.util.Random;
  * @author Alex Horejsi
  */
 public class Board4x4 extends Board {
-	private static BoxInfo boxInfo = new SimpleBoxInfo(2, 2);
+	private static Integer boxRowCols = 2;
 	
 	/**
 	 * Constructs a four-by-four Sudoku
@@ -19,7 +19,8 @@ public class Board4x4 extends Board {
 	Board4x4() {
 		super(LegalValues4x4.getInstance(),
 			  NumericChecker.getInstance(),
-			  Board4x4.boxInfo,
+			  Board4x4.boxRowCols,
+			  Board4x4.boxRowCols,
 			  Generator4x4.getInstance().generate());
 	}
 	
@@ -37,7 +38,8 @@ public class Board4x4 extends Board {
 	Board4x4(Random rng) throws NullPointerException {
 		super(LegalValues4x4.getInstance(),
 			  NumericChecker.getInstance(),
-			  Board4x4.boxInfo,
+			  Board4x4.boxRowCols,
+			  Board4x4.boxRowCols,
 			  Generator4x4.getInstance().generate(rng));
 	}
 	
@@ -55,7 +57,8 @@ public class Board4x4 extends Board {
 	Board4x4(Cell[][] table) throws NullPointerException {
 		super(LegalValues4x4.getInstance(),
 			  NumericChecker.getInstance(),
-			  Board4x4.boxInfo,
+			  Board4x4.boxRowCols,
+			  Board4x4.boxRowCols,
 			  table);
 	}
 }

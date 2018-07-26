@@ -8,7 +8,8 @@ import java.util.Random;
  * @author Alex Horejsi
  */
 public class Board8x8 extends Board {
-	private static BoxInfo boxInfo = new SimpleBoxInfo(2, 4);
+	private static Integer boxRows = 2;
+	private static Integer boxCols = 4;
 	
 	/**
 	 * Constructs an eight-by-eight Sudoku
@@ -18,7 +19,8 @@ public class Board8x8 extends Board {
 	Board8x8() {
 		super(LegalValues8x8.getInstance(),
 			  NumericChecker.getInstance(),
-			  Board8x8.boxInfo,
+			  Board8x8.boxRows,
+			  Board8x8.boxCols,
 			  Generator8x8.getInstance().generate());
 	}
 	
@@ -36,7 +38,8 @@ public class Board8x8 extends Board {
 	Board8x8(Random rng) {
 		super(LegalValues8x8.getInstance(),
 			  NumericChecker.getInstance(),
-			  Board8x8.boxInfo,
+			  Board8x8.boxRows,
+			  Board8x8.boxCols,
 			  Generator8x8.getInstance().generate(rng));
 	}
 	
@@ -54,7 +57,8 @@ public class Board8x8 extends Board {
 	Board8x8(Cell[][] table) {
 		super(LegalValues8x8.getInstance(),
 			  NumericChecker.getInstance(),
-			  Board8x8.boxInfo,
+			  Board8x8.boxRows,
+			  Board8x8.boxCols,
 			  table);
 	}
 }

@@ -3,7 +3,7 @@ package sudoku_game;
 import java.util.Random;
 
 /**
- * Generates six-by-six Sudoku puzzle
+ * Generates six-by-six Sudoku puzzles
  * @author Alex Horejsi
  */
 public class Generator6x6 implements Generator {

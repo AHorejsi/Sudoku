@@ -2,7 +2,8 @@ package sudoku_game;
 
 /**
  * Computes a solution to the given puzzle by
- * keeping track of candidates for empty cells
+ * keeping track of and eliminating candidates 
+ * for empty cells
  * @author Alex Horejsi
  */
 public class CandidateSolver implements Solver {

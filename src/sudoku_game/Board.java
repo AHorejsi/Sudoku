@@ -11,7 +11,8 @@ public abstract class Board {
 	private Cell[][] table;
 	private LegalValues legalValues;
 	private Checker checker;
-	private BoxInfo boxInfo;
+	private Integer boxRows;
+	private Integer boxCols;
 	
 	/**
 	 * Creates a Sudoku board
@@ -28,11 +29,13 @@ public abstract class Board {
 	 * @throws NullPointerException Thrown if any
 	 * of the parameters are <tt>null</tt>
 	 */
-	protected Board(LegalValues legalValues, Checker checker, BoxInfo boxInfo, Cell[][] table) throws NullPointerException {
+	protected Board(LegalValues legalValues, Checker checker, Integer boxRows, Integer boxCols, Cell[][] table) 
+			throws NullPointerException {
 		this.legalValues = Objects.requireNonNull(legalValues);
 		this.checker = Objects.requireNonNull(checker);
-		this.boxInfo = Objects.requireNonNull(boxInfo);
 		this.table = Objects.requireNonNull(table);
+		this.boxRows = boxRows;
+		this.boxCols = boxCols;
 	}
 	
 	/**
@@ -201,8 +204,8 @@ public abstract class Board {
 	 * @return The number of rows
 	 * in this Sudoku board's boxes
 	 */
-	public int rowSizeInBox() {
-		return this.boxInfo.rowSize();
+	public Integer rowSizeInBox() {
+		return this.boxRows;
 	}
 	
 	/**
@@ -211,8 +214,8 @@ public abstract class Board {
 	 * @return The number of columns
 	 * in this Sudoku board's boxes
 	 */
-	public int colSizeInBox() {
-		return this.boxInfo.colSize();
+	public Integer colSizeInBox() {
+		return this.boxCols;
 	}
 	
 	@Override

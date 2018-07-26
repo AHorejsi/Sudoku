@@ -48,8 +48,6 @@ public class RandomizedDifficultyAdjustor implements DifficultyAdjustor {
 		int row;
 		int col;
 		
-		//For some reason, upon second generation, the puzzle is not complete
-		
 		while (current > amount) {
 			do {
 				row = rng.nextInt(length);

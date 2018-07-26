@@ -17,8 +17,10 @@ public class DefaultRNG extends Random {
 	private DefaultRNG() {}
 	
 	/**
-	 * Returns the default random number generator
-	 * @return The default random number generator
+	 * Returns the default
+	 * random number generator
+	 * @return The default
+	 * random number generator
 	 */
 	public static Random getDefaultGenerator() {
 		return DefaultRNG.defaultGenerator;

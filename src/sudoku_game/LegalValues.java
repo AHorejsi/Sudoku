@@ -3,8 +3,7 @@ package sudoku_game;
 import java.util.Arrays;
 
 /**
- * Classes that implement this interface
- * are meant to define the <tt>char</tt>
+ * Wraps an array containing the <tt>char</tt>
  * values that can legally be placed into
  * a Sudoku puzzle with certain dimensions
  * @author Alex Horejsi

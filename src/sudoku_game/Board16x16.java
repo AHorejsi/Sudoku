@@ -9,7 +9,7 @@ import java.util.Random;
  * @author Alex Horejsi
  */
 public class Board16x16 extends Board {
-	private static BoxInfo boxInfo = new SimpleBoxInfo(4, 4);
+	private static Integer boxRowCols = 4;
 	
 	/**
 	 * Constructs a sixteen-by-sixteen Sudoku
@@ -19,7 +19,8 @@ public class Board16x16 extends Board {
 	Board16x16() {
 		super(LegalValues16x16.getInstance(),
 			  AlphanumericChecker.getInstance(),
-			  Board16x16.boxInfo,
+			  Board16x16.boxRowCols,
+			  Board16x16.boxRowCols,
 			  Generator16x16.getInstance().generate());
 	}
 	
@@ -37,7 +38,8 @@ public class Board16x16 extends Board {
 	Board16x16(Random rng) throws NullPointerException {
 		super(LegalValues16x16.getInstance(),
 			  AlphanumericChecker.getInstance(),
-			  Board16x16.boxInfo,
+			  Board16x16.boxRowCols,
+			  Board16x16.boxRowCols,
 			  Generator16x16.getInstance().generate(rng));
 	}
 	
@@ -55,7 +57,8 @@ public class Board16x16 extends Board {
 	Board16x16(Cell[][] table) throws NullPointerException {
 		super(LegalValues16x16.getInstance(),
 			  AlphanumericChecker.getInstance(),
-			  Board16x16.boxInfo,
+			  Board16x16.boxRowCols,
+			  Board16x16.boxRowCols,
 			  table);
 	}
 }
