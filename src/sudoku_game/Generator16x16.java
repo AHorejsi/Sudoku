@@ -62,8 +62,11 @@ public class Generator16x16 implements Generator {
 		Map<Character, Character> map = this.shuffle(rng);
 		
 		for (int i = 0 ; i < 16 ; i++) {
-			for (int j = 0 ; j < 16 ; j++)
-				table[i][j].setValueForSetUp(map.get(table[i][j].getValue()));
+			for (int j = 0 ; j < 16 ; j++) {
+				char key = table[i][j].getValue();
+				char value = map.get(key);
+				table[i][j].setValueForSetUp(value);
+			}
 		}
 	}
 	

@@ -2,18 +2,23 @@ package sudoku_game;
 
 import java.util.Random;
 
+/**
+ * Swaps the rows and columns
+ * within a row or column of
+ * boxes
+ * @author Alex Horejsi
+ */
 public class InnerMixer implements Mixer {
-	public static void main(String[] args) {
-		Board board = new Board9x9();
-		System.out.println(board);
-		InnerMixer.getInstance().mix(board);
-		System.out.println(board);
-	}
-	
 	private static Mixer mixer = new InnerMixer();
 	
 	private InnerMixer() {}
 	
+	/**
+	 * Returns the single instance
+	 * of {@code InnerMixer}
+	 * @return The single instance
+	 * of {@code InnerMixer}
+	 */
 	public static Mixer getInstance() {
 		return InnerMixer.mixer;
 	}
@@ -22,18 +27,20 @@ public class InnerMixer implements Mixer {
 	public void mix(Board board, Random rng) {
 		Cell[][] table = board.getTable();
 		
-		this.innerRowMix(board, table, rng);
-		this.innerColumnMix(board, table, rng);
+		this.innerRowMix(board.rowSizeInBox(), table, rng);
+		this.innerColumnMix(board.colSizeInBox(), table, rng);
 	}
 	
-	private void innerRowMix(Board board, Cell[][] table, Random rng) {
-		int rowSize = board.rowSizeInBox();
+	private void innerRowMix(Integer rowSize, Cell[][] table, Random rng) {
 		int current = 0;
 		int end = table.length;
 		int currentEnd = rowSize;
 		
 		while (currentEnd <= end) {
 			int rowToShuffle = rng.nextInt(currentEnd - current) + current;
+			
+			if (rowToShuffle == current)
+				continue;
 			
 			Cell[] temp = table[current];
 			table[current] = table[rowToShuffle];
@@ -45,14 +52,16 @@ public class InnerMixer implements Mixer {
 		}
 	}
 	
-	private void innerColumnMix(Board board, Cell[][] table, Random rng) {
-		int colSize = board.colSizeInBox();
+	private void innerColumnMix(Integer colSize, Cell[][] table, Random rng) {
 		int current = 0;
 		int end = table.length;
 		int currentEnd = colSize;
 		
 		while (currentEnd <= end) {
 			int columnToShuffle = rng.nextInt(currentEnd - current) + current;
+			
+			if (columnToShuffle == current)
+				continue;
 			
 			for (int row = 0 ; row < end ; row++) {
 				Cell temp = table[row][columnToShuffle];

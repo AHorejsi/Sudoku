@@ -16,8 +16,10 @@ public class LocalFactory implements PuzzleFactory {
 	private LocalFactory() {}
 	
 	/**
-	 * Returns the single instance of {@code LocalFactory}
-	 * @return The single instance of {@code LocalFactory}
+	 * Returns the single instance
+	 * of {@code LocalFactory}
+	 * @return The single instance
+	 * of {@code LocalFactory}
 	 */
 	public static PuzzleFactory getInstance() {
 		return LocalFactory.factory;
@@ -41,6 +43,9 @@ public class LocalFactory implements PuzzleFactory {
 			board = new Board12x12(rng);
 		else if (info.contains("16x16"))
 			board = new Board16x16(rng);
+		
+		if (board == null)
+			return null;
 		
 		if (info.contains("basic"))
 			puzzle = new BasicPuzzle(board, rng);

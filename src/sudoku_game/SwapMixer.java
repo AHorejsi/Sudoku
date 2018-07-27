@@ -30,20 +30,22 @@ public class SwapMixer implements Mixer {
 		Cell[][] table = board.getTable();
 		Map<Character, Character> map = this.shuffle(board.getLegalValues().getValues(), rng);
 		int dimensions = board.getDimensions();
-		char current;
 		
 		for (int row = 0 ; row < dimensions ; row++) {
 			for (int col = 0 ; col < dimensions ; col++) {
-				current = table[row][col].getValue();
+				char key = table[row][col].getValue();
 				
-				if (current != '\u0000')
-					table[row][col].setValueForSetUp(map.get(current));
+				if (key != '\u0000') {
+					char value = map.get(key);
+					table[row][col].setValueForSetUp(value);
+				}
 			}
 		}
 	}
 	
 	private Map<Character, Character> shuffle(char[] values, Random rng) {
 		char[] copy = Arrays.copyOf(values, values.length);
+		Map<Character, Character> map = new HashMap<Character, Character>();
 		
 		for (int i = values.length - 1 ; i > 0 ; i--) {
 			int pos = rng.nextInt(i);
@@ -51,8 +53,6 @@ public class SwapMixer implements Mixer {
 			values[pos] = values[i];
 			values[i] = temp;
 		}
-		
-		Map<Character, Character> map = new HashMap<Character, Character>();
 		
 		for (int i = 0 ; i < values.length ; i++)
 			map.put(copy[i], values[i]);

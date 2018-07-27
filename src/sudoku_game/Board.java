@@ -1,5 +1,7 @@
 package sudoku_game;
 
+import java.util.Objects;
+
 /**
  * Instances of this class 
  * represent a Sudoku board
@@ -29,11 +31,11 @@ public abstract class Board {
 	 * this Sudoku board
 	 */
 	protected Board(LegalValues legalValues, Checker checker, Integer boxRows, Integer boxCols, Cell[][] table) {
-		this.legalValues = legalValues;
-		this.checker = checker;
-		this.table = table;
-		this.boxRows = boxRows;
-		this.boxCols = boxCols;
+		this.legalValues = Objects.requireNonNull(legalValues);
+		this.checker = Objects.requireNonNull(checker);
+		this.table = Objects.requireNonNull(table);
+		this.boxRows = Objects.requireNonNull(boxRows);
+		this.boxCols = Objects.requireNonNull(boxCols);
 	}
 	
 	/**
