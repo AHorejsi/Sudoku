@@ -31,7 +31,7 @@ public class InnerMixer implements Mixer {
 		this.innerColumnMix(board.colSizeInBox(), table, rng);
 	}
 	
-	private void innerRowMix(Integer rowSize, Cell[][] table, Random rng) {
+	private void innerRowMix(int rowSize, Cell[][] table, Random rng) {
 		int current = 0;
 		int end = table.length;
 		int currentEnd = rowSize;
@@ -39,12 +39,11 @@ public class InnerMixer implements Mixer {
 		while (currentEnd <= end) {
 			int rowToShuffle = rng.nextInt(currentEnd - current) + current;
 			
-			if (rowToShuffle == current)
-				continue;
-			
-			Cell[] temp = table[current];
-			table[current] = table[rowToShuffle];
-			table[rowToShuffle] = temp;
+			if (rowToShuffle != current) {
+				Cell[] temp = table[current];
+				table[current] = table[rowToShuffle];
+				table[rowToShuffle] = temp;
+			}
 			
 			current++;
 			if (current == currentEnd)
@@ -52,7 +51,7 @@ public class InnerMixer implements Mixer {
 		}
 	}
 	
-	private void innerColumnMix(Integer colSize, Cell[][] table, Random rng) {
+	private void innerColumnMix(int colSize, Cell[][] table, Random rng) {
 		int current = 0;
 		int end = table.length;
 		int currentEnd = colSize;
@@ -60,13 +59,12 @@ public class InnerMixer implements Mixer {
 		while (currentEnd <= end) {
 			int columnToShuffle = rng.nextInt(currentEnd - current) + current;
 			
-			if (columnToShuffle == current)
-				continue;
-			
-			for (int row = 0 ; row < end ; row++) {
-				Cell temp = table[row][columnToShuffle];
-				table[row][columnToShuffle] = table[row][current];
-				table[row][current] = temp;
+			if (columnToShuffle != current) {
+				for (int row = 0 ; row < end ; row++) {
+					Cell temp = table[row][columnToShuffle];
+					table[row][columnToShuffle] = table[row][current];
+					table[row][current] = temp;
+				}
 			}
 			
 			current++;

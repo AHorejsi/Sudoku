@@ -12,8 +12,10 @@ public class BacktrackingSolver implements Solver {
 	private BacktrackingSolver() {}
 	
 	/**
-	 * Returns the single instance of {@code BacktrackingSolver}
-	 * @return The single instance of {@code BacktrackingSolver}
+	 * Returns the single instance
+	 * of {@code BacktrackingSolver}
+	 * @return The single instance
+	 * of {@code BacktrackingSolver}
 	 */
 	public static Solver getInstance() {
 		return BacktrackingSolver.solver;
@@ -59,8 +61,9 @@ public class BacktrackingSolver implements Solver {
 	private boolean safe(Board board, Cell[][] table, int i, int j, char digit) {
 		int endRow = board.rowSizeInBox();
 		int endCol = board.colSizeInBox();
-		return this.safeRow(table, i, digit, table.length) && this.safeCol(table, j, digit, table.length) && 
-				this.safeBox(table, i - i % endRow, j - j % endCol, digit, endRow, endCol);
+		return this.safeRow(table, i, digit, table.length) && 
+			   this.safeCol(table, j, digit, table.length) && 
+			   this.safeBox(table, i - i % endRow, j - j % endCol, digit, endRow, endCol);
 	}
 	
 	private boolean safeRow(Cell[][] table, int i, char digit, int end) {

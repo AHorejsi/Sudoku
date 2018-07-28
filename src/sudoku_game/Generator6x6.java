@@ -56,6 +56,7 @@ public class Generator6x6 implements Generator {
 					
 				if (this.fillRemaining(i, j + 1, rng))
 					return true;
+				
 				this.table[i][j].setEmptyForSetUp();
 			}
 		}
