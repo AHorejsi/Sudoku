@@ -83,6 +83,6 @@ public class JumpCellDifficultyAdjustor implements DifficultyAdjustor {
 		if (sqrt == roundedSqrt)
 			return ExactCoverSolver.getInstance();
 		else
-			return BacktrackingSolver.getInstance();
+			return CandidateSolver.getInstance();
 	}
 }
