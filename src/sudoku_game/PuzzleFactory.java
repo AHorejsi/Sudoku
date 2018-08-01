@@ -64,4 +64,19 @@ public interface PuzzleFactory {
 	public default Puzzle createPuzzle(String info, Collection<Mixer> mixers) {
 		return this.createPuzzle(info, DefaultRNG.getDefaultGenerator(), mixers);
 	}
+	
+	/**
+	 * Creates a Sudoku puzzle without
+	 * any mixing
+	 * @param info Information
+	 * describing the puzzle that is desired
+	 * @param rng The random number
+	 * generator to be used when
+	 * generating the puzzle
+	 * @return An instance of {@code Puzzle}
+	 * that a user can play
+	 */
+	public default Puzzle createPuzzle(String info, Random rng) {
+		return this.createPuzzle(info, rng, null);
+	}
 }

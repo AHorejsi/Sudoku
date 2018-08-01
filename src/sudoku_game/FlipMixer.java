@@ -27,16 +27,16 @@ public class FlipMixer implements Mixer {
 		int option = rng.nextInt(4);
 		
 		if (option == 0)
-			this.hFlip(table);
+			this.horizontalFlip(table);
 		else if (option == 1)
-			this.vFlip(table);
+			this.verticalFlip(table);
 		else if (option == 2) {
-			this.hFlip(table);
-			this.vFlip(table);
+			this.horizontalFlip(table);
+			this.verticalFlip(table);
 		}
 	}
 	
-	private void hFlip(Cell[][] table) {
+	private void horizontalFlip(Cell[][] table) {
 		int i = 0;
 		int j = table.length - 1;
 		Cell temp;
@@ -53,7 +53,7 @@ public class FlipMixer implements Mixer {
 		}
 	}
 	
-	private void vFlip(Cell[][] table) {
+	private void verticalFlip(Cell[][] table) {
 		int i = 0;
 		int j = table.length - 1;
 		Cell[] temp;

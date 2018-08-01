@@ -12,7 +12,7 @@ import java.util.Random;
  */
 public class Generator16x16 implements Generator {
 	private static Generator gen = new Generator16x16();
-	private static Cell[][] returnTable;
+	private Cell[][] returnTable;
 	
 	private Generator16x16() {
 		char[][] charTable = new char[][] {{'5', 'E', '0', 'B', '2', '7', 'F', '4', 'D', 'C', 'A', '8', '9', '6', '3', '1'},
@@ -39,7 +39,7 @@ public class Generator16x16 implements Generator {
 				cellTable[i][j] = new ConcreteCell(charTable[i][j]);
 		}
 			
-		Generator16x16.returnTable = cellTable;
+		this.returnTable = cellTable;
 	}
 	
 	/**
@@ -54,7 +54,7 @@ public class Generator16x16 implements Generator {
 	
 	@Override
 	public Cell[][] generate(Random rng) {
-		this.doSwapping(Generator16x16.returnTable, rng);		
+		this.doSwapping(this.returnTable, rng);		
 		return this.copyTable();
 	}
 	
@@ -73,6 +73,7 @@ public class Generator16x16 implements Generator {
 	private Map<Character, Character> shuffle(Random rng) {
 		char[] values = LegalValues16x16.getInstance().getValues();
 		char[] copy = Arrays.copyOf(values, values.length);
+		Map<Character, Character> map = new HashMap<Character, Character>();
 		
 		for (int i = values.length - 1 ; i > 0 ; i--) {
 			int pos = rng.nextInt(i);
@@ -80,8 +81,6 @@ public class Generator16x16 implements Generator {
 			values[pos] = values[i];
 			values[i] = temp;
 		}
-		
-		Map<Character, Character> map = new HashMap<Character, Character>();
 		
 		for (int i = 0 ; i < values.length ; i++)
 			map.put(copy[i], values[i]);
@@ -95,7 +94,7 @@ public class Generator16x16 implements Generator {
 		
 		for (int i = 0 ; i < 16 ; i++) {
 			for (int j = 0 ; j < 16 ; j++)
-				table[i][j] = new ConcreteCell(Generator16x16.returnTable[i][j].getValue());
+				table[i][j] = new ConcreteCell(this.returnTable[i][j].getValue());
 		}
 		
 		return table;

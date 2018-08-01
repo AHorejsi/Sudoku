@@ -10,7 +10,7 @@ import java.util.Random;
  * @author Alex Horejsi
  */
 public class MediumPuzzle extends Puzzle {
-	private static String difficulty = "Medium";
+	private static final String DIFFICULTY = "Medium";
 	
 	/**
 	 * Creates a medium Sudoku puzzle
@@ -40,6 +40,6 @@ public class MediumPuzzle extends Puzzle {
 	 * Sudoku puzzle
 	 */
 	MediumPuzzle(Board board, Random rng) {
-		super(board, JumpCellDifficultyAdjustor.getInstance(), 40, 43, 33, rng, MediumPuzzle.difficulty);
+		super(board, JumpCellDifficultyAdjustor.getInstance(), 40, 43, 33, rng, MediumPuzzle.DIFFICULTY);
 	}
 }

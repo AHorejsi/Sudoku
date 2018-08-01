@@ -26,7 +26,7 @@ public class Generator4x4 implements Generator {
 	public Cell[][] generate(Random rng) {
 		this.table = new Cell[4][4];
 		
-		this.fillRemaining(0, 0, rng);
+		this.fillRemaining(0, 0, rng, SimpleSafeCellChecker.getInstance());
 		
 		Cell[][] table = this.table;
 		this.table = null;
@@ -34,7 +34,7 @@ public class Generator4x4 implements Generator {
 		return table;
 	}
 	
-	private boolean fillRemaining(int i, int j, Random rng) {
+	private boolean fillRemaining(int i, int j, Random rng, SafeCellChecker checker) {
 		if (j == 4) {
 			i++;
 			j = 0;
@@ -48,13 +48,13 @@ public class Generator4x4 implements Generator {
 		for (int entry = 0 ; entry < 4 ; entry++) {
 			char digit = shuffled[entry];
 			
-			if (this.safe(i, j, digit)) {
+			if (checker.safe(this.table, digit, i, j, 2, 2)) {
 				if (this.table[i][j] == null)
 					this.table[i][j] = new ConcreteCell(digit);
 				else
 					this.table[i][j].setValueForSetUp(digit);
 					
-				if (this.fillRemaining(i, j + 1, rng))
+				if (this.fillRemaining(i, j + 1, rng, checker))
 					return true;
 				
 				this.table[i][j].setEmptyForSetUp();
@@ -75,46 +75,5 @@ public class Generator4x4 implements Generator {
 		}
 		
 		return values;
-	}
-	
-	private boolean safe(int i, int j, char digit) {
-		return this.safeRow(i, digit) && 
-			   this.safeCol(j, digit) && 
-			   this.safeBox(i - i % 2, j - j % 2, digit);
-	}
-	
-	private boolean safeRow(int i, char digit) {
-		for (int j = 0 ; j < 4 ; j++) {
-			if (this.table[i][j] != null) {
-				if (this.table[i][j].getValue() == digit)
-					return false;
-			}
-		}
-		
-		return true;
-	}
-	
-	private boolean safeCol(int j, char digit) {
-		for (int i = 0 ; i < 4 ; i++) {
-			if (this.table[i][j] != null) {
-				if (this.table[i][j].getValue() == digit)
-					return false;
-			}
-		}
-		
-		return true;
-	}
-	
-	private boolean safeBox(int i, int j, char digit) {
-		for (int row = 0 ; row < 2 ; row++) {
-			for (int col = j ; col < 2 ; col++) {
-				if (this.table[row + i][col + j] != null) {
-					if (this.table[row + i][col + j].getValue() == digit)
-						return false;
-				}
-			}
-		}
-		
-		return true;
 	}
 }
