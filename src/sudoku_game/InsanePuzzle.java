@@ -40,6 +40,6 @@ public class InsanePuzzle extends Puzzle {
 	 * Sudoku puzzle
 	 */
 	InsanePuzzle(Board board, Random rng) {
-		super(board, SequentialDifficultyAdjustor.getInstance(), 21, 33, 0, rng, InsanePuzzle.DIFFICULTY);
+		super(board, S_PathDifficultyAdjustor.getInstance(), 21, 33, 0, rng, InsanePuzzle.DIFFICULTY);
 	}
 }
