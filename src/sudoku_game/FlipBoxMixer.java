@@ -31,14 +31,8 @@ public class FlipBoxMixer implements Mixer {
 	private void rowFlip(Cell[][] table, Random rng) {
 		if (table.length == 4)
 			this.rowFlip4x4(table, rng);
-		else if (table.length == 6)
-			this.rowFlip6x6(table, rng);
-		else if (table.length == 8)
-			this.rowFlip8x8(table, rng);
 		else if (table.length == 9)
 			this.rowFlip9x9(table, rng);
-		else if (table.length == 12)
-			this.rowFlip12x12(table, rng);
 		else
 			this.rowFlip16x16(table, rng);
 	}
@@ -48,86 +42,6 @@ public class FlipBoxMixer implements Mixer {
 		
 		if (rng.nextBoolean()) {
 			for (int i = 0 ; i < 2 ; i++) {
-				temp = table[i];
-				table[i] = table[i + 2];
-				table[i + 2] = temp;
-			}
-		}
-	}
-	
-	private void rowFlip6x6(Cell[][] table, Random rng) {
-		Cell[] temp;
-		int option = rng.nextInt(3);
-		
-		if (option == 0) {
-			for (int i = 0 ; i < 2 ; i++) {
-				temp = table[i];
-				table[i] = table[i + 2];
-				table[i + 2] = temp;
-			}
-		}
-		else {
-			for (int i = 0 ; i < 2 ; i++) {
-				temp = table[i];
-				table[i] = table[i + 4];
-				table[i + 4] = temp;
-			}
-		}
-		
-		if (rng.nextBoolean()) {
-			for (int i = 2 ; i < 4 ; i++) {
-				temp = table[i];
-				table[i] = table[i + 2];
-				table[i + 2] = temp;
-			}
-		}
-	}
-	
-	private void rowFlip8x8(Cell[][] table, Random rng) {
-		Cell[] temp;
-		int option = rng.nextInt(4);
-		
-		if (option == 0) {
-			for (int i = 0 ; i < 2 ; i++) {
-				temp = table[i];
-				table[i] = table[i + 2];
-				table[i + 2] = temp;
-			}
-		}
-		else if (option == 1) {
-			for (int i = 0 ; i < 2 ; i++) {
-				temp = table[i];
-				table[i] = table[i + 4];
-				table[i + 4] = temp;
-			}
-		}
-		else if (option == 2) {
-			for (int i = 0 ; i < 2 ; i++) {
-				temp = table[i];
-				table[i] = table[i + 6];
-				table[i + 6] = temp;
-			}
-		}
-		
-		option = rng.nextInt(3);
-		
-		if (option == 0) {
-			for (int i = 2 ; i < 4 ; i++) {
-				temp = table[i];
-				table[i] = table[i + 2];
-				table[i + 2] = temp;
-			}
-		}
-		else if (option == 1) {
-			for (int i = 2 ; i < 4 ; i++) {
-				temp = table[i];
-				table[i] = table[i + 4];
-				table[i + 4] = temp;
-			}
-		}
-		
-		if (rng.nextBoolean()) {
-			for (int i = 4 ; i < 6 ; i++) {
 				temp = table[i];
 				table[i] = table[i + 2];
 				table[i + 2] = temp;
@@ -156,58 +70,6 @@ public class FlipBoxMixer implements Mixer {
 		
 		if (rng.nextBoolean()) {
 			for (int i = 3 ; i < 6 ; i++) {
-				temp = table[i];
-				table[i] = table[i + 3];
-				table[i + 3] = temp;
-			}
-		}
-	}
-	
-	private void rowFlip12x12(Cell[][] table, Random rng) {
-		Cell[] temp;
-		int option = rng.nextInt(4);
-		
-		if (option == 0) {
-			for (int i = 0 ; i < 3 ; i++) {
-				temp = table[i];
-				table[i] = table[i + 3];
-				table[i + 3] = temp;
-			}
-		}
-		else if (option == 1) {
-			for (int i = 0 ; i < 3 ; i++) {
-				temp = table[i];
-				table[i] = table[i + 6];
-				table[i + 6] = temp;
-			}
-		}
-		else if (option == 2) {
-			for (int i = 0 ; i < 3 ; i++) {
-				temp = table[i];
-				table[i] = table[i + 9];
-				table[i + 9] = temp;
-			}
-		}
-		
-		option = rng.nextInt(3);
-		
-		if (option == 0) {
-			for (int i = 3 ; i < 6 ; i++) {
-				temp = table[i];
-				table[i] = table[i + 3];
-				table[i + 3] = temp;
-			}
-		}
-		else if (option == 1) {
-			for (int i = 3 ; i < 6 ; i++) {
-				temp = table[i];
-				table[i] = table[i + 6];
-				table[i + 6] = temp;
-			}
-		}
-		
-		if (rng.nextBoolean()) {
-			for (int i = 6 ; i < 9 ; i++) {
 				temp = table[i];
 				table[i] = table[i + 3];
 				table[i + 3] = temp;
@@ -270,14 +132,8 @@ public class FlipBoxMixer implements Mixer {
 	private void columnFlip(Cell[][] table, Random rng) {
 		if (table.length == 4)
 			this.columnFlip4x4(table, rng);
-		else if (table.length == 6)
-			this.columnFlip6x6(table, rng);
-		else if (table.length == 8)
-			this.columnFlip8x8(table, rng);
 		else if (table.length == 9)
 			this.columnFlip9x9(table, rng);
-		else if (table.length == 12)
-			this.columnFlip12x12(table, rng);
 		else
 			this.columnFlip16x16(table, rng);
 	}
@@ -291,34 +147,6 @@ public class FlipBoxMixer implements Mixer {
 					temp = table[i][j];
 					table[i][j] = table[i][j + 2];
 					table[i][j + 2] = temp;
-				}
-			}
-		}
-	}
-	
-	private void columnFlip6x6(Cell[][] table, Random rng) {
-		Cell temp;
-		
-		if (rng.nextBoolean()) {
-			for (int i = 0 ; i < 6 ; i++) {
-				for (int j = 0 ; j < 3 ; j++) {
-					temp = table[i][j];
-					table[i][j] = table[i][j + 3];
-					table[i][j + 3] = temp;
-				}
-			}
-		}
-	}
-	
-	private void columnFlip8x8(Cell[][] table, Random rng) {
-		if (rng.nextBoolean()) {
-			Cell temp;
-			
-			for (int i = 0 ; i < 8 ; i++) {
-				for (int j = 0 ; j < 2 ; j++) {
-					temp = table[i][j];
-					table[i][j] = table[i][j + 4];
-					table[i][j + 4] = temp;
 				}
 			}
 		}
@@ -353,40 +181,6 @@ public class FlipBoxMixer implements Mixer {
 					temp = table[i][j];
 					table[i][j] = table[i][j + 3];
 					table[i][j + 3] = temp;
-				}
-			}
-		}
-	}
-	
-	private void columnFlip12x12(Cell[][] table, Random rng) {
-		Cell temp;
-		int option = rng.nextInt(3);
-		
-		if (option == 0) {
-			for (int i = 0 ; i < 12 ; i++) {
-				for (int j = 0 ; j < 4 ; j++) {
-					temp = table[i][j];
-					table[i][j] = table[i][j + 4];
-					table[i][j + 4] = temp;
-				}
-			}
-		}
-		else if (option == 1) {
-			for (int i = 0 ; i < 12 ; i++) {
-				for (int j = 0 ; j < 4 ; j++) {
-					temp = table[i][j];
-					table[i][j] = table[i][j + 8];
-					table[i][j + 8] = temp;
-				}
-			}
-		}
-		
-		if (rng.nextBoolean()) {
-			for (int i = 0 ; i < 12 ; i++) {
-				for (int j = 4 ; j < 8 ; j++) {
-					temp = table[i][j];
-					table[i][j] = table[i][j + 4];
-					table[i][j + 4] = temp;
 				}
 			}
 		}
