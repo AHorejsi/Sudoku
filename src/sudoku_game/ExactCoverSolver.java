@@ -35,7 +35,7 @@ public class ExactCoverSolver implements Solver {
 		this.header = null;
 		this.answer = null;
 		
-		return result <= 1;
+		return result == 1;
 	}
 	
 	private boolean[][] createMatrix(Board board, int dimensions) {
