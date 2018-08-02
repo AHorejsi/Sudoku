@@ -25,27 +25,14 @@ public class RotateMixer implements Mixer {
 	
 	@Override
 	public void mix(Board board, Random rng) {
-		if (this.isPerfectSquare(board.getDimensions())) {
-			int option = rng.nextInt(4);
+		int option = rng.nextInt(4);
 			
-			if (option == 0)
-				this.rotate90(board.getTable());
-			else if (option == 1)
-				this.rotate180(board.getTable());
-			else if (option == 2)
-				this.rotate270(board.getTable());
-		}
-		else {
-			if (rng.nextBoolean())
-				this.rotate180(board.getTable());
-		}
-	}
-	
-	private boolean isPerfectSquare(int dimensions) {
-		double sqrt = Math.sqrt(dimensions);
-		int roundedSqrt = (int)sqrt;
-		
-		return sqrt == roundedSqrt;
+		if (option == 0)
+			this.rotate90(board.getTable());
+		else if (option == 1)
+			this.rotate180(board.getTable());
+		else if (option == 2)
+			this.rotate270(board.getTable());
 	}
 	
 	private void rotate90(Cell[][] table) {

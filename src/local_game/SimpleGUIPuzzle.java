@@ -1,6 +1,5 @@
 package local_game;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -61,10 +60,7 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 	
 	private void createGUIToUseLater() {
 		GridPaneCreator gpc4x4 = new GridPane4x4Creator();
-		GridPaneCreator gpc6x6 = new GridPane6x6Creator();
-		GridPaneCreator gpc8x8 = new GridPane8x8Creator();
 		GridPaneCreator gpc9x9 = new GridPane9x9Creator();
-		GridPaneCreator gpc12x12 = new GridPane12x12Creator();
 		GridPaneCreator gpc16x16 = new GridPane16x16Creator();
 		
 		Thread t1 = new Thread(new CreateSettingsButton());
@@ -77,11 +73,8 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 		Thread t8 = new Thread(new CreateImage());
 		Thread t9 = new Thread(new CreateSuccessScreen());
 		Thread t10 = new Thread(gpc4x4);
-		Thread t11 = new Thread(gpc6x6);
 		Thread t12 = new Thread(gpc9x9);
-		Thread t13 = new Thread(gpc12x12);
 		Thread t14 = new Thread(gpc16x16);
-		Thread t15 = new Thread(gpc8x8);
 		
 		t1.start();
 		t2.start();
@@ -93,11 +86,8 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 		t8.start();
 		t9.start();
 		t10.start();
-		t11.start();
 		t12.start();
-		t13.start();
 		t14.start();
-		t15.start();
 		
 		try {
 			t1.join();
@@ -110,16 +100,13 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 			t8.join();
 			t9.join();
 			t10.join();
-			t11.join();
 			t12.join();
-			t13.join();
 			t14.join();
-			t15.join();
 		} catch (InterruptedException ex) {
 			throw new InternalError(ex);
 		}
 		
-		this.insertIntoMaps(gpc4x4, gpc6x6, gpc8x8, gpc9x9, gpc12x12, gpc16x16);
+		this.insertIntoMaps(gpc4x4, gpc9x9, gpc16x16);
 		this.setUpMainMenu();
 	}
 	
@@ -171,7 +158,7 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 	}
 	
 	@Override
-	public Collection<Mixer> getMixers() {
+	public List<Mixer> getMixers() {
 		return this.mixers;
 	}
 	
@@ -211,7 +198,7 @@ public class SimpleGUIPuzzle extends GUIPuzzle {
 			ComboBox<Integer> dimensionsDropDown = new ComboBox<Integer>();
 			ComboBox<String> difficultyDropDown = new ComboBox<String>();
 			
-			dimensionsDropDown.getItems().addAll(4, 6, 8, 9, 12, 16);
+			dimensionsDropDown.getItems().addAll(4, 9, 16);
 			difficultyDropDown.getItems().addAll("Basic", "Easy", "Medium", "Hard", "Insane");
 			
 			dimensionsDropDown.setSelectionModel(ArrayDimensionSelectionModel.getInstance());

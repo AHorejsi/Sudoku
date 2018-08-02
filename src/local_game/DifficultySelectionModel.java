@@ -10,7 +10,7 @@ import javafx.scene.control.SingleSelectionModel;
  */
 public abstract class DifficultySelectionModel extends SingleSelectionModel<String> {
 	/**
-	 * Default empty constructor
+	 * Default no-arg constructor
 	 * for subclasses
 	 */
 	protected DifficultySelectionModel() {}

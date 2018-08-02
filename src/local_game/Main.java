@@ -18,8 +18,12 @@ import sudoku_game.SwapMixer;
  */
 public class Main extends Application {
 	/**
-	 * Empty public 
-	 * constructor
+	 * No-arg public 
+	 * constructor.
+	 * This constructor
+	 * does not do anything
+	 * aside from create a
+	 * {@code Main} object
 	 */
 	public Main() {}
 	

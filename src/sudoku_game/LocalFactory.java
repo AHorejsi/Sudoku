@@ -13,10 +13,7 @@ import java.util.Random;
 public class LocalFactory implements PuzzleFactory {
 	private static final PuzzleFactory FACTORY = new LocalFactory();
 	private final String FOUR = "4x4";
-	private final String SIX = "6x6";
-	private final String EIGHT = "8x8";
 	private final String NINE = "9x9";
-	private final String TWELVE = "12x12";
 	private final String SIXTEEN = "16x16";
 	private final String BASIC = "basic";
 	private final String EASY = "easy";
@@ -44,14 +41,8 @@ public class LocalFactory implements PuzzleFactory {
 		
 		if (info.contains(this.FOUR))
 			board = new Board4x4(rng);
-		else if (info.contains(this.SIX))
-			board = new Board6x6(rng);
-		else if (info.contains(this.EIGHT))
-			board = new Board8x8(rng);
 		else if (info.contains(this.NINE))
 			board = new Board9x9(rng);
-		else if (info.contains(this.TWELVE))
-			board = new Board12x12(rng);
 		else if (info.contains(this.SIXTEEN))
 			board = new Board16x16(rng);
 		

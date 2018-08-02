@@ -47,7 +47,7 @@ public class S_PathDifficultyAdjustor implements DifficultyAdjustor {
 		Cell[][] table = board.getTable();
 		int length = table.length;
 		int current = length * length;
-		Solver solver = this.getSolver(board.getDimensions());
+		Solver solver = ExactCoverSolver.getInstance();
 		LowerBoundChecker checker = SimpleLowerBoundChecker.getInstance();
 		
 		for (int i = 0 ; i < length ; i++) {
@@ -70,15 +70,5 @@ public class S_PathDifficultyAdjustor implements DifficultyAdjustor {
 					return;
 			}
 		}
-	}
-	
-	private Solver getSolver(int dimensions) {
-		double sqrt = Math.sqrt(dimensions);
-		int roundedSqrt = (int)sqrt;
-		
-		if (sqrt == roundedSqrt)
-			return ExactCoverSolver.getInstance();
-		else
-			return CandidateSolver.getInstance();
 	}
 }

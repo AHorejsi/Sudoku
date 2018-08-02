@@ -10,7 +10,7 @@ import javafx.scene.control.SingleSelectionModel;
  */
 public abstract class DimensionSelectionModel extends SingleSelectionModel<Integer> {
 	/**
-	 * Default empty constructor
+	 * Default no-arg constructor
 	 * for subclasses
 	 */
 	protected DimensionSelectionModel() {}

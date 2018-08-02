@@ -102,8 +102,12 @@ public abstract class GridPaneCreator implements Runnable {
 				if (newValue != null) {
 					if (newValue.length() > 1)
 						tf.setText(oldValue);
-					if (Character.isLetter(tf.getText().charAt(0)))
-						tf.setText(tf.getText().toUpperCase());
+					
+					String text = tf.getText();
+					if (text.length() == 1) {
+						if (Character.isLetter(text.charAt(0)))
+							tf.setText(tf.getText().toUpperCase());
+					}
 				}
 			}
 		});
