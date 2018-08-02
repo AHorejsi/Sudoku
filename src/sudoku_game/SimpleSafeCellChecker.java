@@ -1,10 +1,21 @@
 package sudoku_game;
 
+/**
+ * Simple implementation
+ * of {@code SafeCellChecker}
+ * @author Alex Horejsi
+ */
 public class SimpleSafeCellChecker implements SafeCellChecker {
 	private static SafeCellChecker checker = new SimpleSafeCellChecker();
 	
 	private SimpleSafeCellChecker() {}
 	
+	/**
+	 * Returns the single instance
+	 * of {@code SimpleSafeCellChecker}
+	 * @return The single instance
+	 * of {@code SimpleSafeCellChecker}
+	 */
 	public static SafeCellChecker getInstance() {
 		return SimpleSafeCellChecker.checker;
 	}

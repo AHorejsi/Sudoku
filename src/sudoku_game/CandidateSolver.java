@@ -6,11 +6,12 @@ import java.util.Set;
 
 public class CandidateSolver implements Solver {
 	public static void main(String[] args) {
-		Puzzle puzzle = LocalFactory.getInstance().createPuzzle("8x8 medium");
+		Puzzle puzzle = LocalFactory.getInstance().createPuzzle("8x8 insane");
 		System.out.println(puzzle);
 	}
 	
 	private static Solver solver = new CandidateSolver();
+	private SafeCellChecker checker = SimpleSafeCellChecker.getInstance();
 	
 	private CandidateSolver() {}
 	
@@ -27,23 +28,8 @@ public class CandidateSolver implements Solver {
 	@Override
 	public boolean hasUniqueSolution(Board board) {
 		CandidateSet[][] candidateCells = this.createCandidateCells(board, board.getLegalValues().getValues());
-		
-//		for (int row = 0 ; row < board.getDimensions() ; row++) {
-//			for (int col = 0 ; col < board.getDimensions() ; col++) {
-//				System.out.print("(" + row + " " + col + "): ");
-//				System.out.print(board.getValueAt(row, col));
-//				if (candidateCells[row][col] != null) {
-//					System.out.print(candidateCells[row][col].candidates + " ");
-//				}
-//				else {
-//					System.out.print("[] ");
-//				}
-//			}
-//			System.out.println();
-//		}
-//		System.out.println('\n');
-		
-		return this.solve(board, board.getTable(), candidateCells, 0, 0, 0) == 1;
+		int count = this.solve(board, board.getTable(), candidateCells, 0, 0, 0);
+		return count == 1;
 	}
 	
 	private CandidateSet[][] createCandidateCells(Board board, char[] values) {
@@ -124,11 +110,6 @@ public class CandidateSolver implements Solver {
 		if (count > 1)
 			return count;
 		
-		if (col == table.length) {
-			row++;
-			col = 0;
-		}
-		
 		if (row == table.length)
 			count++;
 		else {
@@ -139,58 +120,31 @@ public class CandidateSolver implements Solver {
 				}
 				else
 					col++;
+				
+				if (row == 8) {
+					count++;
+					return count;
+				}
 			}
 			
 			for (char value : candidateCells[row][col]) {
-				if (this.safe(board, table, row, col, value)) {
+				if (this.checker.safe(table, value, row, col, board.rowSizeInBox(), board.colSizeInBox())) {
 					table[row][col].setValueForSetUp(value);
-					count = this.solve(board, table, candidateCells, count, row, col + 1);
+					
+					if (col == table.length - 1)
+						count = this.solve(board, table, candidateCells, row + 1, 0, count);
+					else
+						count = this.solve(board, table, candidateCells, row, col + 1, count);
+					
 					if (count > 1)
 						return count;
+					
 					table[row][col].setEmptyForSetUp();
 				}
 			}
 		}
 		
 		return count;
-	}
-	
-	private boolean safe(Board board, Cell[][] table, int row, int col, char value) {
-		int rowSize = board.rowSizeInBox();
-		int colSize = board.colSizeInBox();
-		
-		return this.safeRow(table, row, value) &&
-			   this.safeCol(table, col, value) &&
-			   this.safeBox(table, row - row % rowSize, col - col % colSize, rowSize, colSize, value);
-	}
-	
-	private boolean safeRow(Cell[][] table, int row, char value) {
-		for (int col = 0 ; col < table.length ; col++) {
-			if (table[row][col].getValue() == value)
-				return false;
-		}
-		
-		return true;
-	}
-	
-	private boolean safeCol(Cell[][] table, int col, char value) {
-		for (int row = 0 ; row < table.length ; row++) {
-			if (table[row][col].getValue() == value)
-				return false;
-		}
-		
-		return true;
-	}
-	
-	private boolean safeBox(Cell[][] table, int row, int col, int rowSize, int colSize, char value) {
-		for (int i = 0 ; i < rowSize ; i++) {
-			for (int j = 0 ; j < colSize ; j++) {
-				if (table[row + i][col + j].getValue() == value)
-					return false;
-			}
-		}
-		
-		return true;
 	}
 	
 	private static class CandidateSet implements Iterable<Character> {

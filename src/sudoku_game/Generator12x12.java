@@ -1,8 +1,21 @@
 package sudoku_game;
 
+import java.util.BitSet;
 import java.util.Random;
 
 public class Generator12x12 implements Generator {
+	public static void main(String[] args) {
+		for (int i = 0 ; i < 1000 ; i++) {
+			Board board = new Board12x12();
+			if (!AlphanumericChecker.getInstance().isSolved(board)) {
+				System.out.println("FAIL");
+				System.exit(1);
+			}
+		}
+		
+		System.out.println("SUCCESS");
+	}
+	
 	private static Generator gen = new Generator12x12();
 	private Cell[][] table;
 	
@@ -26,13 +39,15 @@ public class Generator12x12 implements Generator {
 	}
 	
 	private void fillInitialCells(Random rng) {
-		int[] bits = this.fillBox(rng);
+		BitSet[] bits = this.fillBox(rng);
 		this.fillRow(rng, bits[0]);
 		this.fillColumn(rng, bits[1]);
 	}
 	
-	private int[] fillBox(Random rng) {
-		int[] bits = new int[2];
+	private BitSet[] fillBox(Random rng) {
+		BitSet[] bits = new BitSet[2];
+		bits[0] = new BitSet();
+		bits[1] = new BitSet();
 		char[] values = LegalValues12x12.getInstance().getValues();
 		this.shuffle(values, rng);
 		int index = 0;
@@ -40,9 +55,9 @@ public class Generator12x12 implements Generator {
 		for (int i = 0 ; i < 3 ; i++) {
 			for (int j = 0 ; j < 4 ; j++) {
 				if (i == 0)
-					bits[0] |= 1 << (Character.isDigit(values[index]) ? values[index] - '0' : values[index] - 54);
+					bits[0].set(values[index]);
 				if (j == 0)
-					bits[1] |= 1 << (Character.isDigit(values[index]) ? values[index] - '0' : values[index] - 54);
+					bits[1].set(values[index]);
 				
 				this.table[i][j] = new ConcreteCell(values[index]);
 				index++;
@@ -52,30 +67,26 @@ public class Generator12x12 implements Generator {
 		return bits;
 	}
 	
-	private void fillRow(Random rng, int bits) {
+	private void fillRow(Random rng, BitSet bits) {
 		char[] values = LegalValues12x12.getInstance().getValues();
 		this.shuffle(values, rng);
 		int j = 4;
 		
 		for (int index = 0 ; index < 12 ; index++) {
-			int bit = (Character.isDigit(values[index]) ? values[index] - '0' : values[index] - 54);
-			
-			if ((bits & (1 << bit)) == 0) {
+			if (!bits.get(values[index])) {
 				this.table[0][j] = new ConcreteCell(values[index]);
 				j++;
 			}
 		}
 	}
 	
-	private void fillColumn(Random rng, int bits) {
+	private void fillColumn(Random rng, BitSet bits) {
 		char[] values = LegalValues12x12.getInstance().getValues();
 		this.shuffle(values, rng);
 		int i = 3;
 		
 		for (int index = 0 ; index < 12 ; index++) {
-			int bit = (Character.isDigit(values[index]) ? values[index] - '0' : values[index] - 54);
-			
-			if ((bits & (1 << bit)) == 0) {
+			if (!bits.get(values[index])) {
 				this.table[i][0] = new ConcreteCell(values[index]);
 				i++;
 			}
